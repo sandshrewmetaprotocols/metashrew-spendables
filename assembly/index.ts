@@ -12,7 +12,7 @@ export const OUTPUTS_FOR_ADDRESS = String.UTF8.encode("/outputsfor/");
 export const OUTPUT_SPENDABLE_BY = String.UTF8.encode("/spendableby/");
 
 export function outputToBytes(hash: Box, vout: u32): ArrayBuffer {
-  const result = new ArrayBuffer(hash.len + sizeof<u32>());
+  const result = new ArrayBuffer(<i32>hash.len + sizeof<u32>());
   memory.copy(changetype<usize>(result), hash.start, hash.len);
   store<u32>(changetype<usize>(result) + <usize>hash.len, vout);
   return result;
@@ -26,7 +26,7 @@ export function removeFromIndex(output: ArrayBuffer): void {
   set(lookupKey, new ArrayBuffer(0));
   const hash = xxh32(output);
   if (lookup.byteLength > 0) {
-    const i = load<u32>(changetype<usize>(get(Index.keyFor(OUTPUTS_FOR_ADDRESS, Box.concat([ Box.from(lookup), Box.from(String.UTF8.encode("/length")) ])))));
+    let i = load<u32>(changetype<usize>(get(Index.keyFor(OUTPUTS_FOR_ADDRESS, Box.concat([ Box.from(lookup), Box.from(String.UTF8.encode("/length")) ])))));
     if (i === 0) return;
     i--;
     while (i >= 0) {
@@ -43,13 +43,15 @@ export function removeFromIndex(output: ArrayBuffer): void {
 }
 
 export function addToIndex(output: Output, txid: ArrayBuffer, index: u32): void {
-  const spendableKey = Index.keyFor(OUTPUT_SPENDABLE_BY, output);
-  const address = output.toAddress();
+  const spendableKey = Index.keyFor(OUTPUT_SPENDABLE_BY, outputToBytes(Box.from(txid), index));
+  const address = output.intoAddress();
   if (address) {
     const lengthKey = Index.keyFor(OUTPUTS_FOR_ADDRESS, Box.concat([ Box.from(address), Box.from(String.UTF8.encode("/length")) ]));
     const lengthBytes = get(lengthKey);
     const length = lengthBytes.byteLength === 0 ? 0 : load<u32>(changetype<usize>(lengthBytes));
-    set(lengthKey, length + 1);
+    const newLength = new ArrayBuffer(sizeof<u32>());
+    store<u32>(changetype<usize>(newLength), length + 1);
+    set(lengthKey, newLength);
     const itemKey = Index.keyFor(OUTPUTS_FOR_ADDRESS, Box.concat([ Box.from(address), Box.from(SLASH), Box.from(String.UTF8.encode(length.toString(10))) ]));
     set(itemKey, outputToBytes(Box.from(txid), index));
   }
