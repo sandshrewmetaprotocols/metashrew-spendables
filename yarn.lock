@@ -858,22 +858,22 @@ memorystream@^0.3.1:
 
 "metashrew-as@https://github.com/sandshrewmetaprotocols/metashrew-as":
   version "0.1.0"
-  resolved "https://github.com/sandshrewmetaprotocols/metashrew-as#9399e42f758997c1b22a2557c3cf994b3bc11e16"
+  resolved "https://github.com/sandshrewmetaprotocols/metashrew-as#8fc6ea86ebf4e0aa0e6aba5ccbffa3966c25f59c"
   dependencies:
     lodash "^4.17.21"
     metashrew-test "https://github.com/sandshrewmetaprotocols/metashrew-test.git"
 
 "metashrew-test@https://github.com/sandshrewmetaprotocols/metashrew-test":
   version "0.1.0"
-  uid "785d7e5adc7d5dcb23d5139e38a4effdabdcd318"
-  resolved "https://github.com/sandshrewmetaprotocols/metashrew-test#785d7e5adc7d5dcb23d5139e38a4effdabdcd318"
+  uid "3a0aec5ece78dd6c16bce68b217c955884b2e1e9"
+  resolved "https://github.com/sandshrewmetaprotocols/metashrew-test#3a0aec5ece78dd6c16bce68b217c955884b2e1e9"
   dependencies:
     lodash "^4.17.21"
     rlp "^3.0.0"
 
 "metashrew-test@https://github.com/sandshrewmetaprotocols/metashrew-test.git":
   version "0.1.0"
-  resolved "https://github.com/sandshrewmetaprotocols/metashrew-test.git#785d7e5adc7d5dcb23d5139e38a4effdabdcd318"
+  resolved "https://github.com/sandshrewmetaprotocols/metashrew-test.git#3a0aec5ece78dd6c16bce68b217c955884b2e1e9"
   dependencies:
     lodash "^4.17.21"
     rlp "^3.0.0"

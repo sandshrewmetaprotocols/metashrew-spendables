@@ -38,6 +38,7 @@ export function removeFromIndex(output: ArrayBuffer): void {
 	  break;
 	}
       }
+      i--
     }
   }        
 }
@@ -73,7 +74,8 @@ export function _start(): void {
   const box = Box.from(data);
   const height = parsePrimitive<u32>(box);
   const block = new Block(box);
-  block.transactions.forEach((v: Transaction) => {
+  block.transactions.forEach((v: Transaction, i: i32) => {
+    console.log(i.toString(10));
     v.ins.forEach((input: Input, i: i32, ary: Array<Input>) => {
       removeFromIndex(outputToBytes(input.hash, input.index));
     });
