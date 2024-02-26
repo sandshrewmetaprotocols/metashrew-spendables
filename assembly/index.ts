@@ -1,5 +1,5 @@
 import { Box } from "metashrew-as/assembly/utils/box"
-import { input, get, set, Index } from "metashrew-as/assembly/indexer/index";
+import { input, get, set, _flush, Index } from "metashrew-as/assembly/indexer/index";
 import { parsePrimitive } from "metashrew-as/assembly/utils/utils";
 import { Block } from "metashrew-as/assembly/blockdata/block";
 import { Transaction, Input, Output } from "metashrew-as/assembly/blockdata/transaction";
@@ -75,7 +75,6 @@ export function _start(): void {
   const height = parsePrimitive<u32>(box);
   const block = new Block(box);
   block.transactions.forEach((v: Transaction, i: i32) => {
-    console.log(i.toString(10));
     v.ins.forEach((input: Input, i: i32, ary: Array<Input>) => {
       removeFromIndex(outputToBytes(input.hash, input.index));
     });
@@ -84,6 +83,7 @@ export function _start(): void {
       addToIndex(v.outs[i], txid, i);
     }
   })
+  _flush();
 }
 
 export function getunspent(): ArrayBuffer {
