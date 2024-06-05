@@ -6,9 +6,12 @@
   "scripts": {
     "asbuild:debug": "asc assembly/index.ts --target debug --enable threads --config asconfig.json",
     "asbuild:release": "asc assembly/index.ts --target release --config asconfig.json",
-    "build": "npm-run-all asbuild:debug asbuild:release",
+    "build": "npm-run-all build:protoc asbuild:debug asbuild:release",
     "build:debug:preloader": "npm run asbuild:preloader --sharedMemory",
     "prettier:assemblyscript": "prettier --write ./assembly/**/*.ts",
+    "build:protoc": "npm-run-all build:protoc:as build:protoc:ts",
+    "build:protoc:ts": "protoc --ts_out ./src.ts --proto_path proto spendables.proto",
+    "build:protoc:as": "protoc --plugin=./node_modules/.bin/protoc-gen-as --as_out=assembly --as_opt targetFileName=protobuf.ts --proto_path=proto spendables.proto",
     "prettier:ts": "prettier --write ./src.ts/**/*.ts",
     "prettier": "npm-run-all prettier:assemblyscript prettier:ts",
     "test": "ts-mocha --timeout 0 ./tests/**.spec.ts"
@@ -25,6 +28,7 @@
     "mocha": "^10.3.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.1.1",
+    "protobuf-as": "https://github.com/sandshrewmetaprotocols/protobuf-as",
     "rlp": "^3.0.0",
     "ts-mocha": "^10.0.0",
     "typescript": "^5.3.3"

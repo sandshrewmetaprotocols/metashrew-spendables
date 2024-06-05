@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package spendables;
+
+message Output {
+  uint64 value = 1;
+  bytes script = 2;
+}
+
+message GetUnspentResponse {
+  repeated Output outputs = 1;
+}

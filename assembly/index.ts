@@ -1,15 +1,15 @@
 import { Box } from "metashrew-as/assembly/utils/box"
-import { input, get, set, _flush, Index } from "metashrew-as/assembly/indexer/index";
+import { input, _flush, Index } from "metashrew-as/assembly/indexer/index";
+import { IndexPointer } from "metashrew-as/assembly/indexer/tables";
 import { parsePrimitive } from "metashrew-as/assembly/utils/utils";
 import { Block } from "metashrew-as/assembly/blockdata/block";
 import { Transaction, Input, Output } from "metashrew-as/assembly/blockdata/transaction";
-import { xxh32 } from "metashrew-as/assembly/utils/xxh32";
+import { sha256 } from "metashrew-as/assembly/utils/sha256";
+import { spendables } from "./protobuf";
 
-import { console } from "metashrew-as/assembly/utils/logging";
-import { toRLP, RLPItem } from "metashrew-as/assembly/utils/rlp";
-
-export const OUTPUTS_FOR_ADDRESS = String.UTF8.encode("/outputsfor/");
-export const OUTPUT_SPENDABLE_BY = String.UTF8.encode("/spendableby/");
+export const OUTPOINTS_FOR_ADDRESS = IndexPointer.for("/outpoints/byaddress/");
+export const OUTPOINT_SPENDABLE_BY = IndexPointer.for("/outpoint/spendableby/");
+export const OUTPOINT_TO_OUTPUT = IndexPointer.for("/output/byoutpoint/");
 
 export function outputToBytes(hash: Box, vout: u32): ArrayBuffer {
   const result = new ArrayBuffer(<i32>hash.len + sizeof<u32>());
@@ -18,54 +18,54 @@ export function outputToBytes(hash: Box, vout: u32): ArrayBuffer {
   return result;
 }
 
-const SLASH = String.UTF8.encode("/");
+function arrayBufferToArray(data: ArrayBuffer): Array<u8> {
+  const result = new Array<u8>(data.byteLength);
+  store<usize>(changetype<usize>(result), changetype<usize>(data));
+  store<usize>(changetype<usize>(result) + sizeof<usize>(), changetype<usize>(data));
+  return result;
+}
+
+export function bytesToOutput(data: ArrayBuffer): spendables.Output {
+  const output = new Output(Box.from(data));
+  const result = new spendables.Output();
+  result.script = arrayBufferToArray(output.script.toArrayBuffer());
+  result.value = output.value;
+  return result;
+}
 
 export function removeFromIndex(output: ArrayBuffer): void {
-  const lookupKey = Index.keyFor(OUTPUT_SPENDABLE_BY, output);
-  const lookup = get(Index.keyFor(OUTPUT_SPENDABLE_BY, output));
-  set(lookupKey, new ArrayBuffer(0));
-  const hash = xxh32(output);
-  if (lookup.byteLength > 0) {
-    let i = load<u32>(changetype<usize>(get(Index.keyFor(OUTPUTS_FOR_ADDRESS, Box.concat([ Box.from(lookup), Box.from(String.UTF8.encode("/length")) ])))));
-    if (i === 0) return;
-    i--;
-    while (i >= 0) {
-      const itemKey = Index.keyFor(OUTPUTS_FOR_ADDRESS, Box.concat([ Box.from(lookup), Box.from(SLASH), Box.from(String.UTF8.encode(i.toString(10))) ]));
-      const item = get(itemKey);
-      if (item.byteLength > 0) {
-        if (xxh32(item) === hash) {
-          set(itemKey, new ArrayBuffer(0));
-	  break;
-	}
+  const lookup = OUTPOINT_SPENDABLE_BY.select(output);
+  const address = lookup.get();
+  if (address.byteLength === 0) return;
+  const hash = sha256(output);
+  const addressPointer = OUTPOINTS_FOR_ADDRESS.select(address);
+  let i = addressPointer.length();
+  while (i >= <u32>0) {
+    const itemPointer = addressPointer.selectIndex(i);
+    const item = itemPointer.get();
+    if (item.byteLength > 0) {
+      if (sha256(item) === hash) {
+        itemPointer.set(new ArrayBuffer(0));
+	break;
       }
-      i--
     }
+    i--
   }        
 }
 
 export function addToIndex(output: Output, txid: ArrayBuffer, index: u32): void {
-  const spendableKey = Index.keyFor(OUTPUT_SPENDABLE_BY, outputToBytes(Box.from(txid), index));
+  const outpoint = outputToBytes(Box.from(txid), index);
   const address = output.intoAddress();
   if (address) {
-    const lengthKey = Index.keyFor(OUTPUTS_FOR_ADDRESS, Box.concat([ Box.from(address), Box.from(String.UTF8.encode("/length")) ]));
-    const lengthBytes = get(lengthKey);
-    const length = lengthBytes.byteLength === 0 ? 0 : load<u32>(changetype<usize>(lengthBytes));
-    const newLength = new ArrayBuffer(sizeof<u32>());
-    store<u32>(changetype<usize>(newLength), length + 1);
-    set(lengthKey, newLength);
-    const itemKey = Index.keyFor(OUTPUTS_FOR_ADDRESS, Box.concat([ Box.from(address), Box.from(SLASH), Box.from(String.UTF8.encode(length.toString(10))) ]));
-    set(itemKey, outputToBytes(Box.from(txid), index));
+    OUTPOINTS_FOR_ADDRESS.select(address).append(outpoint);
+    OUTPOINT_SPENDABLE_BY.select(outpoint).set(address);
   }
 }
 
-class Entry {
-  public output: Output;
-  public txid: ArrayBuffer;
-  public i: u32;
-  constructor(output: Output, txid: ArrayBuffer, i: u32) {
-    this.output = output;
-    this.txid = txid;
-    this.i = i;
+export function indexTransactionOutputs(tx: Transaction): void {
+  const txid = tx.txid();
+  for (let i = 0; i < tx.outs.length; i++) {
+    OUTPOINT_TO_OUTPUT.select(outputToBytes(Box.from(txid), i)).set(tx.outs[i].bytes.toArrayBuffer());
   }
 }
 
@@ -75,6 +75,7 @@ export function _start(): void {
   const height = parsePrimitive<u32>(box);
   const block = new Block(box);
   block.transactions.forEach((v: Transaction, i: i32) => {
+    indexTransactionOutputs(v);
     v.ins.forEach((input: Input, i: i32, ary: Array<Input>) => {
       removeFromIndex(outputToBytes(input.hash, input.index));
     });
@@ -87,15 +88,18 @@ export function _start(): void {
 }
 
 export function getunspent(): ArrayBuffer {
-  const address = input();
-  const result = new Array<RLPItem>(0);
-  const length = load<u32>(changetype<usize>(get(Index.keyFor(OUTPUTS_FOR_ADDRESS, Box.concat([ Box.from(address), Box.from(String.UTF8.encode("/length")) ])))));
-  for (let i: u32 = 0; i < length; i++) {
-    const itemKey = Index.keyFor(OUTPUTS_FOR_ADDRESS, Box.concat([ Box.from(address), Box.from(SLASH), Box.from(String.UTF8.encode(i.toString(10))) ]));
-    const item = get(itemKey);
-    if (item.byteLength > 0) {
-       result.push(RLPItem.fromArrayBuffer(item));
+  const data = Box.from(input());
+  parsePrimitive<u32>(data);
+  const address = data.toArrayBuffer();
+  const response = new spendables.GetUnspentResponse();
+  const outpointPointer = OUTPOINTS_FOR_ADDRESS.select(address);
+  const length: i32 = <i32>outpointPointer.length();
+  for (let i = 0; i < length; i++) {
+    const item = outpointPointer.selectIndex(i).get();
+    if (item.byteLength) {
+      const output = new spendables.Output();
+      response.outputs.push(bytesToOutput(OUTPOINT_TO_OUTPUT.select(item).get()));
     }
   }
-  return toRLP(RLPItem.fromList(result));
+  return response.encode();
 } 

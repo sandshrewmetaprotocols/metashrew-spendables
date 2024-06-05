@@ -1,16 +1,16 @@
 (module
  (type $0 (func (param i32) (result i32)))
  (type $1 (func (param i32 i32) (result i32)))
- (type $2 (func (param i32 i32 i32 i32) (result i32)))
- (type $3 (func (param i32 i32 i32)))
- (type $4 (func (param i32 i32 i32) (result i32)))
- (type $5 (func (result i32)))
+ (type $2 (func (param i32 i32 i32)))
+ (type $3 (func (result i32)))
+ (type $4 (func (param i32 i32 i32 i32) (result i32)))
+ (type $5 (func (param i32 i32 i32) (result i32)))
  (type $6 (func (param i32)))
  (type $7 (func (param i32 i32)))
  (type $8 (func))
  (type $9 (func (param i32 i32 i32 i32)))
- (type $10 (func (param i32 i32 i32 i32 i32) (result i32)))
- (type $11 (func (param i32) (result i64)))
+ (type $10 (func (param i32) (result i64)))
+ (type $11 (func (param i32 i32 i32 i32 i32) (result i32)))
  (type $12 (func (param i32 i64)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "env" "__get_len" (func $~lib/metashrew-as/assembly/indexer/index/__get_len (param i32) (result i32)))
@@ -24,9 +24,9 @@
  (global $~argumentsLength (mut i32) (i32.const 0))
  (global $~lib/metashrew-as/assembly/utils/b32/ONE (mut i32) (i32.const 0))
  (global $~lib/metashrew-as/assembly/utils/b58/LEADER (mut i32) (i32.const 0))
- (global $assembly/index/OUTPUTS_FOR_ADDRESS (mut i32) (i32.const 0))
- (global $assembly/index/OUTPUT_SPENDABLE_BY (mut i32) (i32.const 0))
- (global $assembly/index/SLASH (mut i32) (i32.const 0))
+ (global $assembly/index/OUTPOINTS_FOR_ADDRESS (mut i32) (i32.const 0))
+ (global $assembly/index/OUTPOINT_SPENDABLE_BY (mut i32) (i32.const 0))
+ (global $assembly/index/OUTPOINT_TO_OUTPUT (mut i32) (i32.const 0))
  (memory $0 1 32768)
  (data $0 (i32.const 1036) "\1c\02")
  (data $0.1 (i32.const 1048) "\04\00\00\00\00\02\00\00000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff")
@@ -64,74 +64,73 @@
  (data $15.1 (i32.const 3336) "\02\00\00\00$\00\00\00I\00n\00d\00e\00x\00 \00o\00u\00t\00 \00o\00f\00 \00r\00a\00n\00g\00e")
  (data $16 (i32.const 3388) "<")
  (data $16.1 (i32.const 3400) "\02\00\00\00&\00\00\00~\00l\00i\00b\00/\00s\00t\00a\00t\00i\00c\00a\00r\00r\00a\00y\00.\00t\00s")
- (data $17 (i32.const 3452) ",")
- (data $17.1 (i32.const 3464) "\02\00\00\00\18\00\00\00/\00o\00u\00t\00p\00u\00t\00s\00f\00o\00r\00/")
- (data $18 (i32.const 3500) ",")
- (data $18.1 (i32.const 3512) "\02\00\00\00\1a\00\00\00/\00s\00p\00e\00n\00d\00a\00b\00l\00e\00b\00y\00/")
- (data $19 (i32.const 3548) "\1c")
- (data $19.1 (i32.const 3560) "\02\00\00\00\02\00\00\00/")
- (data $20 (i32.const 3580) ",")
- (data $20.1 (i32.const 3592) "\02\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s")
- (data $21 (i32.const 3628) "\1c")
- (data $21.1 (i32.const 3640) "\0c\00\00\00\08\00\00\00\01")
- (data $22 (i32.const 3660) "\1c")
- (data $22.1 (i32.const 3672) "\r\00\00\00\08\00\00\00\02")
- (data $23 (i32.const 3692) "<")
- (data $23.1 (i32.const 3704) "\02\00\00\00$\00\00\00K\00e\00y\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00e\00x\00i\00s\00t")
- (data $24 (i32.const 3756) ",")
- (data $24.1 (i32.const 3768) "\02\00\00\00\16\00\00\00~\00l\00i\00b\00/\00m\00a\00p\00.\00t\00s")
- (data $25 (i32.const 3804) ",")
- (data $25.1 (i32.const 3816) "\02\00\00\00\0e\00\00\00/\00l\00e\00n\00g\00t\00h")
- (data $26 (i32.const 3852) "|")
- (data $26.1 (i32.const 3864) "\02\00\00\00d\00\00\00t\00o\00S\00t\00r\00i\00n\00g\00(\00)\00 \00r\00a\00d\00i\00x\00 \00a\00r\00g\00u\00m\00e\00n\00t\00 \00m\00u\00s\00t\00 \00b\00e\00 \00b\00e\00t\00w\00e\00e\00n\00 \002\00 \00a\00n\00d\00 \003\006")
- (data $27 (i32.const 3980) "<")
- (data $27.1 (i32.const 3992) "\02\00\00\00&\00\00\00~\00l\00i\00b\00/\00u\00t\00i\00l\00/\00n\00u\00m\00b\00e\00r\00.\00t\00s")
- (data $28 (i32.const 4044) "\1c")
- (data $28.1 (i32.const 4056) "\02\00\00\00\02\00\00\000")
- (data $29 (i32.const 4076) "0\000\000\001\000\002\000\003\000\004\000\005\000\006\000\007\000\008\000\009\001\000\001\001\001\002\001\003\001\004\001\005\001\006\001\007\001\008\001\009\002\000\002\001\002\002\002\003\002\004\002\005\002\006\002\007\002\008\002\009\003\000\003\001\003\002\003\003\003\004\003\005\003\006\003\007\003\008\003\009\004\000\004\001\004\002\004\003\004\004\004\005\004\006\004\007\004\008\004\009\005\000\005\001\005\002\005\003\005\004\005\005\005\006\005\007\005\008\005\009\006\000\006\001\006\002\006\003\006\004\006\005\006\006\006\007\006\008\006\009\007\000\007\001\007\002\007\003\007\004\007\005\007\006\007\007\007\008\007\009\008\000\008\001\008\002\008\003\008\004\008\005\008\006\008\007\008\008\008\009\009\000\009\001\009\002\009\003\009\004\009\005\009\006\009\007\009\008\009\009")
- (data $30 (i32.const 4476) "\1c\04")
- (data $30.1 (i32.const 4488) "\02\00\00\00\00\04\00\000\000\000\001\000\002\000\003\000\004\000\005\000\006\000\007\000\008\000\009\000\00a\000\00b\000\00c\000\00d\000\00e\000\00f\001\000\001\001\001\002\001\003\001\004\001\005\001\006\001\007\001\008\001\009\001\00a\001\00b\001\00c\001\00d\001\00e\001\00f\002\000\002\001\002\002\002\003\002\004\002\005\002\006\002\007\002\008\002\009\002\00a\002\00b\002\00c\002\00d\002\00e\002\00f\003\000\003\001\003\002\003\003\003\004\003\005\003\006\003\007\003\008\003\009\003\00a\003\00b\003\00c\003\00d\003\00e\003\00f\004\000\004\001\004\002\004\003\004\004\004\005\004\006\004\007\004\008\004\009\004\00a\004\00b\004\00c\004\00d\004\00e\004\00f\005\000\005\001\005\002\005\003\005\004\005\005\005\006\005\007\005\008\005\009\005\00a\005\00b\005\00c\005\00d\005\00e\005\00f\006\000\006\001\006\002\006\003\006\004\006\005\006\006\006\007\006\008\006\009\006\00a\006\00b\006\00c\006\00d\006\00e\006\00f\007\000\007\001\007\002\007\003\007\004\007\005\007\006\007\007\007\008\007\009\007\00a\007\00b\007\00c\007\00d\007\00e\007\00f\008\000\008\001\008\002\008\003\008\004\008\005\008\006\008\007\008\008\008\009\008\00a\008\00b\008\00c\008\00d\008\00e\008\00f\009\000\009\001\009\002\009\003\009\004\009\005\009\006\009\007\009\008\009\009\009\00a\009\00b\009\00c\009\00d\009\00e\009\00f\00a\000\00a\001\00a\002\00a\003\00a\004\00a\005\00a\006\00a\007\00a\008\00a\009\00a\00a\00a\00b\00a\00c\00a\00d\00a\00e\00a\00f\00b\000\00b\001\00b\002\00b\003\00b\004\00b\005\00b\006\00b\007\00b\008\00b\009\00b\00a\00b\00b\00b\00c\00b\00d\00b\00e\00b\00f\00c\000\00c\001\00c\002\00c\003\00c\004\00c\005\00c\006\00c\007\00c\008\00c\009\00c\00a\00c\00b\00c\00c\00c\00d\00c\00e\00c\00f\00d\000\00d\001\00d\002\00d\003\00d\004\00d\005\00d\006\00d\007\00d\008\00d\009\00d\00a\00d\00b\00d\00c\00d\00d\00d\00e\00d\00f\00e\000\00e\001\00e\002\00e\003\00e\004\00e\005\00e\006\00e\007\00e\008\00e\009\00e\00a\00e\00b\00e\00c\00e\00d\00e\00e\00e\00f\00f\000\00f\001\00f\002\00f\003\00f\004\00f\005\00f\006\00f\007\00f\008\00f\009\00f\00a\00f\00b\00f\00c\00f\00d\00f\00e\00f\00f")
- (data $31 (i32.const 5532) "\\")
- (data $31.1 (i32.const 5544) "\02\00\00\00H\00\00\000\001\002\003\004\005\006\007\008\009\00a\00b\00c\00d\00e\00f\00g\00h\00i\00j\00k\00l\00m\00n\00o\00p\00q\00r\00s\00t\00u\00v\00w\00x\00y\00z")
- (data $32 (i32.const 5628) "<")
- (data $32.1 (i32.const 5640) "\02\00\00\00$\00\00\00~\00l\00i\00b\00/\00t\00y\00p\00e\00d\00a\00r\00r\00a\00y\00.\00t\00s")
- (data $33 (i32.const 5692) "\1c")
- (data $33.1 (i32.const 5704) "\12\00\00\00\08\00\00\00\03")
- (data $34 (i32.const 5724) "|")
- (data $34.1 (i32.const 5736) "\02\00\00\00^\00\00\00S\00H\00A\002\005\006\00:\00 \00c\00a\00n\00\'\00t\00 \00u\00p\00d\00a\00t\00e\00 \00b\00e\00c\00a\00u\00s\00e\00 \00h\00a\00s\00h\00 \00w\00a\00s\00 \00f\00i\00n\00i\00s\00h\00e\00d\00.")
- (data $35 (i32.const 5852) "\\")
- (data $35.1 (i32.const 5864) "\02\00\00\00L\00\00\00~\00l\00i\00b\00/\00f\00a\00s\00t\00-\00s\00h\00a\002\005\006\00-\00a\00s\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00s\00h\00a\002\005\006\00.\00t\00s")
- (data $36 (i32.const 5948) "\1c")
- (data $36.1 (i32.const 5960) "\02\00\00\00\04\00\00\00b\00c")
- (data $37 (i32.const 5980) "l")
- (data $37.1 (i32.const 5992) "\02\00\00\00N\00\00\00~\00l\00i\00b\00/\00m\00e\00t\00a\00s\00h\00r\00e\00w\00-\00a\00s\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00u\00t\00i\00l\00s\00/\00b\003\002\00.\00t\00s")
- (data $38 (i32.const 6092) "<")
- (data $38.1 (i32.const 6104) "\02\00\00\00(\00\00\00E\00x\00c\00e\00e\00d\00s\00 \00l\00e\00n\00g\00t\00h\00 \00l\00i\00m\00i\00t")
- (data $39 (i32.const 6156) ",")
- (data $39.1 (i32.const 6168) "\02\00\00\00\1c\00\00\00N\00o\00n\00 \005\00-\00b\00i\00t\00 \00w\00o\00r\00d")
- (data $40 (i32.const 6204) "|")
- (data $40.1 (i32.const 6216) "\02\00\00\00^\00\00\00E\00l\00e\00m\00e\00n\00t\00 \00t\00y\00p\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00n\00u\00l\00l\00a\00b\00l\00e\00 \00i\00f\00 \00a\00r\00r\00a\00y\00 \00i\00s\00 \00h\00o\00l\00e\00y")
- (data $41 (i32.const 6332) "\1c")
- (data $41.1 (i32.const 6344) "!\00\00\00\08\00\00\00\04")
- (data $42 (i32.const 6364) "\1c")
- (data $42.1 (i32.const 6376) "\"\00\00\00\08\00\00\00\05")
- (data $43 (i32.const 6396) "\1c")
- (data $43.1 (i32.const 6408) "%\00\00\00\08\00\00\00\06")
- (data $44 (i32.const 6428) "\1c")
- (data $44.1 (i32.const 6440) "*\00\00\00\08\00\00\00\07")
- (data $45 (i32.const 6460) "\1c")
- (data $45.1 (i32.const 6472) "+\00\00\00\08\00\00\00\08")
- (data $46 (i32.const 6492) "\1c")
- (data $46.1 (i32.const 6504) ",\00\00\00\08\00\00\00\t")
- (data $47 (i32.const 6524) "\1c")
- (data $47.1 (i32.const 6536) ",\00\00\00\08\00\00\00\n")
- (table $0 11 11 funcref)
- (elem $0 (i32.const 1) $~lib/metashrew-as/assembly/utils/box/Box.concat~anonymous|0 $~lib/metashrew-as/assembly/utils/box/Box.concat~anonymous|1 $~lib/metashrew-as/assembly/utils/utils/concat~anonymous|0 $assembly/index/_start~anonymous|0~anonymous|0 $assembly/index/_start~anonymous|0 $~lib/metashrew-as/assembly/indexer/index/_flush~anonymous|0 $~lib/metashrew-as/assembly/utils/rlp/toRLP~anonymous|0 $~lib/metashrew-as/assembly/utils/rlp/toRLP~anonymous|1 $~lib/metashrew-as/assembly/utils/rlp/toRLP~anonymous|2 $~lib/metashrew-as/assembly/utils/rlp/toRLP~anonymous|2)
- (export "OUTPUTS_FOR_ADDRESS" (global $assembly/index/OUTPUTS_FOR_ADDRESS))
- (export "OUTPUT_SPENDABLE_BY" (global $assembly/index/OUTPUT_SPENDABLE_BY))
+ (data $17 (i32.const 3452) "<")
+ (data $17.1 (i32.const 3464) "\02\00\00\00*\00\00\00/\00o\00u\00t\00p\00o\00i\00n\00t\00s\00/\00b\00y\00a\00d\00d\00r\00e\00s\00s\00/")
+ (data $18 (i32.const 3516) "<")
+ (data $18.1 (i32.const 3528) "\02\00\00\00,\00\00\00/\00o\00u\00t\00p\00o\00i\00n\00t\00/\00s\00p\00e\00n\00d\00a\00b\00l\00e\00b\00y\00/")
+ (data $19 (i32.const 3580) "<")
+ (data $19.1 (i32.const 3592) "\02\00\00\00&\00\00\00/\00o\00u\00t\00p\00u\00t\00/\00b\00y\00o\00u\00t\00p\00o\00i\00n\00t\00/")
+ (data $20 (i32.const 3644) ",")
+ (data $20.1 (i32.const 3656) "\02\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s")
+ (data $21 (i32.const 3692) "\1c")
+ (data $21.1 (i32.const 3704) "\10\00\00\00\08\00\00\00\01")
+ (data $22 (i32.const 3724) "\1c")
+ (data $22.1 (i32.const 3736) "\11\00\00\00\08\00\00\00\02")
+ (data $23 (i32.const 3756) "<")
+ (data $23.1 (i32.const 3768) "\02\00\00\00$\00\00\00K\00e\00y\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00e\00x\00i\00s\00t")
+ (data $24 (i32.const 3820) ",")
+ (data $24.1 (i32.const 3832) "\02\00\00\00\16\00\00\00~\00l\00i\00b\00/\00m\00a\00p\00.\00t\00s")
+ (data $25 (i32.const 3868) "<")
+ (data $25.1 (i32.const 3880) "\02\00\00\00$\00\00\00~\00l\00i\00b\00/\00t\00y\00p\00e\00d\00a\00r\00r\00a\00y\00.\00t\00s")
+ (data $26 (i32.const 3932) "|")
+ (data $26.1 (i32.const 3944) "\02\00\00\00^\00\00\00S\00H\00A\002\005\006\00:\00 \00c\00a\00n\00\'\00t\00 \00u\00p\00d\00a\00t\00e\00 \00b\00e\00c\00a\00u\00s\00e\00 \00h\00a\00s\00h\00 \00w\00a\00s\00 \00f\00i\00n\00i\00s\00h\00e\00d\00.")
+ (data $27 (i32.const 4060) "\\")
+ (data $27.1 (i32.const 4072) "\02\00\00\00L\00\00\00~\00l\00i\00b\00/\00f\00a\00s\00t\00-\00s\00h\00a\002\005\006\00-\00a\00s\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00s\00h\00a\002\005\006\00.\00t\00s")
+ (data $28 (i32.const 4156) ",")
+ (data $28.1 (i32.const 4168) "\02\00\00\00\0e\00\00\00/\00l\00e\00n\00g\00t\00h")
+ (data $29 (i32.const 4204) "\1c")
+ (data $29.1 (i32.const 4216) "\02\00\00\00\02\00\00\00/")
+ (data $30 (i32.const 4236) "|")
+ (data $30.1 (i32.const 4248) "\02\00\00\00d\00\00\00t\00o\00S\00t\00r\00i\00n\00g\00(\00)\00 \00r\00a\00d\00i\00x\00 \00a\00r\00g\00u\00m\00e\00n\00t\00 \00m\00u\00s\00t\00 \00b\00e\00 \00b\00e\00t\00w\00e\00e\00n\00 \002\00 \00a\00n\00d\00 \003\006")
+ (data $31 (i32.const 4364) "<")
+ (data $31.1 (i32.const 4376) "\02\00\00\00&\00\00\00~\00l\00i\00b\00/\00u\00t\00i\00l\00/\00n\00u\00m\00b\00e\00r\00.\00t\00s")
+ (data $32 (i32.const 4428) "\1c")
+ (data $32.1 (i32.const 4440) "\02\00\00\00\02\00\00\000")
+ (data $33 (i32.const 4460) "0\000\000\001\000\002\000\003\000\004\000\005\000\006\000\007\000\008\000\009\001\000\001\001\001\002\001\003\001\004\001\005\001\006\001\007\001\008\001\009\002\000\002\001\002\002\002\003\002\004\002\005\002\006\002\007\002\008\002\009\003\000\003\001\003\002\003\003\003\004\003\005\003\006\003\007\003\008\003\009\004\000\004\001\004\002\004\003\004\004\004\005\004\006\004\007\004\008\004\009\005\000\005\001\005\002\005\003\005\004\005\005\005\006\005\007\005\008\005\009\006\000\006\001\006\002\006\003\006\004\006\005\006\006\006\007\006\008\006\009\007\000\007\001\007\002\007\003\007\004\007\005\007\006\007\007\007\008\007\009\008\000\008\001\008\002\008\003\008\004\008\005\008\006\008\007\008\008\008\009\009\000\009\001\009\002\009\003\009\004\009\005\009\006\009\007\009\008\009\009")
+ (data $34 (i32.const 4860) "\1c\04")
+ (data $34.1 (i32.const 4872) "\02\00\00\00\00\04\00\000\000\000\001\000\002\000\003\000\004\000\005\000\006\000\007\000\008\000\009\000\00a\000\00b\000\00c\000\00d\000\00e\000\00f\001\000\001\001\001\002\001\003\001\004\001\005\001\006\001\007\001\008\001\009\001\00a\001\00b\001\00c\001\00d\001\00e\001\00f\002\000\002\001\002\002\002\003\002\004\002\005\002\006\002\007\002\008\002\009\002\00a\002\00b\002\00c\002\00d\002\00e\002\00f\003\000\003\001\003\002\003\003\003\004\003\005\003\006\003\007\003\008\003\009\003\00a\003\00b\003\00c\003\00d\003\00e\003\00f\004\000\004\001\004\002\004\003\004\004\004\005\004\006\004\007\004\008\004\009\004\00a\004\00b\004\00c\004\00d\004\00e\004\00f\005\000\005\001\005\002\005\003\005\004\005\005\005\006\005\007\005\008\005\009\005\00a\005\00b\005\00c\005\00d\005\00e\005\00f\006\000\006\001\006\002\006\003\006\004\006\005\006\006\006\007\006\008\006\009\006\00a\006\00b\006\00c\006\00d\006\00e\006\00f\007\000\007\001\007\002\007\003\007\004\007\005\007\006\007\007\007\008\007\009\007\00a\007\00b\007\00c\007\00d\007\00e\007\00f\008\000\008\001\008\002\008\003\008\004\008\005\008\006\008\007\008\008\008\009\008\00a\008\00b\008\00c\008\00d\008\00e\008\00f\009\000\009\001\009\002\009\003\009\004\009\005\009\006\009\007\009\008\009\009\009\00a\009\00b\009\00c\009\00d\009\00e\009\00f\00a\000\00a\001\00a\002\00a\003\00a\004\00a\005\00a\006\00a\007\00a\008\00a\009\00a\00a\00a\00b\00a\00c\00a\00d\00a\00e\00a\00f\00b\000\00b\001\00b\002\00b\003\00b\004\00b\005\00b\006\00b\007\00b\008\00b\009\00b\00a\00b\00b\00b\00c\00b\00d\00b\00e\00b\00f\00c\000\00c\001\00c\002\00c\003\00c\004\00c\005\00c\006\00c\007\00c\008\00c\009\00c\00a\00c\00b\00c\00c\00c\00d\00c\00e\00c\00f\00d\000\00d\001\00d\002\00d\003\00d\004\00d\005\00d\006\00d\007\00d\008\00d\009\00d\00a\00d\00b\00d\00c\00d\00d\00d\00e\00d\00f\00e\000\00e\001\00e\002\00e\003\00e\004\00e\005\00e\006\00e\007\00e\008\00e\009\00e\00a\00e\00b\00e\00c\00e\00d\00e\00e\00e\00f\00f\000\00f\001\00f\002\00f\003\00f\004\00f\005\00f\006\00f\007\00f\008\00f\009\00f\00a\00f\00b\00f\00c\00f\00d\00f\00e\00f\00f")
+ (data $35 (i32.const 5916) "\\")
+ (data $35.1 (i32.const 5928) "\02\00\00\00H\00\00\000\001\002\003\004\005\006\007\008\009\00a\00b\00c\00d\00e\00f\00g\00h\00i\00j\00k\00l\00m\00n\00o\00p\00q\00r\00s\00t\00u\00v\00w\00x\00y\00z")
+ (data $36 (i32.const 6012) "\1c")
+ (data $36.1 (i32.const 6024) "\02")
+ (data $37 (i32.const 6044) "\1c")
+ (data $37.1 (i32.const 6056) "\17\00\00\00\08\00\00\00\03")
+ (data $38 (i32.const 6076) "\1c")
+ (data $38.1 (i32.const 6088) "\02\00\00\00\04\00\00\00b\00c")
+ (data $39 (i32.const 6108) "l")
+ (data $39.1 (i32.const 6120) "\02\00\00\00N\00\00\00~\00l\00i\00b\00/\00m\00e\00t\00a\00s\00h\00r\00e\00w\00-\00a\00s\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00u\00t\00i\00l\00s\00/\00b\003\002\00.\00t\00s")
+ (data $40 (i32.const 6220) "<")
+ (data $40.1 (i32.const 6232) "\02\00\00\00(\00\00\00E\00x\00c\00e\00e\00d\00s\00 \00l\00e\00n\00g\00t\00h\00 \00l\00i\00m\00i\00t")
+ (data $41 (i32.const 6284) ",")
+ (data $41.1 (i32.const 6296) "\02\00\00\00\1c\00\00\00N\00o\00n\00 \005\00-\00b\00i\00t\00 \00w\00o\00r\00d")
+ (data $42 (i32.const 6332) "|")
+ (data $42.1 (i32.const 6344) "\02\00\00\00^\00\00\00E\00l\00e\00m\00e\00n\00t\00 \00t\00y\00p\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00n\00u\00l\00l\00a\00b\00l\00e\00 \00i\00f\00 \00a\00r\00r\00a\00y\00 \00i\00s\00 \00h\00o\00l\00e\00y")
+ (data $43 (i32.const 6460) "\1c")
+ (data $43.1 (i32.const 6472) "\"\00\00\00\08\00\00\00\04")
+ (data $44 (i32.const 6492) "\1c")
+ (data $44.1 (i32.const 6504) "#\00\00\00\08\00\00\00\05")
+ (data $45 (i32.const 6524) "\1c")
+ (data $45.1 (i32.const 6536) "&\00\00\00\08\00\00\00\06")
+ (table $0 7 7 funcref)
+ (elem $0 (i32.const 1) $~lib/metashrew-as/assembly/utils/box/Box.concat~anonymous|0 $~lib/metashrew-as/assembly/utils/box/Box.concat~anonymous|1 $~lib/metashrew-as/assembly/utils/utils/concat~anonymous|0 $assembly/index/_start~anonymous|0~anonymous|0 $assembly/index/_start~anonymous|0 $~lib/metashrew-as/assembly/indexer/index/_flush~anonymous|0)
+ (export "OUTPOINTS_FOR_ADDRESS" (global $assembly/index/OUTPOINTS_FOR_ADDRESS))
+ (export "OUTPOINT_SPENDABLE_BY" (global $assembly/index/OUTPOINT_SPENDABLE_BY))
+ (export "OUTPOINT_TO_OUTPUT" (global $assembly/index/OUTPOINT_TO_OUTPUT))
  (export "outputToBytes" (func $assembly/index/outputToBytes))
+ (export "bytesToOutput" (func $assembly/index/bytesToOutput))
  (export "removeFromIndex" (func $assembly/index/removeFromIndex))
  (export "addToIndex" (func $assembly/index/addToIndex))
+ (export "indexTransactionOutputs" (func $assembly/index/indexTransactionOutputs))
  (export "_start" (func $assembly/index/_start))
  (export "getunspent" (func $assembly/index/getunspent))
  (export "memory" (memory $0))
@@ -317,26 +316,25 @@
    unreachable
   end
   local.get $0
-  local.set $2
-  local.get $0
-  local.get $0
+  local.tee $1
+  local.get $1
   i32.const 20
   i32.sub
   i32.load offset=16
   i32.add
   local.set $3
   loop $while-continue|0
-   local.get $2
+   local.get $1
    local.get $3
    i32.lt_u
    if
-    local.get $2
+    local.get $1
     i32.load16_u
     local.tee $4
     i32.const 128
     i32.lt_u
     if (result i32)
-     local.get $1
+     local.get $2
      i32.const 1
      i32.add
     else
@@ -344,7 +342,7 @@
      i32.const 2048
      i32.lt_u
      if (result i32)
-      local.get $1
+      local.get $2
       i32.const 2
       i32.add
      else
@@ -353,56 +351,56 @@
       i32.and
       i32.const 55296
       i32.eq
-      local.get $2
+      local.get $1
       i32.const 2
       i32.add
       local.get $3
       i32.lt_u
       i32.and
       if
-       local.get $2
+       local.get $1
        i32.load16_u offset=2
        i32.const 64512
        i32.and
        i32.const 56320
        i32.eq
        if
-        local.get $1
-        i32.const 4
-        i32.add
-        local.set $1
         local.get $2
         i32.const 4
         i32.add
         local.set $2
+        local.get $1
+        i32.const 4
+        i32.add
+        local.set $1
         br $while-continue|0
        end
       end
-      local.get $1
+      local.get $2
       i32.const 3
       i32.add
      end
     end
-    local.set $1
-    local.get $2
+    local.set $2
+    local.get $1
     i32.const 2
     i32.add
-    local.set $2
+    local.set $1
     br $while-continue|0
    end
   end
-  local.get $1
+  local.get $2
   i32.const 1
   call $~lib/rt/stub/__new
   local.set $2
   local.get $0
   local.tee $1
-  local.get $0
   i32.const 20
   i32.sub
   i32.load offset=16
   i32.const -2
   i32.and
+  local.get $1
   i32.add
   local.set $4
   local.get $2
@@ -608,6 +606,97 @@
   i32.store
   local.get $2
  )
+ (func $~lib/metashrew-as/assembly/utils/utils/parseVarInt (param $0 i32) (result i64)
+  (local $1 i64)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $0
+  i32.load
+  local.tee $2
+  i32.load8_u
+  local.set $3
+  local.get $0
+  local.get $2
+  i32.const 1
+  i32.add
+  i32.store
+  local.get $0
+  local.get $0
+  i32.load offset=4
+  i32.const 1
+  i32.sub
+  i32.store offset=4
+  block $case3|0
+   block $case2|0
+    block $case1|0
+     block $case0|0
+      local.get $3
+      i32.const 253
+      i32.sub
+      br_table $case2|0 $case1|0 $case0|0 $case3|0
+     end
+     local.get $0
+     i32.load
+     local.tee $2
+     i64.load
+     local.set $1
+     local.get $0
+     local.get $2
+     i32.const 8
+     i32.add
+     i32.store
+     local.get $0
+     local.get $0
+     i32.load offset=4
+     i32.const 8
+     i32.sub
+     i32.store offset=4
+     local.get $1
+     return
+    end
+    local.get $0
+    i32.load
+    local.tee $2
+    i32.load
+    local.set $3
+    local.get $0
+    local.get $2
+    i32.const 4
+    i32.add
+    i32.store
+    local.get $0
+    local.get $0
+    i32.load offset=4
+    i32.const 4
+    i32.sub
+    i32.store offset=4
+    local.get $3
+    i64.extend_i32_u
+    return
+   end
+   local.get $0
+   i32.load
+   local.tee $2
+   i32.load16_u
+   local.set $3
+   local.get $0
+   local.get $2
+   i32.const 2
+   i32.add
+   i32.store
+   local.get $0
+   local.get $0
+   i32.load offset=4
+   i32.const 2
+   i32.sub
+   i32.store offset=4
+   local.get $3
+   i64.extend_i32_u
+   return
+  end
+  local.get $3
+  i64.extend_i32_u
+ )
  (func $~lib/metashrew-as/assembly/utils/box/Box#constructor (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   i32.const 8
@@ -625,6 +714,218 @@
   local.get $2
   local.get $1
   i32.store offset=4
+  local.get $2
+ )
+ (func $~lib/metashrew-as/assembly/utils/utils/parseBytes (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  local.get $0
+  i32.load
+  local.get $0
+  i32.load offset=4
+  call $~lib/metashrew-as/assembly/utils/box/Box#constructor
+  local.tee $2
+  local.get $1
+  i32.store offset=4
+  local.get $0
+  local.get $0
+  i32.load
+  local.get $1
+  i32.add
+  i32.store
+  local.get $0
+  local.get $0
+  i32.load offset=4
+  local.get $1
+  i32.sub
+  i32.store offset=4
+  local.get $2
+ )
+ (func $~lib/metashrew-as/assembly/blockdata/transaction/Output#constructor (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i64)
+  i32.const 21
+  i32.const 12
+  call $~lib/rt/stub/__new
+  local.tee $2
+  i32.const 0
+  i32.store
+  local.get $2
+  i64.const 0
+  i64.store offset=8
+  local.get $2
+  i32.const 0
+  i32.store offset=16
+  local.get $2
+  i32.const 0
+  i32.store8 offset=20
+  local.get $0
+  i32.load
+  local.tee $3
+  i64.load
+  local.set $4
+  local.get $0
+  local.get $3
+  i32.const 8
+  i32.add
+  i32.store
+  local.get $0
+  local.get $0
+  i32.load offset=4
+  i32.const 8
+  i32.sub
+  i32.store offset=4
+  local.get $2
+  local.get $4
+  i64.store offset=8
+  local.get $2
+  local.get $0
+  local.get $0
+  call $~lib/metashrew-as/assembly/utils/utils/parseVarInt
+  i32.wrap_i64
+  call $~lib/metashrew-as/assembly/utils/utils/parseBytes
+  i32.store offset=16
+  local.get $2
+  local.get $3
+  local.get $0
+  i32.load
+  local.get $3
+  i32.sub
+  call $~lib/metashrew-as/assembly/utils/box/Box#constructor
+  i32.store
+  local.get $2
+  local.get $1
+  i32.store8 offset=20
+  local.get $2
+ )
+ (func $~lib/array/Array<u8>#constructor (param $0 i32) (result i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  i32.const 16
+  i32.const 11
+  call $~lib/rt/stub/__new
+  local.tee $1
+  i32.const 0
+  i32.store
+  local.get $1
+  i32.const 0
+  i32.store offset=4
+  local.get $1
+  i32.const 0
+  i32.store offset=8
+  local.get $1
+  i32.const 0
+  i32.store offset=12
+  local.get $0
+  i32.const 1073741820
+  i32.gt_u
+  if
+   i32.const 2608
+   i32.const 3664
+   i32.const 70
+   i32.const 60
+   call $~lib/builtins/abort
+   unreachable
+  end
+  i32.const 8
+  local.get $0
+  local.get $0
+  i32.const 8
+  i32.le_u
+  select
+  local.tee $2
+  i32.const 1
+  call $~lib/rt/stub/__new
+  local.tee $3
+  i32.const 0
+  local.get $2
+  memory.fill
+  local.get $1
+  local.get $3
+  i32.store
+  local.get $1
+  local.get $3
+  i32.store offset=4
+  local.get $1
+  local.get $2
+  i32.store offset=8
+  local.get $1
+  local.get $0
+  i32.store offset=12
+  local.get $1
+ )
+ (func $assembly/protobuf/spendables.Output#constructor (result i32)
+  (local $0 i32)
+  i32.const 12
+  i32.const 10
+  call $~lib/rt/stub/__new
+  local.tee $0
+  i32.eqz
+  if
+   i32.const 0
+   i32.const 0
+   call $~lib/rt/stub/__new
+   local.set $0
+  end
+  local.get $0
+  i64.const 0
+  i64.store
+  local.get $0
+  i32.const 0
+  call $~lib/array/Array<u8>#constructor
+  i32.store offset=8
+  local.get $0
+ )
+ (func $assembly/index/arrayBufferToArray (param $0 i32) (result i32)
+  (local $1 i32)
+  local.get $0
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  call $~lib/array/Array<u8>#constructor
+  local.tee $1
+  local.get $0
+  i32.store
+  local.get $1
+  local.get $0
+  i32.store offset=4
+  local.get $1
+ )
+ (func $assembly/index/bytesToOutput (param $0 i32) (result i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $0
+  local.get $0
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  call $~lib/metashrew-as/assembly/utils/box/Box#constructor
+  i32.const 0
+  call $~lib/metashrew-as/assembly/blockdata/transaction/Output#constructor
+  local.set $3
+  call $assembly/protobuf/spendables.Output#constructor
+  local.set $2
+  local.get $3
+  i32.load offset=16
+  local.tee $0
+  i32.load offset=4
+  call $~lib/arraybuffer/ArrayBuffer#constructor
+  local.tee $1
+  local.get $0
+  i32.load
+  local.get $0
+  i32.load offset=4
+  memory.copy
+  local.get $2
+  local.get $1
+  call $assembly/index/arrayBufferToArray
+  i32.store offset=8
+  local.get $2
+  local.get $3
+  i64.load offset=8
+  i64.store
   local.get $2
  )
  (func $~lib/rt/__newArray (param $0 i32) (param $1 i32) (result i32)
@@ -832,7 +1133,7 @@
    i32.gt_u
    if
     i32.const 2608
-    i32.const 3600
+    i32.const 3664
     i32.const 19
     i32.const 48
     call $~lib/builtins/abort
@@ -907,7 +1208,7 @@
    i32.lt_s
    if
     i32.const 3344
-    i32.const 3600
+    i32.const 3664
     i32.const 130
     i32.const 22
     call $~lib/builtins/abort
@@ -987,9 +1288,9 @@
     local.get $5
     local.get $1
     local.get $0
-    i32.const 3648
+    i32.const 3712
     i32.load
-    call_indirect (type $2)
+    call_indirect (type $4)
     local.set $2
     local.get $1
     i32.const 1
@@ -1031,9 +1332,9 @@
     local.get $5
     local.get $3
     local.get $0
-    i32.const 3680
+    i32.const 3744
     i32.load
-    call_indirect (type $2)
+    call_indirect (type $4)
     local.set $1
     local.get $3
     i32.const 1
@@ -1044,10 +1345,10 @@
   end
   local.get $2
  )
- (func $~lib/metashrew-as/assembly/indexer/index/Index.keyFor (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   i32.const 2
-  i32.const 10
+  i32.const 14
   call $~lib/rt/__newArray
   local.tee $2
   i32.load offset=4
@@ -1482,14 +1783,14 @@
     if (result i32)
      i32.const 0
     else
-     block $__inlined_func$~lib/string/String.__eq$708 (result i32)
+     block $__inlined_func$~lib/string/String.__eq$714 (result i32)
       i32.const 1
       local.get $5
       i32.load
       local.tee $2
       local.get $1
       i32.eq
-      br_if $__inlined_func$~lib/string/String.__eq$708
+      br_if $__inlined_func$~lib/string/String.__eq$714
       drop
       i32.const 0
       local.get $1
@@ -1497,7 +1798,7 @@
       local.get $2
       i32.eqz
       i32.or
-      br_if $__inlined_func$~lib/string/String.__eq$708
+      br_if $__inlined_func$~lib/string/String.__eq$714
       drop
       i32.const 0
       local.get $2
@@ -1514,7 +1815,7 @@
       i32.const 1
       i32.shr_u
       i32.ne
-      br_if $__inlined_func$~lib/string/String.__eq$708
+      br_if $__inlined_func$~lib/string/String.__eq$714
       drop
       local.get $1
       local.set $3
@@ -1559,7 +1860,7 @@
         end
        end
       end
-      block $__inlined_func$~lib/util/string/compareImpl$58
+      block $__inlined_func$~lib/util/string/compareImpl$97
        loop $while-continue|1
         local.get $0
         local.tee $4
@@ -1579,7 +1880,7 @@
          local.get $7
          local.get $8
          i32.ne
-         br_if $__inlined_func$~lib/util/string/compareImpl$58
+         br_if $__inlined_func$~lib/util/string/compareImpl$97
          local.get $2
          i32.const 2
          i32.add
@@ -1806,8 +2107,8 @@
   local.tee $0
   i32.eqz
   if
-   i32.const 3712
    i32.const 3776
+   i32.const 3840
    i32.const 105
    i32.const 17
    call $~lib/builtins/abort
@@ -1816,7 +2117,7 @@
   local.get $0
   i32.load offset=4
  )
- (func $~lib/metashrew-as/assembly/indexer/index/get (param $0 i32) (result i32)
+ (func $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#get (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/string/String.UTF8.decode
@@ -1844,541 +2145,21 @@
    call $"~lib/map/Map<~lib/string/String,~lib/arraybuffer/ArrayBuffer>#set"
   end
   local.get $0
- )
- (func $~lib/metashrew-as/assembly/utils/xxh32/xxh32 (param $0 i32) (result i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
   local.get $0
-  i32.eqz
-  if
-   i32.const 0
-   return
-  end
-  local.get $0
-  local.tee $1
   i32.const 20
   i32.sub
   i32.load offset=16
-  i32.const 1
-  i32.shl
-  local.tee $3
-  i32.const 16
-  i32.ge_u
-  if (result i32)
-   i32.const 606290984
-   local.set $2
-   i32.const -2048144777
-   local.set $4
-   i32.const 1640531535
-   local.set $5
-   local.get $1
-   local.get $3
-   i32.add
-   i32.const 16
-   i32.sub
-   local.set $7
-   loop $while-continue|0
-    local.get $1
-    local.get $7
-    i32.le_u
-    if
-     local.get $2
-     local.get $1
-     i32.load
-     i32.const -2048144777
-     i32.mul
-     i32.add
-     i32.const 13
-     i32.rotl
-     i32.const -1640531535
-     i32.mul
-     local.set $2
-     local.get $4
-     local.get $1
-     i32.load offset=4
-     i32.const -2048144777
-     i32.mul
-     i32.add
-     i32.const 13
-     i32.rotl
-     i32.const -1640531535
-     i32.mul
-     local.set $4
-     local.get $6
-     local.get $1
-     i32.load offset=8
-     i32.const -2048144777
-     i32.mul
-     i32.add
-     i32.const 13
-     i32.rotl
-     i32.const -1640531535
-     i32.mul
-     local.set $6
-     local.get $5
-     local.get $1
-     i32.load offset=12
-     i32.const -2048144777
-     i32.mul
-     i32.add
-     i32.const 13
-     i32.rotl
-     i32.const -1640531535
-     i32.mul
-     local.set $5
-     local.get $1
-     i32.const 16
-     i32.add
-     local.set $1
-     br $while-continue|0
-    end
-   end
-   local.get $3
-   local.get $2
-   i32.const 1
-   i32.rotl
-   local.get $4
-   i32.const 7
-   i32.rotl
-   i32.add
-   local.get $6
-   i32.const 12
-   i32.rotl
-   i32.add
-   local.get $5
-   i32.const 18
-   i32.rotl
-   i32.add
-   i32.add
-  else
-   local.get $3
-   i32.const 374761393
-   i32.add
-  end
-  local.set $2
-  local.get $0
-  local.get $3
-  i32.add
-  i32.const 4
-  i32.sub
-  local.set $4
-  loop $while-continue|1
-   local.get $1
-   local.get $4
-   i32.le_u
-   if
-    local.get $2
-    local.get $1
-    i32.load
-    i32.const -1028477379
-    i32.mul
-    i32.add
-    i32.const 17
-    i32.rotl
-    i32.const 668265263
-    i32.mul
-    local.set $2
-    local.get $1
-    i32.const 4
-    i32.add
-    local.set $1
-    br $while-continue|1
-   end
-  end
-  local.get $0
-  local.get $3
-  i32.add
-  local.set $0
-  loop $while-continue|2
-   local.get $0
-   local.get $1
-   i32.gt_u
-   if
-    local.get $2
-    local.get $1
-    i32.load8_u
-    i32.const 374761393
-    i32.mul
-    i32.add
-    i32.const 11
-    i32.rotl
-    i32.const -1640531535
-    i32.mul
-    local.set $2
-    local.get $1
-    i32.const 1
-    i32.add
-    local.set $1
-    br $while-continue|2
-   end
-  end
-  local.get $2
-  local.get $2
-  i32.const 15
-  i32.shr_u
-  i32.xor
-  i32.const -2048144777
-  i32.mul
+  call $~lib/metashrew-as/assembly/utils/box/Box#constructor
   local.tee $0
-  i32.const 13
-  i32.shr_u
-  local.get $0
-  i32.xor
-  i32.const -1028477379
-  i32.mul
-  local.tee $0
-  i32.const 16
-  i32.shr_u
-  local.get $0
-  i32.xor
- )
- (func $~lib/util/number/utoa32_dec_lut (param $0 i32) (param $1 i32) (param $2 i32)
-  (local $3 i32)
-  loop $while-continue|0
-   local.get $1
-   i32.const 10000
-   i32.ge_u
-   if
-    local.get $1
-    i32.const 10000
-    i32.rem_u
-    local.set $3
-    local.get $1
-    i32.const 10000
-    i32.div_u
-    local.set $1
-    local.get $0
-    local.get $2
-    i32.const 4
-    i32.sub
-    local.tee $2
-    i32.const 1
-    i32.shl
-    i32.add
-    local.get $3
-    i32.const 100
-    i32.div_u
-    i32.const 2
-    i32.shl
-    i32.const 4076
-    i32.add
-    i64.load32_u
-    local.get $3
-    i32.const 100
-    i32.rem_u
-    i32.const 2
-    i32.shl
-    i32.const 4076
-    i32.add
-    i64.load32_u
-    i64.const 32
-    i64.shl
-    i64.or
-    i64.store
-    br $while-continue|0
-   end
-  end
-  local.get $1
-  i32.const 100
-  i32.ge_u
-  if
-   local.get $0
-   local.get $2
-   i32.const 2
-   i32.sub
-   local.tee $2
-   i32.const 1
-   i32.shl
-   i32.add
-   local.get $1
-   i32.const 100
-   i32.rem_u
-   i32.const 2
-   i32.shl
-   i32.const 4076
-   i32.add
-   i32.load
-   i32.store
-   local.get $1
-   i32.const 100
-   i32.div_u
-   local.set $1
-  end
-  local.get $1
-  i32.const 10
-  i32.ge_u
-  if
-   local.get $0
-   local.get $2
-   i32.const 2
-   i32.sub
-   i32.const 1
-   i32.shl
-   i32.add
-   local.get $1
-   i32.const 2
-   i32.shl
-   i32.const 4076
-   i32.add
-   i32.load
-   i32.store
-  else
-   local.get $0
-   local.get $2
-   i32.const 1
-   i32.sub
-   i32.const 1
-   i32.shl
-   i32.add
-   local.get $1
-   i32.const 48
-   i32.add
-   i32.store16
-  end
- )
- (func $~lib/util/number/utoa32 (param $0 i32) (result i32)
-  (local $1 i32)
-  (local $2 i32)
-  local.get $0
-  i32.eqz
-  if
-   i32.const 4064
-   return
-  end
-  local.get $0
-  i32.const 100000
-  i32.lt_u
-  if (result i32)
-   local.get $0
-   i32.const 100
-   i32.lt_u
-   if (result i32)
-    local.get $0
-    i32.const 10
-    i32.ge_u
-    i32.const 1
-    i32.add
-   else
-    local.get $0
-    i32.const 10000
-    i32.ge_u
-    i32.const 3
-    i32.add
-    local.get $0
-    i32.const 1000
-    i32.ge_u
-    i32.add
-   end
-  else
-   local.get $0
-   i32.const 10000000
-   i32.lt_u
-   if (result i32)
-    local.get $0
-    i32.const 1000000
-    i32.ge_u
-    i32.const 6
-    i32.add
-   else
-    local.get $0
-    i32.const 1000000000
-    i32.ge_u
-    i32.const 8
-    i32.add
-    local.get $0
-    i32.const 100000000
-    i32.ge_u
-    i32.add
-   end
-  end
-  local.tee $2
-  i32.const 1
-  i32.shl
-  i32.const 2
-  call $~lib/rt/stub/__new
-  local.tee $1
-  local.get $0
-  local.get $2
-  call $~lib/util/number/utoa32_dec_lut
-  local.get $1
- )
- (func $assembly/index/removeFromIndex (param $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  global.get $assembly/index/OUTPUT_SPENDABLE_BY
-  local.get $0
-  call $~lib/metashrew-as/assembly/indexer/index/Index.keyFor
-  local.set $1
-  global.get $assembly/index/OUTPUT_SPENDABLE_BY
-  local.get $0
-  call $~lib/metashrew-as/assembly/indexer/index/Index.keyFor
-  call $~lib/metashrew-as/assembly/indexer/index/get
-  local.set $2
-  i32.const 0
+  i32.load offset=4
   call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $3
-  local.get $1
-  call $~lib/string/String.UTF8.decode
-  local.set $4
-  global.get $~lib/metashrew-as/assembly/indexer/index/_updates
-  local.get $4
-  local.get $3
-  call $"~lib/map/Map<~lib/string/String,~lib/arraybuffer/ArrayBuffer>#set"
-  global.get $~lib/metashrew-as/assembly/indexer/index/_updateKeys
-  local.get $4
-  local.get $1
-  call $"~lib/map/Map<~lib/string/String,~lib/arraybuffer/ArrayBuffer>#set"
+  local.tee $1
   local.get $0
-  call $~lib/metashrew-as/assembly/utils/xxh32/xxh32
-  local.set $1
-  local.get $2
-  i32.const 20
-  i32.sub
-  i32.load offset=16
-  i32.const 0
-  i32.gt_s
-  if
-   global.get $assembly/index/OUTPUTS_FOR_ADDRESS
-   local.set $0
-   i32.const 2
-   i32.const 10
-   call $~lib/rt/__newArray
-   local.tee $3
-   i32.load offset=4
-   drop
-   local.get $3
-   i32.const 0
-   local.get $2
-   local.get $2
-   i32.const 20
-   i32.sub
-   i32.load offset=16
-   call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-   call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#__set
-   i32.const 1
-   global.set $~argumentsLength
-   local.get $3
-   i32.const 1
-   i32.const 3824
-   call $~lib/string/String.UTF8.encode@varargs
-   local.tee $4
-   local.get $4
-   i32.const 20
-   i32.sub
-   i32.load offset=16
-   call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-   call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#__set
-   local.get $0
-   local.get $3
-   call $~lib/metashrew-as/assembly/utils/box/Box.concat
-   call $~lib/metashrew-as/assembly/indexer/index/Index.keyFor
-   call $~lib/metashrew-as/assembly/indexer/index/get
-   i32.load
-   local.tee $0
-   i32.eqz
-   if
-    return
-   end
-   local.get $0
-   i32.const 1
-   i32.sub
-   local.set $0
-   loop $while-continue|0
-    block $while-break|0
-     global.get $assembly/index/OUTPUTS_FOR_ADDRESS
-     local.set $3
-     i32.const 3
-     i32.const 10
-     call $~lib/rt/__newArray
-     local.tee $4
-     i32.load offset=4
-     drop
-     local.get $4
-     i32.const 0
-     local.get $2
-     local.get $2
-     i32.const 20
-     i32.sub
-     i32.load offset=16
-     call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-     call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#__set
-     local.get $4
-     i32.const 1
-     global.get $assembly/index/SLASH
-     local.tee $5
-     local.get $5
-     i32.const 20
-     i32.sub
-     i32.load offset=16
-     call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-     call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#__set
-     local.get $0
-     call $~lib/util/number/utoa32
-     local.set $5
-     i32.const 1
-     global.set $~argumentsLength
-     local.get $4
-     i32.const 2
-     local.get $5
-     call $~lib/string/String.UTF8.encode@varargs
-     local.tee $5
-     local.get $5
-     i32.const 20
-     i32.sub
-     i32.load offset=16
-     call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-     call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#__set
-     local.get $3
-     local.get $4
-     call $~lib/metashrew-as/assembly/utils/box/Box.concat
-     call $~lib/metashrew-as/assembly/indexer/index/Index.keyFor
-     local.tee $3
-     call $~lib/metashrew-as/assembly/indexer/index/get
-     local.tee $4
-     i32.const 20
-     i32.sub
-     i32.load offset=16
-     i32.const 0
-     i32.gt_s
-     if
-      local.get $4
-      call $~lib/metashrew-as/assembly/utils/xxh32/xxh32
-      local.get $1
-      i32.eq
-      if
-       i32.const 0
-       call $~lib/arraybuffer/ArrayBuffer#constructor
-       local.set $0
-       local.get $3
-       call $~lib/string/String.UTF8.decode
-       local.set $1
-       global.get $~lib/metashrew-as/assembly/indexer/index/_updates
-       local.get $1
-       local.get $0
-       call $"~lib/map/Map<~lib/string/String,~lib/arraybuffer/ArrayBuffer>#set"
-       global.get $~lib/metashrew-as/assembly/indexer/index/_updateKeys
-       local.get $1
-       local.get $3
-       call $"~lib/map/Map<~lib/string/String,~lib/arraybuffer/ArrayBuffer>#set"
-       br $while-break|0
-      end
-     end
-     local.get $0
-     i32.const 1
-     i32.sub
-     local.set $0
-     br $while-continue|0
-    end
-   end
-  end
+  i32.load
+  local.get $0
+  i32.load offset=4
+  memory.copy
+  local.get $1
  )
  (func $~lib/arraybuffer/ArrayBufferView#constructor (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   local.get $0
@@ -2432,91 +2213,6 @@
   i32.store offset=8
   local.get $0
  )
- (func $~lib/typedarray/Uint8Array#__set (param $0 i32) (param $1 i32) (param $2 i32)
-  local.get $1
-  local.get $0
-  i32.load offset=8
-  i32.ge_u
-  if
-   i32.const 3344
-   i32.const 5648
-   i32.const 178
-   i32.const 45
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  i32.load offset=4
-  local.get $1
-  i32.add
-  local.get $2
-  i32.store8
- )
- (func $~lib/metashrew-as/assembly/utils/utils/concat~anonymous|0 (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
-  local.get $0
-  local.get $0
-  i32.const 20
-  i32.sub
-  i32.load offset=16
-  call $~lib/metashrew-as/assembly/utils/box/Box#constructor
- )
- (func $~lib/array/Array<~lib/arraybuffer/ArrayBuffer>#map<~lib/metashrew-as/assembly/utils/box/Box> (param $0 i32) (result i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  local.get $0
-  i32.load offset=12
-  local.tee $2
-  i32.const 10
-  call $~lib/rt/__newArray
-  local.tee $3
-  i32.load offset=4
-  local.set $4
-  loop $for-loop|0
-   local.get $1
-   local.get $2
-   local.get $0
-   i32.load offset=12
-   local.tee $5
-   local.get $2
-   local.get $5
-   i32.lt_s
-   select
-   i32.lt_s
-   if
-    local.get $1
-    i32.const 2
-    i32.shl
-    local.tee $5
-    local.get $0
-    i32.load offset=4
-    i32.add
-    i32.load
-    local.set $6
-    i32.const 3
-    global.set $~argumentsLength
-    local.get $4
-    local.get $5
-    i32.add
-    local.get $6
-    local.get $1
-    local.get $0
-    i32.const 5712
-    i32.load
-    call_indirect (type $4)
-    i32.store
-    local.get $1
-    i32.const 1
-    i32.add
-    local.set $1
-    br $for-loop|0
-   end
-  end
-  local.get $3
- )
  (func $~lib/typedarray/Int32Array#__set (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
@@ -2526,7 +2222,7 @@
   i32.ge_u
   if
    i32.const 3344
-   i32.const 5648
+   i32.const 3888
    i32.const 747
    i32.const 64
    call $~lib/builtins/abort
@@ -2624,7 +2320,7 @@
     local.get $2
    else
     i32.const 2608
-    i32.const 5648
+    i32.const 3888
     i32.const 1869
     i32.const 7
     call $~lib/builtins/abort
@@ -2637,7 +2333,7 @@
    i32.gt_s
    if
     i32.const 2608
-    i32.const 5648
+    i32.const 3888
     i32.const 1874
     i32.const 7
     call $~lib/builtins/abort
@@ -2645,7 +2341,7 @@
    end
   end
   i32.const 12
-  i32.const 16
+  i32.const 20
   call $~lib/rt/stub/__new
   local.tee $2
   local.get $0
@@ -2665,7 +2361,7 @@
   i32.ge_u
   if
    i32.const 3344
-   i32.const 5648
+   i32.const 3888
    i32.const 167
    i32.const 45
    call $~lib/builtins/abort
@@ -2677,6 +2373,26 @@
   i32.add
   i32.load8_u
  )
+ (func $~lib/typedarray/Uint8Array#__set (param $0 i32) (param $1 i32) (param $2 i32)
+  local.get $1
+  local.get $0
+  i32.load offset=8
+  i32.ge_u
+  if
+   i32.const 3344
+   i32.const 3888
+   i32.const 178
+   i32.const 45
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $0
+  i32.load offset=4
+  local.get $1
+  i32.add
+  local.get $2
+  i32.store8
+ )
  (func $~lib/typedarray/Int32Array#__get (param $0 i32) (param $1 i32) (result i32)
   local.get $1
   local.get $0
@@ -2686,7 +2402,7 @@
   i32.ge_u
   if
    i32.const 3344
-   i32.const 5648
+   i32.const 3888
    i32.const 736
    i32.const 64
    call $~lib/builtins/abort
@@ -2899,7 +2615,7 @@
       i32.ge_u
       if
        i32.const 3344
-       i32.const 3600
+       i32.const 3664
        i32.const 114
        i32.const 42
        call $~lib/builtins/abort
@@ -3317,7 +3033,7 @@
   (local $6 i32)
   (local $7 i32)
   i32.const 29
-  i32.const 19
+  i32.const 18
   call $~lib/rt/stub/__new
   local.tee $3
   i32.const 0
@@ -3351,7 +3067,7 @@
   i32.store offset=4
   local.get $3
   i32.const 12
-  i32.const 20
+  i32.const 19
   call $~lib/rt/stub/__new
   i32.const 8
   i32.const 2
@@ -3359,7 +3075,7 @@
   i32.store offset=8
   local.get $3
   i32.const 12
-  i32.const 20
+  i32.const 19
   call $~lib/rt/stub/__new
   i32.const 64
   i32.const 2
@@ -3367,7 +3083,7 @@
   i32.store offset=12
   local.get $3
   i32.const 12
-  i32.const 16
+  i32.const 20
   call $~lib/rt/stub/__new
   i32.const 128
   i32.const 0
@@ -3396,8 +3112,8 @@
   local.get $3
   i32.load8_u offset=28
   if
-   i32.const 5744
-   i32.const 5872
+   i32.const 3952
+   i32.const 4080
    i32.const 196
    i32.const 7
    call $~lib/builtins/abort
@@ -3527,7 +3243,7 @@
   local.set $0
   local.get $3
   i32.const 12
-  i32.const 16
+  i32.const 20
   call $~lib/rt/stub/__new
   local.get $0
   i32.const 0
@@ -3581,6 +3297,395 @@
   local.get $0
   i32.load
  )
+ (func $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#getValue<u32> (param $0 i32) (result i32)
+  (local $1 i32)
+  local.get $0
+  call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#get
+  local.tee $0
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  i32.eqz
+  if
+   i32.const 0
+   return
+  end
+  i32.const 4
+  call $~lib/arraybuffer/ArrayBuffer#constructor
+  local.tee $1
+  local.get $0
+  local.get $0
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  memory.copy
+  local.get $1
+  i32.load
+ )
+ (func $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#selectIndex (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  local.get $1
+  if (result i32)
+   local.get $1
+   local.tee $2
+   i32.const 100000
+   i32.lt_u
+   if (result i32)
+    local.get $2
+    i32.const 100
+    i32.lt_u
+    if (result i32)
+     local.get $2
+     i32.const 10
+     i32.ge_u
+     i32.const 1
+     i32.add
+    else
+     local.get $2
+     i32.const 10000
+     i32.ge_u
+     i32.const 3
+     i32.add
+     local.get $2
+     i32.const 1000
+     i32.ge_u
+     i32.add
+    end
+   else
+    local.get $2
+    i32.const 10000000
+    i32.lt_u
+    if (result i32)
+     local.get $2
+     i32.const 1000000
+     i32.ge_u
+     i32.const 6
+     i32.add
+    else
+     local.get $2
+     i32.const 1000000000
+     i32.ge_u
+     i32.const 8
+     i32.add
+     local.get $2
+     i32.const 100000000
+     i32.ge_u
+     i32.add
+    end
+   end
+   local.tee $1
+   i32.const 1
+   i32.shl
+   i32.const 2
+   call $~lib/rt/stub/__new
+   local.set $3
+   loop $while-continue|0
+    local.get $2
+    i32.const 10000
+    i32.ge_u
+    if
+     local.get $2
+     i32.const 10000
+     i32.rem_u
+     local.set $4
+     local.get $2
+     i32.const 10000
+     i32.div_u
+     local.set $2
+     local.get $3
+     local.get $1
+     i32.const 4
+     i32.sub
+     local.tee $1
+     i32.const 1
+     i32.shl
+     i32.add
+     local.get $4
+     i32.const 100
+     i32.div_u
+     i32.const 2
+     i32.shl
+     i32.const 4460
+     i32.add
+     i64.load32_u
+     local.get $4
+     i32.const 100
+     i32.rem_u
+     i32.const 2
+     i32.shl
+     i32.const 4460
+     i32.add
+     i64.load32_u
+     i64.const 32
+     i64.shl
+     i64.or
+     i64.store
+     br $while-continue|0
+    end
+   end
+   local.get $2
+   i32.const 100
+   i32.ge_u
+   if
+    local.get $3
+    local.get $1
+    i32.const 2
+    i32.sub
+    local.tee $1
+    i32.const 1
+    i32.shl
+    i32.add
+    local.get $2
+    i32.const 100
+    i32.rem_u
+    i32.const 2
+    i32.shl
+    i32.const 4460
+    i32.add
+    i32.load
+    i32.store
+    local.get $2
+    i32.const 100
+    i32.div_u
+    local.set $2
+   end
+   local.get $2
+   i32.const 10
+   i32.ge_u
+   if
+    local.get $3
+    local.get $1
+    i32.const 2
+    i32.sub
+    i32.const 1
+    i32.shl
+    i32.add
+    local.get $2
+    i32.const 2
+    i32.shl
+    i32.const 4460
+    i32.add
+    i32.load
+    i32.store
+   else
+    local.get $3
+    local.get $1
+    i32.const 1
+    i32.sub
+    i32.const 1
+    i32.shl
+    i32.add
+    local.get $2
+    i32.const 48
+    i32.add
+    i32.store16
+   end
+   local.get $3
+  else
+   i32.const 4448
+  end
+  local.set $3
+  i32.const 6032
+  local.set $1
+  i32.const 4220
+  i32.load
+  i32.const -2
+  i32.and
+  local.tee $4
+  local.get $3
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  i32.const -2
+  i32.and
+  local.tee $5
+  i32.add
+  local.tee $2
+  if
+   local.get $2
+   i32.const 2
+   call $~lib/rt/stub/__new
+   local.tee $1
+   i32.const 4224
+   local.get $4
+   memory.copy
+   local.get $1
+   local.get $4
+   i32.add
+   local.get $3
+   local.get $5
+   memory.copy
+  end
+  i32.const 1
+  global.set $~argumentsLength
+  local.get $0
+  local.get $1
+  call $~lib/string/String.UTF8.encode@varargs
+  call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
+ )
+ (func $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#set (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  local.get $0
+  local.get $0
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  call $~lib/metashrew-as/assembly/utils/box/Box#constructor
+  local.tee $0
+  i32.load offset=4
+  call $~lib/arraybuffer/ArrayBuffer#constructor
+  local.tee $2
+  local.get $0
+  i32.load
+  local.get $0
+  i32.load offset=4
+  memory.copy
+  local.get $2
+  call $~lib/string/String.UTF8.decode
+  local.set $0
+  global.get $~lib/metashrew-as/assembly/indexer/index/_updates
+  local.get $0
+  local.get $1
+  call $"~lib/map/Map<~lib/string/String,~lib/arraybuffer/ArrayBuffer>#set"
+  global.get $~lib/metashrew-as/assembly/indexer/index/_updateKeys
+  local.get $0
+  local.get $2
+  call $"~lib/map/Map<~lib/string/String,~lib/arraybuffer/ArrayBuffer>#set"
+ )
+ (func $assembly/index/removeFromIndex (param $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  global.get $assembly/index/OUTPOINT_SPENDABLE_BY
+  local.get $0
+  call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
+  call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#get
+  local.tee $2
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  i32.eqz
+  if
+   return
+  end
+  local.get $0
+  call $~lib/fast-sha256-as/assembly/sha256/sha256
+  local.set $1
+  global.get $assembly/index/OUTPOINTS_FOR_ADDRESS
+  local.get $2
+  call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
+  local.set $3
+  i32.const 1
+  global.set $~argumentsLength
+  local.get $3
+  i32.const 4176
+  call $~lib/string/String.UTF8.encode@varargs
+  call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
+  call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#getValue<u32>
+  local.set $0
+  loop $while-continue|0
+   block $while-break|0
+    local.get $3
+    local.get $0
+    call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#selectIndex
+    local.tee $4
+    call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#get
+    local.tee $2
+    i32.const 20
+    i32.sub
+    i32.load offset=16
+    i32.const 0
+    i32.gt_s
+    if
+     local.get $2
+     call $~lib/fast-sha256-as/assembly/sha256/sha256
+     local.get $1
+     i32.eq
+     if
+      local.get $4
+      i32.const 0
+      call $~lib/arraybuffer/ArrayBuffer#constructor
+      call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#set
+      br $while-break|0
+     end
+    end
+    local.get $0
+    i32.const 1
+    i32.sub
+    local.set $0
+    br $while-continue|0
+   end
+  end
+ )
+ (func $~lib/metashrew-as/assembly/utils/utils/concat~anonymous|0 (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+  local.get $0
+  local.get $0
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  call $~lib/metashrew-as/assembly/utils/box/Box#constructor
+ )
+ (func $~lib/array/Array<~lib/arraybuffer/ArrayBuffer>#map<~lib/metashrew-as/assembly/utils/box/Box> (param $0 i32) (result i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  local.get $0
+  i32.load offset=12
+  local.tee $2
+  i32.const 14
+  call $~lib/rt/__newArray
+  local.tee $3
+  i32.load offset=4
+  local.set $4
+  loop $for-loop|0
+   local.get $1
+   local.get $2
+   local.get $0
+   i32.load offset=12
+   local.tee $5
+   local.get $2
+   local.get $5
+   i32.lt_s
+   select
+   i32.lt_s
+   if
+    local.get $1
+    i32.const 2
+    i32.shl
+    local.tee $5
+    local.get $0
+    i32.load offset=4
+    i32.add
+    i32.load
+    local.set $6
+    i32.const 3
+    global.set $~argumentsLength
+    local.get $4
+    local.get $5
+    i32.add
+    local.get $6
+    local.get $1
+    local.get $0
+    i32.const 6064
+    i32.load
+    call_indirect (type $5)
+    i32.store
+    local.get $1
+    i32.const 1
+    i32.add
+    local.set $1
+    br $for-loop|0
+   end
+  end
+  local.get $3
+ )
  (func $~lib/metashrew-as/assembly/blockdata/address/Address.toBase58Check (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
@@ -3591,7 +3696,7 @@
   (local $8 i32)
   (local $9 i32)
   i32.const 2
-  i32.const 17
+  i32.const 22
   call $~lib/rt/__newArray
   local.tee $4
   i32.load offset=4
@@ -3644,7 +3749,7 @@
   local.get $5
   memory.copy
   i32.const 3
-  i32.const 17
+  i32.const 22
   call $~lib/rt/__newArray
   local.tee $4
   i32.load offset=4
@@ -3693,7 +3798,7 @@
    end
   end
   i32.const 12
-  i32.const 16
+  i32.const 20
   call $~lib/rt/stub/__new
   local.get $6
   local.get $3
@@ -3804,7 +3909,7 @@
   i32.add
   local.set $2
   i32.const 12
-  i32.const 16
+  i32.const 20
   call $~lib/rt/stub/__new
   local.get $2
   i32.const 0
@@ -3873,63 +3978,6 @@
   local.get $3
   i32.load
  )
- (func $~lib/array/Array<u8>#constructor (param $0 i32) (result i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  i32.const 16
-  i32.const 21
-  call $~lib/rt/stub/__new
-  local.tee $1
-  i32.const 0
-  i32.store
-  local.get $1
-  i32.const 0
-  i32.store offset=4
-  local.get $1
-  i32.const 0
-  i32.store offset=8
-  local.get $1
-  i32.const 0
-  i32.store offset=12
-  local.get $0
-  i32.const 1073741820
-  i32.gt_u
-  if
-   i32.const 2608
-   i32.const 3600
-   i32.const 70
-   i32.const 60
-   call $~lib/builtins/abort
-   unreachable
-  end
-  i32.const 8
-  local.get $0
-  local.get $0
-  i32.const 8
-  i32.le_u
-  select
-  local.tee $2
-  i32.const 1
-  call $~lib/rt/stub/__new
-  local.tee $3
-  i32.const 0
-  local.get $2
-  memory.fill
-  local.get $1
-  local.get $3
-  i32.store
-  local.get $1
-  local.get $3
-  i32.store offset=4
-  local.get $1
-  local.get $2
-  i32.store offset=8
-  local.get $1
-  local.get $0
-  i32.store offset=12
-  local.get $1
- )
  (func $~lib/array/Array<u8>#push (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -3982,7 +4030,7 @@
     i32.or
     if
      i32.const 0
-     i32.const 6000
+     i32.const 6128
      i32.const 58
      i32.const 7
      call $~lib/builtins/abort
@@ -4195,7 +4243,7 @@
   i32.ge_u
   if
    i32.const 3344
-   i32.const 3600
+   i32.const 3664
    i32.const 114
    i32.const 42
    call $~lib/builtins/abort
@@ -4225,8 +4273,8 @@
   i32.const 90
   i32.gt_s
   if
-   i32.const 6112
-   i32.const 6000
+   i32.const 6240
+   i32.const 6128
    i32.const 118
    i32.const 5
    call $~lib/builtins/abort
@@ -4279,8 +4327,8 @@
     i32.const 5
     i32.shr_u
     if
-     i32.const 6176
-     i32.const 6000
+     i32.const 6304
+     i32.const 6128
      i32.const 133
      i32.const 23
      call $~lib/builtins/abort
@@ -4479,14 +4527,14 @@
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
-  block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$577
+  block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$598
    local.get $0
    i32.load
    local.tee $4
    i32.load offset=4
    i32.const 25
    i32.ne
-   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$577
+   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$598
    i32.const 1
    local.set $1
    local.get $4
@@ -4533,7 +4581,7 @@
    else
     i32.const 0
    end
-   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$577
+   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$598
    i32.const 0
    local.set $1
   end
@@ -4554,7 +4602,7 @@
    i32.const 20
    i32.store offset=4
    i32.const 12
-   i32.const 16
+   i32.const 20
    call $~lib/rt/stub/__new
    i32.const 1
    i32.const 0
@@ -4581,14 +4629,14 @@
   else
    i32.const 0
    local.set $1
-   block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$579
+   block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$600
     local.get $0
     i32.load
     local.tee $4
     i32.load offset=4
     i32.const 23
     i32.ne
-    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$579
+    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$600
     i32.const 1
     local.set $1
     local.get $4
@@ -4615,7 +4663,7 @@
     else
      i32.const 0
     end
-    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$579
+    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$600
     i32.const 0
     local.set $1
    end
@@ -4636,7 +4684,7 @@
     i32.const 20
     i32.store offset=4
     i32.const 12
-    i32.const 16
+    i32.const 20
     call $~lib/rt/stub/__new
     i32.const 1
     i32.const 0
@@ -4661,7 +4709,7 @@
     local.get $2
     call $~lib/metashrew-as/assembly/blockdata/address/Address.toBase58Check
    else
-    block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$15 (result i32)
+    block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$16 (result i32)
      i32.const 0
      local.get $0
      i32.load
@@ -4674,7 +4722,7 @@
      i32.const 42
      i32.gt_u
      i32.or
-     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$15
+     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$16
      drop
      local.get $1
      i32.load
@@ -4682,7 +4730,7 @@
      i32.load8_u offset=1
      local.set $4
      i32.const 0
-     block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$114 (result i32)
+     block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$243 (result i32)
       i32.const 1
       local.get $1
       i32.load8_u
@@ -4693,7 +4741,7 @@
       i32.const 82
       i32.ge_u
       i32.or
-      br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$114
+      br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$243
       drop
       i32.const 1
       local.get $1
@@ -4702,12 +4750,12 @@
       i32.const 81
       i32.eq
       i32.or
-      br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$114
+      br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$243
       drop
       i32.const 0
      end
      i32.eqz
-     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$15
+     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$16
      drop
      i32.const 0
      local.get $4
@@ -4717,7 +4765,7 @@
      i32.const 40
      i32.gt_u
      i32.or
-     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$15
+     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$16
      drop
      i32.const 1
     end
@@ -4750,7 +4798,7 @@
      local.set $5
      i32.const 1
      global.set $~argumentsLength
-     i32.const 5968
+     i32.const 6096
      call $~lib/string/String.UTF8.encode@varargs
      local.set $0
      i32.const 1
@@ -4865,9 +4913,6 @@
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  global.get $assembly/index/OUTPUT_SPENDABLE_BY
   local.get $1
   local.get $1
   i32.const 20
@@ -4876,48 +4921,47 @@
   call $~lib/metashrew-as/assembly/utils/box/Box#constructor
   local.get $2
   call $assembly/index/outputToBytes
-  call $~lib/metashrew-as/assembly/indexer/index/Index.keyFor
-  drop
+  local.set $2
   local.get $0
   i32.load offset=16
   local.set $0
   i32.const 8
-  i32.const 15
+  i32.const 21
   call $~lib/rt/stub/__new
-  local.tee $3
+  local.tee $1
   i32.const 0
   i32.store
-  local.get $3
+  local.get $1
   i32.const 0
   i32.store offset=4
-  local.get $3
+  local.get $1
   local.get $0
   i32.store
-  local.get $3
+  local.get $1
   i32.const -1
   i32.store offset=4
-  block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$18 (result i32)
+  block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$19 (result i32)
    i32.const 0
-   local.get $3
+   local.get $1
    i32.load
    local.tee $0
    i32.load offset=4
-   local.tee $4
+   local.tee $3
    i32.const 4
    i32.lt_u
-   local.get $4
+   local.get $3
    i32.const 42
    i32.gt_u
    i32.or
-   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$18
+   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$19
    drop
    local.get $0
    i32.load
    local.tee $0
    i32.load8_u offset=1
-   local.set $4
+   local.set $3
    i32.const 0
-   block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$114 (result i32)
+   block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$243 (result i32)
     i32.const 1
     local.get $0
     i32.load8_u
@@ -4928,7 +4972,7 @@
     i32.const 82
     i32.ge_u
     i32.or
-    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$114
+    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$243
     drop
     i32.const 1
     local.get $0
@@ -4937,425 +4981,111 @@
     i32.const 81
     i32.eq
     i32.or
-    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$114
+    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$243
     drop
     i32.const 0
    end
    i32.eqz
-   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$18
+   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$19
    drop
    i32.const 0
-   local.get $4
+   local.get $3
    i32.const 2
    i32.lt_u
-   local.get $4
+   local.get $3
    i32.const 40
    i32.gt_u
    i32.or
-   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$18
+   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$19
    drop
    i32.const 1
   end
   if
-   local.get $3
-   local.get $3
+   local.get $1
+   local.get $1
    i32.load
    i32.load
    i32.store offset=4
   end
-  local.get $3
+  local.get $1
   call $~lib/metashrew-as/assembly/blockdata/address/Address.from
-  local.tee $0
+  local.tee $3
   if
-   global.get $assembly/index/OUTPUTS_FOR_ADDRESS
-   local.set $3
-   i32.const 2
-   i32.const 10
-   call $~lib/rt/__newArray
-   local.tee $4
-   i32.load offset=4
-   drop
-   local.get $4
-   i32.const 0
-   local.get $0
-   local.get $0
-   i32.const 20
-   i32.sub
-   i32.load offset=16
-   call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-   call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#__set
+   global.get $assembly/index/OUTPOINTS_FOR_ADDRESS
+   local.get $3
+   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
+   local.set $4
    i32.const 1
    global.set $~argumentsLength
    local.get $4
-   i32.const 1
-   i32.const 3824
+   i32.const 4176
    call $~lib/string/String.UTF8.encode@varargs
-   local.tee $5
-   local.get $5
-   i32.const 20
-   i32.sub
-   i32.load offset=16
-   call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-   call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#__set
-   local.get $3
-   local.get $4
-   call $~lib/metashrew-as/assembly/utils/box/Box.concat
-   call $~lib/metashrew-as/assembly/indexer/index/Index.keyFor
-   local.tee $3
-   call $~lib/metashrew-as/assembly/indexer/index/get
-   local.tee $4
-   i32.const 20
-   i32.sub
-   i32.load offset=16
-   if (result i32)
-    local.get $4
-    i32.load
-   else
-    i32.const 0
-   end
-   local.set $4
+   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
+   local.tee $0
+   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#getValue<u32>
+   local.set $1
    i32.const 4
    call $~lib/arraybuffer/ArrayBuffer#constructor
    local.tee $5
-   local.get $4
+   local.get $1
    i32.const 1
    i32.add
    i32.store
-   local.get $3
-   call $~lib/string/String.UTF8.decode
-   local.set $6
-   global.get $~lib/metashrew-as/assembly/indexer/index/_updates
-   local.get $6
-   local.get $5
-   call $"~lib/map/Map<~lib/string/String,~lib/arraybuffer/ArrayBuffer>#set"
-   global.get $~lib/metashrew-as/assembly/indexer/index/_updateKeys
-   local.get $6
-   local.get $3
-   call $"~lib/map/Map<~lib/string/String,~lib/arraybuffer/ArrayBuffer>#set"
-   global.get $assembly/index/OUTPUTS_FOR_ADDRESS
-   local.set $3
-   i32.const 3
-   i32.const 10
-   call $~lib/rt/__newArray
-   local.tee $5
-   i32.load offset=4
-   drop
-   local.get $5
-   i32.const 0
    local.get $0
-   local.get $0
-   i32.const 20
-   i32.sub
-   i32.load offset=16
-   call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-   call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#__set
    local.get $5
-   i32.const 1
-   global.get $assembly/index/SLASH
-   local.tee $0
-   local.get $0
-   i32.const 20
-   i32.sub
-   i32.load offset=16
-   call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-   call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#__set
+   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#set
    local.get $4
-   if (result i32)
-    i32.const 0
-    local.get $4
-    i32.sub
-    local.get $4
-    local.get $4
-    i32.const 31
-    i32.shr_u
-    i32.const 1
-    i32.shl
-    local.tee $4
-    select
-    local.tee $6
-    i32.const 100000
-    i32.lt_u
-    if (result i32)
-     local.get $6
-     i32.const 100
-     i32.lt_u
-     if (result i32)
-      local.get $6
-      i32.const 10
-      i32.ge_u
-      i32.const 1
-      i32.add
-     else
-      local.get $6
-      i32.const 10000
-      i32.ge_u
-      i32.const 3
-      i32.add
-      local.get $6
-      i32.const 1000
-      i32.ge_u
-      i32.add
-     end
-    else
-     local.get $6
-     i32.const 10000000
-     i32.lt_u
-     if (result i32)
-      local.get $6
-      i32.const 1000000
-      i32.ge_u
-      i32.const 6
-      i32.add
-     else
-      local.get $6
-      i32.const 1000000000
-      i32.ge_u
-      i32.const 8
-      i32.add
-      local.get $6
-      i32.const 100000000
-      i32.ge_u
-      i32.add
-     end
-    end
-    local.tee $7
-    i32.const 1
-    i32.shl
-    local.get $4
-    i32.add
-    i32.const 2
-    call $~lib/rt/stub/__new
-    local.tee $0
-    local.get $4
-    i32.add
-    local.get $6
-    local.get $7
-    call $~lib/util/number/utoa32_dec_lut
-    local.get $4
-    if
-     local.get $0
-     i32.const 45
-     i32.store16
-    end
-    local.get $0
-   else
-    i32.const 4064
-   end
-   local.set $0
-   i32.const 1
-   global.set $~argumentsLength
-   local.get $5
-   i32.const 2
-   local.get $0
-   call $~lib/string/String.UTF8.encode@varargs
-   local.tee $0
-   local.get $0
-   i32.const 20
-   i32.sub
-   i32.load offset=16
-   call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-   call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#__set
+   local.get $1
+   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#selectIndex
+   local.get $2
+   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#set
+   global.get $assembly/index/OUTPOINT_SPENDABLE_BY
+   local.get $2
+   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
    local.get $3
-   local.get $5
-   call $~lib/metashrew-as/assembly/utils/box/Box.concat
-   call $~lib/metashrew-as/assembly/indexer/index/Index.keyFor
-   local.set $0
-   local.get $1
-   local.get $1
-   i32.const 20
-   i32.sub
-   i32.load offset=16
-   call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-   local.get $2
-   call $assembly/index/outputToBytes
-   local.set $1
-   local.get $0
-   call $~lib/string/String.UTF8.decode
-   local.set $2
-   global.get $~lib/metashrew-as/assembly/indexer/index/_updates
-   local.get $2
-   local.get $1
-   call $"~lib/map/Map<~lib/string/String,~lib/arraybuffer/ArrayBuffer>#set"
-   global.get $~lib/metashrew-as/assembly/indexer/index/_updateKeys
-   local.get $2
-   local.get $0
-   call $"~lib/map/Map<~lib/string/String,~lib/arraybuffer/ArrayBuffer>#set"
+   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#set
   end
  )
- (func $~lib/metashrew-as/assembly/utils/utils/parseBytes (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  local.get $0
-  i32.load
-  local.get $0
-  i32.load offset=4
-  call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-  local.tee $2
-  local.get $1
-  i32.store offset=4
-  local.get $0
-  local.get $0
-  i32.load
-  local.get $1
-  i32.add
-  i32.store
-  local.get $0
-  local.get $0
-  i32.load offset=4
-  local.get $1
-  i32.sub
-  i32.store offset=4
-  local.get $2
- )
- (func $~lib/metashrew-as/assembly/utils/utils/parseVarInt (param $0 i32) (result i64)
-  (local $1 i64)
-  (local $2 i32)
-  (local $3 i32)
-  local.get $0
-  i32.load
-  local.tee $2
-  i32.load8_u
-  local.set $3
-  local.get $0
-  local.get $2
-  i32.const 1
-  i32.add
-  i32.store
-  local.get $0
-  local.get $0
-  i32.load offset=4
-  i32.const 1
-  i32.sub
-  i32.store offset=4
-  block $case3|0
-   block $case2|0
-    block $case1|0
-     block $case0|0
-      local.get $3
-      i32.const 253
-      i32.sub
-      br_table $case2|0 $case1|0 $case0|0 $case3|0
-     end
-     local.get $0
-     i32.load
-     local.tee $2
-     i64.load
-     local.set $1
-     local.get $0
-     local.get $2
-     i32.const 8
-     i32.add
-     i32.store
-     local.get $0
-     local.get $0
-     i32.load offset=4
-     i32.const 8
-     i32.sub
-     i32.store offset=4
-     local.get $1
-     return
-    end
-    local.get $0
-    i32.load
-    local.tee $2
-    i32.load
-    local.set $3
-    local.get $0
-    local.get $2
-    i32.const 4
-    i32.add
-    i32.store
-    local.get $0
-    local.get $0
-    i32.load offset=4
-    i32.const 4
-    i32.sub
-    i32.store offset=4
-    local.get $3
-    i64.extend_i32_u
-    return
-   end
-   local.get $0
-   i32.load
-   local.tee $2
-   i32.load16_u
-   local.set $3
-   local.get $0
-   local.get $2
-   i32.const 2
-   i32.add
-   i32.store
-   local.get $0
-   local.get $0
-   i32.load offset=4
-   i32.const 2
-   i32.sub
-   i32.store offset=4
-   local.get $3
-   i64.extend_i32_u
-   return
-  end
-  local.get $3
-  i64.extend_i32_u
- )
- (func $~lib/metashrew-as/assembly/blockdata/transaction/Output#constructor (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i64)
-  i32.const 21
+ (func $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#constructor (result i32)
+  (local $0 i32)
+  (local $1 i32)
+  i32.const 16
   i32.const 14
   call $~lib/rt/stub/__new
-  local.tee $2
+  local.tee $0
   i32.const 0
   i32.store
-  local.get $2
-  i64.const 0
-  i64.store offset=8
-  local.get $2
+  local.get $0
   i32.const 0
-  i32.store offset=16
-  local.get $2
-  i32.const 0
-  i32.store8 offset=20
-  local.get $0
-  i32.load
-  local.tee $3
-  i64.load
-  local.set $4
-  local.get $0
-  local.get $3
-  i32.const 8
-  i32.add
-  i32.store
-  local.get $0
-  local.get $0
-  i32.load offset=4
-  i32.const 8
-  i32.sub
   i32.store offset=4
-  local.get $2
-  local.get $4
-  i64.store offset=8
-  local.get $2
   local.get $0
+  i32.const 0
+  i32.store offset=8
   local.get $0
-  call $~lib/metashrew-as/assembly/utils/utils/parseVarInt
-  i32.wrap_i64
-  call $~lib/metashrew-as/assembly/utils/utils/parseBytes
-  i32.store offset=16
-  local.get $2
-  local.get $3
+  i32.const 0
+  i32.store offset=12
+  i32.const 32
+  i32.const 1
+  call $~lib/rt/stub/__new
+  local.tee $1
+  i32.const 0
+  i32.const 32
+  memory.fill
   local.get $0
-  i32.load
-  local.get $3
-  i32.sub
-  call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-  i32.store
-  local.get $2
   local.get $1
-  i32.store8 offset=20
-  local.get $2
+  i32.store
+  local.get $0
+  local.get $1
+  i32.store offset=4
+  local.get $0
+  i32.const 32
+  i32.store offset=8
+  local.get $0
+  i32.const 0
+  i32.store offset=12
+  local.get $0
  )
- (func $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#push (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#push (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -5381,14 +5111,119 @@
   i32.store offset=12
   local.get $2
  )
- (func $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Input>#__get (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/metashrew-as/assembly/blockdata/transaction/Transaction#txid (param $0 i32) (result i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  local.get $0
+  i32.load offset=32
+  local.tee $1
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  i32.const 0
+  i32.gt_s
+  if
+   local.get $1
+   return
+  end
+  local.get $0
+  local.tee $1
+  i32.load8_u offset=8
+  if
+   local.get $1
+   i32.load
+   i32.load
+   i32.const 4
+   call $~lib/metashrew-as/assembly/utils/box/Box#constructor
+   local.set $3
+   local.get $1
+   i32.load
+   i32.load
+   local.get $1
+   i32.load
+   i32.load offset=4
+   i32.add
+   i32.const 4
+   i32.sub
+   i32.const 4
+   call $~lib/metashrew-as/assembly/utils/box/Box#constructor
+   local.set $4
+   call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#constructor
+   local.tee $0
+   local.get $3
+   call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#push
+   drop
+   local.get $0
+   local.get $1
+   i32.load offset=28
+   call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#push
+   drop
+   local.get $0
+   local.get $4
+   call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#push
+   drop
+  else
+   call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#constructor
+   local.tee $0
+   local.get $1
+   i32.load
+   call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#push
+   drop
+  end
+  local.get $0
+  call $~lib/metashrew-as/assembly/utils/box/Box.concat
+  call $~lib/fast-sha256-as/assembly/sha256/sha256
+  call $~lib/fast-sha256-as/assembly/sha256/sha256
+  local.tee $0
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  call $~lib/arraybuffer/ArrayBuffer#constructor
+  local.set $3
+  loop $for-loop|0
+   local.get $2
+   local.get $3
+   i32.const 20
+   i32.sub
+   i32.load offset=16
+   local.tee $4
+   i32.lt_s
+   if
+    local.get $2
+    local.get $3
+    i32.add
+    local.get $0
+    local.get $4
+    i32.add
+    local.get $2
+    i32.sub
+    i32.const 1
+    i32.sub
+    i32.load8_u
+    i32.store8
+    local.get $2
+    i32.const 1
+    i32.add
+    local.set $2
+    br $for-loop|0
+   end
+  end
+  local.get $1
+  local.get $3
+  i32.store offset=32
+  local.get $1
+  i32.load offset=32
+ )
+ (func $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#__get (param $0 i32) (param $1 i32) (result i32)
   local.get $1
   local.get $0
   i32.load offset=12
   i32.ge_u
   if
    i32.const 3344
-   i32.const 3600
+   i32.const 3664
    i32.const 114
    i32.const 42
    call $~lib/builtins/abort
@@ -5404,14 +5239,66 @@
   local.tee $0
   i32.eqz
   if
-   i32.const 6224
-   i32.const 3600
+   i32.const 6352
+   i32.const 3664
    i32.const 118
    i32.const 40
    call $~lib/builtins/abort
    unreachable
   end
   local.get $0
+ )
+ (func $assembly/index/indexTransactionOutputs (param $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  local.get $0
+  call $~lib/metashrew-as/assembly/blockdata/transaction/Transaction#txid
+  local.set $2
+  loop $for-loop|0
+   local.get $1
+   local.get $0
+   i32.load offset=16
+   i32.load offset=12
+   i32.lt_s
+   if
+    global.get $assembly/index/OUTPOINT_TO_OUTPUT
+    local.get $2
+    local.get $2
+    i32.const 20
+    i32.sub
+    i32.load offset=16
+    call $~lib/metashrew-as/assembly/utils/box/Box#constructor
+    local.get $1
+    call $assembly/index/outputToBytes
+    call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
+    local.set $4
+    local.get $0
+    i32.load offset=16
+    local.get $1
+    call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#__get
+    i32.load
+    local.tee $3
+    i32.load offset=4
+    call $~lib/arraybuffer/ArrayBuffer#constructor
+    local.tee $5
+    local.get $3
+    i32.load
+    local.get $3
+    i32.load offset=4
+    memory.copy
+    local.get $4
+    local.get $5
+    call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#set
+    local.get $1
+    i32.const 1
+    i32.add
+    local.set $1
+    br $for-loop|0
+   end
+  end
  )
  (func $~lib/metashrew-as/assembly/blockdata/transaction/Transaction#constructor (param $0 i32) (result i32)
   (local $1 i32)
@@ -5754,14 +5641,14 @@
      local.get $0
      i32.const 1
      call $~lib/metashrew-as/assembly/blockdata/transaction/Output#constructor
-     call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#push
+     call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#push
     else
      local.get $2
      i32.load offset=16
      local.get $0
      i32.const 0
      call $~lib/metashrew-as/assembly/blockdata/transaction/Output#constructor
-     call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#push
+     call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#push
     end
     drop
     local.get $1
@@ -5795,7 +5682,7 @@
      local.get $2
      i32.load offset=12
      local.get $1
-     call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Input>#__get
+     call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#__get
      i32.const 8
      i32.const 26
      call $~lib/rt/stub/__new
@@ -5835,7 +5722,7 @@
      i32.gt_u
      if
       i32.const 2608
-      i32.const 3600
+      i32.const 3664
       i32.const 70
       i32.const 60
       call $~lib/builtins/abort
@@ -6051,7 +5938,7 @@
   (local $7 i32)
   (local $8 i32)
   i32.const 20
-  i32.const 22
+  i32.const 31
   call $~lib/rt/stub/__new
   local.tee $2
   i32.const 0
@@ -6081,7 +5968,7 @@
   i32.load
   local.set $3
   i32.const 28
-  i32.const 23
+  i32.const 32
   call $~lib/rt/stub/__new
   local.tee $5
   i32.const 0
@@ -6207,7 +6094,7 @@
   i32.wrap_i64
   local.set $6
   i32.const 16
-  i32.const 31
+  i32.const 33
   call $~lib/rt/stub/__new
   local.tee $7
   i32.const 0
@@ -6226,7 +6113,7 @@
   i32.gt_u
   if
    i32.const 2608
-   i32.const 3600
+   i32.const 3664
    i32.const 70
    i32.const 60
    call $~lib/builtins/abort
@@ -6298,49 +6185,12 @@
   call $assembly/index/outputToBytes
   call $assembly/index/removeFromIndex
  )
- (func $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#constructor (result i32)
-  (local $0 i32)
-  (local $1 i32)
-  i32.const 16
-  i32.const 10
-  call $~lib/rt/stub/__new
-  local.tee $0
-  i32.const 0
-  i32.store
-  local.get $0
-  i32.const 0
-  i32.store offset=4
-  local.get $0
-  i32.const 0
-  i32.store offset=8
-  local.get $0
-  i32.const 0
-  i32.store offset=12
-  i32.const 32
-  i32.const 1
-  call $~lib/rt/stub/__new
-  local.tee $1
-  i32.const 0
-  i32.const 32
-  memory.fill
-  local.get $0
-  local.get $1
-  i32.store
-  local.get $0
-  local.get $1
-  i32.store offset=4
-  local.get $0
-  i32.const 32
-  i32.store offset=8
-  local.get $0
-  i32.const 0
-  i32.store offset=12
-  local.get $0
- )
  (func $assembly/index/_start~anonymous|0 (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
+  local.get $0
+  call $assembly/index/indexTransactionOutputs
   local.get $0
   i32.load offset=12
   local.tee $1
@@ -6371,9 +6221,9 @@
     local.get $5
     local.get $3
     local.get $1
-    i32.const 6352
+    i32.const 6480
     i32.load
-    call_indirect (type $3)
+    call_indirect (type $2)
     local.get $3
     i32.const 1
     i32.add
@@ -6381,110 +6231,10 @@
     br $for-loop|0
    end
   end
-  block $__inlined_func$~lib/metashrew-as/assembly/blockdata/transaction/Transaction#txid$28 (result i32)
-   i32.const 0
-   local.set $3
-   local.get $0
-   i32.load offset=32
-   local.tee $1
-   i32.const 20
-   i32.sub
-   i32.load offset=16
-   i32.const 0
-   i32.gt_s
-   if
-    local.get $1
-    br $__inlined_func$~lib/metashrew-as/assembly/blockdata/transaction/Transaction#txid$28
-   end
-   local.get $0
-   i32.load8_u offset=8
-   if
-    local.get $0
-    i32.load
-    i32.load
-    i32.const 4
-    call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-    local.set $1
-    local.get $0
-    i32.load
-    i32.load
-    local.get $0
-    i32.load
-    i32.load offset=4
-    i32.add
-    i32.const 4
-    i32.sub
-    i32.const 4
-    call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-    local.set $5
-    call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#constructor
-    local.tee $2
-    local.get $1
-    call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#push
-    drop
-    local.get $2
-    local.get $0
-    i32.load offset=28
-    call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#push
-    drop
-    local.get $2
-    local.get $5
-    call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#push
-    drop
-   else
-    call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#constructor
-    local.tee $2
-    local.get $0
-    i32.load
-    call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#push
-    drop
-   end
-   local.get $2
-   call $~lib/metashrew-as/assembly/utils/box/Box.concat
-   call $~lib/fast-sha256-as/assembly/sha256/sha256
-   call $~lib/fast-sha256-as/assembly/sha256/sha256
-   local.tee $1
-   i32.const 20
-   i32.sub
-   i32.load offset=16
-   call $~lib/arraybuffer/ArrayBuffer#constructor
-   local.set $2
-   loop $for-loop|00
-    local.get $3
-    local.get $2
-    i32.const 20
-    i32.sub
-    i32.load offset=16
-    local.tee $5
-    i32.lt_s
-    if
-     local.get $2
-     local.get $3
-     i32.add
-     local.get $1
-     local.get $5
-     i32.add
-     local.get $3
-     i32.sub
-     i32.const 1
-     i32.sub
-     i32.load8_u
-     i32.store8
-     local.get $3
-     i32.const 1
-     i32.add
-     local.set $3
-     br $for-loop|00
-    end
-   end
-   local.get $0
-   local.get $2
-   i32.store offset=32
-   local.get $0
-   i32.load offset=32
-  end
+  local.get $0
+  call $~lib/metashrew-as/assembly/blockdata/transaction/Transaction#txid
   local.set $1
-  loop $for-loop|001
+  loop $for-loop|00
    local.get $4
    local.get $0
    i32.load offset=16
@@ -6494,7 +6244,7 @@
    if
     local.get $2
     local.get $4
-    call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Input>#__get
+    call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#__get
     local.get $1
     local.get $4
     call $assembly/index/addToIndex
@@ -6502,7 +6252,7 @@
     i32.const 1
     i32.add
     local.set $4
-    br $for-loop|001
+    br $for-loop|00
    end
   end
  )
@@ -6510,7 +6260,7 @@
   (local $0 i32)
   (local $1 i32)
   i32.const 16
-  i32.const 36
+  i32.const 37
   call $~lib/rt/stub/__new
   local.tee $0
   i32.const 0
@@ -6545,35 +6295,20 @@
   i32.store offset=12
   local.get $0
  )
- (func $~lib/metashrew-as/assembly/indexer/index/arrayBufferToArray (param $0 i32) (result i32)
-  (local $1 i32)
-  local.get $0
-  i32.const 20
-  i32.sub
-  i32.load offset=16
-  call $~lib/array/Array<u8>#constructor
-  local.tee $1
-  local.get $0
-  i32.store
-  local.get $1
-  local.get $0
-  i32.store offset=4
-  local.get $1
- )
  (func $~lib/metashrew-as/assembly/indexer/index/_flush~anonymous|0 (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   local.get $0
   global.get $~lib/metashrew-as/assembly/indexer/index/_updateKeys
   local.get $1
   call $"~lib/map/Map<~lib/string/String,~lib/arraybuffer/ArrayBuffer>#get"
-  call $~lib/metashrew-as/assembly/indexer/index/arrayBufferToArray
-  call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#push
+  call $assembly/index/arrayBufferToArray
+  call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#push
   drop
   local.get $0
   global.get $~lib/metashrew-as/assembly/indexer/index/_updates
   local.get $1
   call $"~lib/map/Map<~lib/string/String,~lib/arraybuffer/ArrayBuffer>#get"
-  call $~lib/metashrew-as/assembly/indexer/index/arrayBufferToArray
-  call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#push
+  call $assembly/index/arrayBufferToArray
+  call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#push
   drop
   local.get $0
  )
@@ -6615,152 +6350,152 @@
   (local $6 i32)
   (local $7 i32)
   global.get $~lib/metashrew-as/assembly/indexer/index/_updateKeys
-  local.tee $1
+  local.tee $0
   i32.load offset=8
-  local.set $5
-  local.get $1
-  i32.load offset=16
   local.set $3
+  local.get $0
+  i32.load offset=16
+  local.set $5
   i32.const 16
-  i32.const 35
+  i32.const 36
   call $~lib/rt/stub/__new
-  local.tee $6
+  local.tee $4
   i32.const 0
   i32.store
-  local.get $6
+  local.get $4
   i32.const 0
   i32.store offset=4
-  local.get $6
+  local.get $4
   i32.const 0
   i32.store offset=8
-  local.get $6
+  local.get $4
   i32.const 0
   i32.store offset=12
-  local.get $3
+  local.get $5
   i32.const 268435455
   i32.gt_u
   if
    i32.const 2608
-   i32.const 3600
+   i32.const 3664
    i32.const 70
    i32.const 60
    call $~lib/builtins/abort
    unreachable
   end
   i32.const 8
-  local.get $3
-  local.get $3
+  local.get $5
+  local.get $5
   i32.const 8
   i32.le_u
   select
   i32.const 2
   i32.shl
-  local.tee $1
+  local.tee $2
   i32.const 1
   call $~lib/rt/stub/__new
-  local.tee $7
+  local.tee $0
   i32.const 0
-  local.get $1
+  local.get $2
   memory.fill
-  local.get $6
-  local.get $7
+  local.get $4
+  local.get $0
   i32.store
-  local.get $6
-  local.get $7
+  local.get $4
+  local.get $0
   i32.store offset=4
-  local.get $6
-  local.get $1
+  local.get $4
+  local.get $2
   i32.store offset=8
-  local.get $6
-  local.get $3
+  local.get $4
+  local.get $5
   i32.store offset=12
   loop $for-loop|0
-   local.get $2
-   local.get $3
-   i32.lt_s
+   local.get $5
+   local.get $6
+   i32.gt_s
    if
-    local.get $5
-    local.get $2
+    local.get $3
+    local.get $6
     i32.const 12
     i32.mul
     i32.add
-    local.tee $7
+    local.tee $2
     i32.load offset=8
     i32.const 1
     i32.and
     i32.eqz
     if
-     local.get $0
-     local.tee $1
+     local.get $1
+     local.tee $0
      i32.const 1
      i32.add
-     local.set $0
-     local.get $6
-     local.get $1
-     local.get $7
+     local.set $1
+     local.get $4
+     local.get $0
+     local.get $2
      i32.load
      call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#__set
     end
-    local.get $2
+    local.get $6
     i32.const 1
     i32.add
-    local.set $2
+    local.set $6
     br $for-loop|0
    end
   end
-  local.get $6
-  local.get $0
+  local.get $4
+  local.get $1
   i32.const 2
   i32.const 0
   call $~lib/array/ensureCapacity
-  local.get $6
-  local.get $0
+  local.get $4
+  local.get $1
   i32.store offset=12
   call $~lib/array/Array<~lib/array/Array<u8>>#constructor
-  local.tee $2
+  local.tee $3
   local.set $1
-  local.get $6
+  local.get $4
   i32.load offset=12
-  local.set $0
+  local.set $2
   loop $for-loop|00
+   local.get $7
+   local.get $2
    local.get $4
-   local.get $0
-   local.get $6
    i32.load offset=12
-   local.tee $3
+   local.tee $0
    local.get $0
-   local.get $3
-   i32.lt_s
+   local.get $2
+   i32.gt_s
    select
    i32.lt_s
    if
-    local.get $6
-    i32.load offset=4
     local.get $4
+    i32.load offset=4
+    local.get $7
     i32.const 2
     i32.shl
     i32.add
     i32.load
-    local.set $3
+    local.set $0
     i32.const 4
     global.set $~argumentsLength
     local.get $1
-    local.get $3
+    local.get $0
+    local.get $7
     local.get $4
-    local.get $6
-    i32.const 6416
+    i32.const 6544
     i32.load
-    call_indirect (type $2)
+    call_indirect (type $4)
     local.set $1
-    local.get $4
+    local.get $7
     i32.const 1
     i32.add
-    local.set $4
+    local.set $7
     br $for-loop|00
    end
   end
   i32.const 4
-  i32.const 38
+  i32.const 39
   call $~lib/rt/stub/__new
   local.tee $0
   i32.eqz
@@ -6774,7 +6509,7 @@
   call $~lib/array/Array<~lib/array/Array<u8>>#constructor
   i32.store
   local.get $0
-  local.get $2
+  local.get $3
   i32.store
   global.get $~lib/metashrew-as/assembly/indexer/index/_updateKeys
   local.tee $1
@@ -6805,17 +6540,17 @@
   call $~lib/array/Array<u8>#constructor
   local.set $2
   i32.const 4
-  i32.const 39
+  i32.const 40
   call $~lib/rt/stub/__new
-  local.tee $3
+  local.tee $4
   i32.const 0
   i32.store
-  local.get $3
+  local.get $4
   local.get $2
   i32.store
-  local.get $3
+  local.get $4
   i32.load
-  local.set $2
+  local.set $3
   local.get $0
   i32.load
   i32.load offset=12
@@ -6829,39 +6564,39 @@
     i32.load offset=12
     i32.lt_s
     if
-     local.get $3
+     local.get $4
      i64.const 10
      call $~lib/metashrew-as/assembly/proto/metashrew/__proto.Encoder#varint64
-     local.get $3
+     local.get $4
      local.get $0
      i32.load
      local.get $1
-     call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Input>#__get
+     call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#__get
      i64.load32_s offset=12
      call $~lib/metashrew-as/assembly/proto/metashrew/__proto.Encoder#varint64
      local.get $0
      i32.load
      local.get $1
-     call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Input>#__get
-     local.set $5
+     call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#__get
+     local.set $2
      i32.const 0
-     local.set $4
+     local.set $7
      loop $for-loop|1
-      local.get $4
-      local.get $5
+      local.get $7
+      local.get $2
       i32.load offset=12
       i32.lt_s
       if
-       local.get $3
-       i32.load
-       local.get $5
        local.get $4
+       i32.load
+       local.get $2
+       local.get $7
        call $~lib/array/Array<u8>#__get
        call $~lib/array/Array<u8>#push
-       local.get $4
+       local.get $7
        i32.const 1
        i32.add
-       local.set $4
+       local.set $7
        br $for-loop|1
       end
      end
@@ -6873,17 +6608,17 @@
     end
    end
   end
-  local.get $2
+  local.get $3
   i32.load offset=12
-  local.tee $0
+  local.tee $1
   i32.const 4
   call $~lib/rt/stub/__new
-  local.tee $1
-  local.get $2
+  local.tee $0
+  local.get $3
   i32.load offset=4
-  local.get $0
-  memory.copy
   local.get $1
+  memory.copy
+  local.get $0
   call $~lib/metashrew-as/assembly/indexer/index/__flush
  )
  (func $assembly/index/_start
@@ -6948,9 +6683,9 @@
     local.get $3
     local.get $0
     local.get $2
-    i32.const 6384
+    i32.const 6512
     i32.load
-    call_indirect (type $3)
+    call_indirect (type $2)
     local.get $0
     i32.const 1
     i32.add
@@ -6960,563 +6695,259 @@
   end
   call $~lib/metashrew-as/assembly/indexer/index/_flush
  )
- (func $~lib/metashrew-as/assembly/utils/rlp/RLPItem#constructor (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  i32.const 8
-  i32.const 40
-  call $~lib/rt/stub/__new
-  local.tee $2
-  i32.const 0
-  i32.store
-  local.get $2
-  i32.const 0
-  i32.store offset=4
-  local.get $2
-  local.get $0
-  i32.store offset=4
-  local.get $2
-  local.get $1
-  i32.store
-  local.get $2
- )
- (func $~lib/metashrew-as/assembly/utils/rlp/toRLP~anonymous|0 (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
-  local.get $0
-  call $~lib/metashrew-as/assembly/utils/rlp/toRLP
- )
- (func $~lib/metashrew-as/assembly/utils/rlp/toRLP~anonymous|1 (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
-  local.get $0
-  local.get $1
-  i32.const 20
-  i32.sub
-  i32.load offset=16
-  i32.add
- )
- (func $~lib/metashrew-as/assembly/utils/rlp/toRLP~anonymous|2 (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
-  local.get $0
-  local.get $1
-  local.get $1
-  i32.const 20
-  i32.sub
-  i32.load offset=16
-  memory.copy
-  local.get $0
-  local.get $1
-  i32.const 20
-  i32.sub
-  i32.load offset=16
-  i32.add
- )
- (func $~lib/metashrew-as/assembly/utils/rlp/toRLP (param $0 i32) (result i32)
-  (local $1 i32)
-  (local $2 i32)
+ (func $assembly/protobuf/spendables.GetUnspentResponse#encodeU8Array (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i64)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
-  local.get $0
+  local.get $1
   i32.load
-  i32.const 3
-  i32.eq
-  if
+  local.set $5
+  loop $for-loop|0
+   local.get $4
    local.get $0
-   i32.load offset=4
-   local.tee $5
+   i32.load
+   local.tee $3
    i32.load offset=12
-   local.tee $8
-   i32.const 17
-   call $~lib/rt/__newArray
-   local.tee $6
-   i32.load offset=4
-   local.set $0
-   loop $for-loop|0
-    local.get $2
-    local.get $8
-    local.get $5
-    i32.load offset=12
-    local.tee $7
-    local.get $7
-    local.get $8
-    i32.gt_s
-    select
-    i32.lt_s
-    if
-     local.get $2
-     i32.const 2
-     i32.shl
-     local.tee $7
-     local.get $5
-     i32.load offset=4
-     i32.add
-     i32.load
-     local.set $9
-     i32.const 3
-     global.set $~argumentsLength
-     local.get $0
-     local.get $7
-     i32.add
-     local.get $9
-     local.get $2
-     local.get $5
-     i32.const 6448
-     i32.load
-     call_indirect (type $4)
-     i32.store
-     local.get $2
-     i32.const 1
-     i32.add
-     local.set $2
-     br $for-loop|0
-    end
-   end
-   local.get $6
-   i32.load offset=12
-   local.set $0
-   loop $for-loop|00
-    local.get $3
-    local.get $0
-    local.get $6
-    i32.load offset=12
-    local.tee $2
-    local.get $0
-    local.get $2
-    i32.lt_s
-    select
-    i32.lt_s
-    if
-     local.get $6
-     i32.load offset=4
-     local.get $3
-     i32.const 2
-     i32.shl
-     i32.add
-     i32.load
-     local.set $2
-     i32.const 4
-     global.set $~argumentsLength
-     local.get $1
-     local.get $2
-     local.get $3
-     local.get $6
-     i32.const 6480
-     i32.load
-     call_indirect (type $2)
-     local.set $1
-     local.get $3
-     i32.const 1
-     i32.add
-     local.set $3
-     br $for-loop|00
-    end
-   end
-   local.get $1
-   i32.const 55
-   i32.le_s
+   i32.lt_s
    if
-    local.get $1
-    i32.const 1
-    i32.add
-    call $~lib/arraybuffer/ArrayBuffer#constructor
-    local.tee $0
-    local.get $1
-    i32.const 192
-    i32.add
-    i32.store8
-    local.get $0
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $6
-    i32.load offset=12
-    local.set $2
-    loop $for-loop|01
-     local.get $4
-     local.get $2
-     local.get $6
-     i32.load offset=12
-     local.tee $3
-     local.get $2
-     local.get $3
-     i32.lt_s
-     select
-     i32.lt_s
-     if
-      local.get $6
-      i32.load offset=4
-      local.get $4
-      i32.const 2
-      i32.shl
-      i32.add
-      i32.load
-      local.set $3
-      i32.const 4
-      global.set $~argumentsLength
-      local.get $1
-      local.get $3
-      local.get $4
-      local.get $6
-      i32.const 6512
-      i32.load
-      call_indirect (type $2)
-      local.set $1
-      local.get $4
-      i32.const 1
-      i32.add
-      local.set $4
-      br $for-loop|01
-     end
-    end
-   else
-    block $__inlined_func$~lib/metashrew-as/assembly/utils/rlp/byteLengthForLength$497 (result i32)
-     i32.const 4
-     local.get $1
-     i32.const 24
-     i32.shr_s
-     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/rlp/byteLengthForLength$497
-     drop
-     i32.const 3
-     local.get $1
-     i32.const 16
-     i32.shr_s
-     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/rlp/byteLengthForLength$497
-     drop
-     i32.const 2
-     local.get $1
-     i32.const 8
-     i32.shr_s
-     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/rlp/byteLengthForLength$497
-     drop
-     i32.const 1
-    end
-    local.tee $2
-    local.get $1
-    i32.add
-    i32.const 1
-    i32.add
-    call $~lib/arraybuffer/ArrayBuffer#constructor
-    local.tee $0
-    local.get $2
-    i32.const 247
-    i32.add
-    i32.store8
-    local.get $2
-    i32.const 1
-    i32.eq
-    if
-     local.get $0
-     local.get $1
-     i32.store8 offset=1
+    local.get $3
+    local.get $4
+    call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#__get
+    local.tee $3
+    i64.load
+    i64.eqz
+    if (result i32)
+     i32.const 0
     else
-     local.get $2
-     i32.const 2
-     i32.eq
-     if
-      local.get $0
-      local.get $1
-      i32.const 65280
-      i32.and
-      i32.const 8
-      i32.shr_u
-      i32.store8 offset=1
-      local.get $0
-      local.get $1
-      i32.store8 offset=2
+     local.get $3
+     i64.load
+     local.tee $2
+     i64.const 128
+     i64.lt_u
+     if (result i32)
+      i32.const 1
      else
       local.get $2
-      i32.const 3
-      i32.eq
-      if
-       local.get $0
-       local.get $1
-       i32.const 16711680
-       i32.and
-       i32.const 16
-       i32.shr_u
-       i32.store8 offset=1
-       local.get $0
-       local.get $1
-       i32.const 65280
-       i32.and
-       i32.const 8
-       i32.shr_u
-       i32.store8 offset=2
-       local.get $0
-       local.get $1
-       i32.store8 offset=3
+      i64.const 16384
+      i64.lt_u
+      if (result i32)
+       i32.const 2
       else
        local.get $2
-       i32.const 4
-       i32.eq
-       if
-        local.get $0
-        local.get $1
-        i32.const -16777216
-        i32.and
-        i32.const 24
-        i32.shr_s
-        i32.store8 offset=1
-        local.get $0
-        local.get $1
-        i32.const 16711680
-        i32.and
-        i32.const 16
-        i32.shr_u
-        i32.store8 offset=2
-        local.get $0
-        local.get $1
-        i32.const 65280
-        i32.and
-        i32.const 8
-        i32.shr_u
-        i32.store8 offset=3
-        local.get $0
-        local.get $1
-        i32.store8 offset=4
+       i64.const 2097152
+       i64.lt_u
+       if (result i32)
+        i32.const 3
+       else
+        local.get $2
+        i64.const 268435456
+        i64.lt_u
+        if (result i32)
+         i32.const 4
+        else
+         local.get $2
+         i64.const 34359738368
+         i64.lt_u
+         if (result i32)
+          i32.const 5
+         else
+          local.get $2
+          i64.const 4398046511104
+          i64.lt_u
+          if (result i32)
+           i32.const 6
+          else
+           local.get $2
+           i64.const 562949953421312
+           i64.lt_u
+           if (result i32)
+            i32.const 7
+           else
+            local.get $2
+            i64.const 72057594037927936
+            i64.lt_u
+            if (result i32)
+             i32.const 8
+            else
+             i32.const 9
+             i32.const 10
+             local.get $2
+             i64.const -9223372036854775808
+             i64.lt_u
+             select
+            end
+           end
+          end
+         end
+        end
        end
       end
      end
+     i32.const 1
+     i32.add
     end
-    local.get $0
-    i32.const 1
-    i32.add
-    local.get $2
-    i32.add
-    local.set $1
-    local.get $6
+    local.set $6
+    local.get $3
+    i32.load offset=8
+    local.tee $3
     i32.load offset=12
-    local.set $2
-    loop $for-loop|02
-     local.get $4
-     local.get $2
-     local.get $6
-     i32.load offset=12
-     local.tee $3
-     local.get $2
-     local.get $3
-     i32.lt_s
-     select
-     i32.lt_s
-     if
-      local.get $6
-      i32.load offset=4
-      local.get $4
-      i32.const 2
-      i32.shl
-      i32.add
-      i32.load
-      local.set $3
-      i32.const 4
-      global.set $~argumentsLength
-      local.get $1
-      local.get $3
-      local.get $4
-      local.get $6
-      i32.const 6544
-      i32.load
-      call_indirect (type $2)
-      local.set $1
-      local.get $4
-      i32.const 1
-      i32.add
-      local.set $4
-      br $for-loop|02
-     end
-    end
-   end
-  else
-   local.get $0
-   i32.load
-   i32.const 1
-   i32.eq
-   if (result i32)
-    local.get $0
-    i32.load offset=4
-    local.tee $2
-    i32.const 20
-    i32.sub
-    i32.load offset=16
-   else
-    local.get $0
-    i32.load
-    i32.const 2
-    i32.eq
+    i32.const 0
+    i32.gt_s
     if (result i32)
-     local.get $0
-     i32.load offset=4
-     local.tee $0
-     i32.load
-     local.set $2
-     local.get $0
-     i32.load offset=4
+     local.get $3
+     i32.load offset=12
+     local.get $3
+     i64.load32_s offset=12
+     local.tee $2
+     i64.const 128
+     i64.lt_u
+     if (result i32)
+      i32.const 1
+     else
+      local.get $2
+      i64.const 16384
+      i64.lt_u
+      if (result i32)
+       i32.const 2
+      else
+       local.get $2
+       i64.const 2097152
+       i64.lt_u
+       if (result i32)
+        i32.const 3
+       else
+        local.get $2
+        i64.const 268435456
+        i64.lt_u
+        if (result i32)
+         i32.const 4
+        else
+         local.get $2
+         i64.const 34359738368
+         i64.lt_u
+         if (result i32)
+          i32.const 5
+         else
+          local.get $2
+          i64.const 4398046511104
+          i64.lt_u
+          if (result i32)
+           i32.const 6
+          else
+           local.get $2
+           i64.const 562949953421312
+           i64.lt_u
+           if (result i32)
+            i32.const 7
+           else
+            local.get $2
+            i64.const 72057594037927936
+            i64.lt_u
+            if (result i32)
+             i32.const 8
+            else
+             i32.const 9
+             i32.const 10
+             local.get $2
+             i64.const -9223372036854775808
+             i64.lt_u
+             select
+            end
+           end
+          end
+         end
+        end
+       end
+      end
+     end
+     i32.const 1
+     i32.add
+     i32.add
     else
      i32.const 0
     end
-   end
-   local.tee $1
-   i32.const 1
-   i32.eq
-   if
-    local.get $2
-    i32.load8_u
-    local.tee $0
-    i32.const 127
-    i32.le_u
-    if
-     i32.const 1
-     call $~lib/arraybuffer/ArrayBuffer#constructor
-     local.tee $1
-     local.get $0
-     i32.store8
-     local.get $1
-     return
-    end
-   end
-   local.get $1
-   i32.const 55
-   i32.le_s
-   local.get $1
-   i32.const 0
-   i32.ge_s
-   i32.and
-   if
-    local.get $1
-    i32.const 1
+    local.get $6
     i32.add
-    call $~lib/arraybuffer/ArrayBuffer#constructor
-    local.tee $0
-    local.get $1
-    i32.const 128
-    i32.add
-    i32.store8
-    local.get $0
-    i32.const 1
-    i32.add
-    local.get $2
-    local.get $1
-    memory.copy
-   else
-    local.get $1
-    block $__inlined_func$~lib/metashrew-as/assembly/utils/rlp/byteLengthForLength$503 (result i32)
-     i32.const 4
-     local.get $1
-     i32.const 24
-     i32.shr_s
-     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/rlp/byteLengthForLength$503
-     drop
-     i32.const 3
-     local.get $1
-     i32.const 16
-     i32.shr_s
-     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/rlp/byteLengthForLength$503
-     drop
-     i32.const 2
-     local.get $1
-     i32.const 8
-     i32.shr_s
-     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/rlp/byteLengthForLength$503
-     drop
-     i32.const 1
-    end
     local.tee $3
-    i32.add
-    i32.const 1
-    i32.add
-    call $~lib/arraybuffer/ArrayBuffer#constructor
-    local.tee $0
-    local.get $3
-    i32.const 183
-    i32.add
-    i32.store8
-    local.get $3
-    i32.const 1
-    i32.eq
     if
-     local.get $0
      local.get $1
-     i32.store8 offset=1
-    else
+     i64.const 10
+     call $~lib/metashrew-as/assembly/proto/metashrew/__proto.Encoder#varint64
+     local.get $1
      local.get $3
-     i32.const 2
-     i32.eq
+     i64.extend_i32_u
+     call $~lib/metashrew-as/assembly/proto/metashrew/__proto.Encoder#varint64
+     local.get $0
+     i32.load
+     local.get $4
+     call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#__get
+     local.set $6
+     i32.const 0
+     local.set $3
+     local.get $1
+     i32.load
+     drop
+     local.get $6
+     i64.load
+     i64.const 0
+     i64.ne
      if
-      local.get $0
       local.get $1
-      i32.const 65280
-      i32.and
-      i32.const 8
-      i32.shr_u
-      i32.store8 offset=1
-      local.get $0
+      i64.const 8
+      call $~lib/metashrew-as/assembly/proto/metashrew/__proto.Encoder#varint64
       local.get $1
-      i32.store8 offset=2
-     else
-      local.get $3
-      i32.const 3
-      i32.eq
-      if
-       local.get $0
-       local.get $1
-       i32.const 16711680
-       i32.and
-       i32.const 16
-       i32.shr_u
-       i32.store8 offset=1
-       local.get $0
-       local.get $1
-       i32.const 65280
-       i32.and
-       i32.const 8
-       i32.shr_u
-       i32.store8 offset=2
-       local.get $0
-       local.get $1
-       i32.store8 offset=3
-      else
+      local.get $6
+      i64.load
+      call $~lib/metashrew-as/assembly/proto/metashrew/__proto.Encoder#varint64
+     end
+     local.get $6
+     i32.load offset=8
+     i32.load offset=12
+     i32.const 0
+     i32.gt_s
+     if
+      local.get $1
+      i64.const 18
+      call $~lib/metashrew-as/assembly/proto/metashrew/__proto.Encoder#varint64
+      local.get $1
+      local.get $6
+      i32.load offset=8
+      i64.load32_s offset=12
+      call $~lib/metashrew-as/assembly/proto/metashrew/__proto.Encoder#varint64
+      local.get $6
+      i32.load offset=8
+      local.set $6
+      loop $for-loop|04
        local.get $3
-       i32.const 4
-       i32.eq
+       local.get $6
+       i32.load offset=12
+       i32.lt_s
        if
-        local.get $0
         local.get $1
-        i32.const -16777216
-        i32.and
-        i32.const 24
-        i32.shr_s
-        i32.store8 offset=1
-        local.get $0
-        local.get $1
-        i32.const 16711680
-        i32.and
-        i32.const 16
-        i32.shr_u
-        i32.store8 offset=2
-        local.get $0
-        local.get $1
-        i32.const 65280
-        i32.and
-        i32.const 8
-        i32.shr_u
-        i32.store8 offset=3
-        local.get $0
-        local.get $1
-        i32.store8 offset=4
+        i32.load
+        local.get $6
+        local.get $3
+        call $~lib/array/Array<u8>#__get
+        call $~lib/array/Array<u8>#push
+        local.get $3
+        i32.const 1
+        i32.add
+        local.set $3
+        br $for-loop|04
        end
       end
      end
     end
-    local.get $0
+    local.get $4
     i32.const 1
     i32.add
-    local.get $3
-    i32.add
-    local.get $2
-    local.get $1
-    memory.copy
+    local.set $4
+    br $for-loop|0
    end
   end
-  local.get $0
+  local.get $5
  )
  (func $assembly/index/getunspent (result i32)
   (local $0 i32)
@@ -7524,148 +6955,125 @@
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
   call $~lib/metashrew-as/assembly/indexer/index/__host_len
   call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.tee $2
+  local.tee $0
   call $~lib/metashrew-as/assembly/indexer/index/__load_input
-  i32.const 16
+  local.get $0
+  local.get $0
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  call $~lib/metashrew-as/assembly/utils/box/Box#constructor
+  local.tee $0
+  i32.load
+  local.tee $2
+  i32.load
+  drop
+  local.get $0
+  local.get $2
+  i32.const 4
+  i32.add
+  i32.store
+  local.get $0
+  local.get $0
+  i32.load offset=4
+  i32.const 4
+  i32.sub
+  i32.store offset=4
+  local.get $0
+  i32.load offset=4
+  call $~lib/arraybuffer/ArrayBuffer#constructor
+  local.tee $2
+  local.get $0
+  i32.load
+  local.get $0
+  i32.load offset=4
+  memory.copy
+  i32.const 4
   i32.const 41
   call $~lib/rt/stub/__new
   local.tee $0
+  i32.eqz
+  if
+   i32.const 0
+   i32.const 0
+   call $~lib/rt/stub/__new
+   local.set $0
+  end
+  i32.const 16
+  i32.const 42
+  call $~lib/rt/stub/__new
+  local.tee $3
   i32.const 0
   i32.store
-  local.get $0
+  local.get $3
   i32.const 0
   i32.store offset=4
-  local.get $0
+  local.get $3
   i32.const 0
   i32.store offset=8
-  local.get $0
+  local.get $3
   i32.const 0
   i32.store offset=12
   i32.const 32
   i32.const 1
   call $~lib/rt/stub/__new
-  local.tee $3
+  local.tee $4
   i32.const 0
   i32.const 32
   memory.fill
+  local.get $3
+  local.get $4
+  i32.store
+  local.get $3
+  local.get $4
+  i32.store offset=4
+  local.get $3
+  i32.const 32
+  i32.store offset=8
+  local.get $3
+  i32.const 0
+  i32.store offset=12
   local.get $0
   local.get $3
   i32.store
-  local.get $0
-  local.get $3
-  i32.store offset=4
-  local.get $0
-  i32.const 32
-  i32.store offset=8
-  local.get $0
-  i32.const 0
-  i32.store offset=12
-  global.get $assembly/index/OUTPUTS_FOR_ADDRESS
-  local.set $3
-  i32.const 2
-  i32.const 10
-  call $~lib/rt/__newArray
-  local.tee $4
-  i32.load offset=4
-  drop
-  local.get $4
-  i32.const 0
+  global.get $assembly/index/OUTPOINTS_FOR_ADDRESS
   local.get $2
-  local.get $2
-  i32.const 20
-  i32.sub
-  i32.load offset=16
-  call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-  call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#__set
+  call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
+  local.set $2
   i32.const 1
   global.set $~argumentsLength
-  local.get $4
-  i32.const 1
-  i32.const 3824
+  local.get $2
+  i32.const 4176
   call $~lib/string/String.UTF8.encode@varargs
-  local.tee $5
-  local.get $5
-  i32.const 20
-  i32.sub
-  i32.load offset=16
-  call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-  call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#__set
-  local.get $3
-  local.get $4
-  call $~lib/metashrew-as/assembly/utils/box/Box.concat
-  call $~lib/metashrew-as/assembly/indexer/index/Index.keyFor
-  call $~lib/metashrew-as/assembly/indexer/index/get
-  i32.load
+  call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
+  call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#getValue<u32>
   local.set $3
   loop $for-loop|0
    local.get $1
    local.get $3
-   i32.lt_u
+   i32.lt_s
    if
-    global.get $assembly/index/OUTPUTS_FOR_ADDRESS
-    local.set $4
-    i32.const 3
-    i32.const 10
-    call $~lib/rt/__newArray
-    local.tee $5
-    i32.load offset=4
-    drop
-    local.get $5
-    i32.const 0
     local.get $2
-    local.get $2
-    i32.const 20
-    i32.sub
-    i32.load offset=16
-    call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-    call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#__set
-    local.get $5
-    i32.const 1
-    global.get $assembly/index/SLASH
-    local.tee $6
-    local.get $6
-    i32.const 20
-    i32.sub
-    i32.load offset=16
-    call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-    call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#__set
     local.get $1
-    call $~lib/util/number/utoa32
-    local.set $6
-    i32.const 1
-    global.set $~argumentsLength
-    local.get $5
-    i32.const 2
-    local.get $6
-    call $~lib/string/String.UTF8.encode@varargs
-    local.tee $6
-    local.get $6
-    i32.const 20
-    i32.sub
-    i32.load offset=16
-    call $~lib/metashrew-as/assembly/utils/box/Box#constructor
-    call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#__set
-    local.get $4
-    local.get $5
-    call $~lib/metashrew-as/assembly/utils/box/Box.concat
-    call $~lib/metashrew-as/assembly/indexer/index/Index.keyFor
-    call $~lib/metashrew-as/assembly/indexer/index/get
+    call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#selectIndex
+    call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#get
     local.tee $4
     i32.const 20
     i32.sub
     i32.load offset=16
-    i32.const 0
-    i32.gt_s
     if
+     call $assembly/protobuf/spendables.Output#constructor
+     drop
      local.get $0
+     i32.load
+     global.get $assembly/index/OUTPOINT_TO_OUTPUT
      local.get $4
-     i32.const 1
-     call $~lib/metashrew-as/assembly/utils/rlp/RLPItem#constructor
-     call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#push
+     call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
+     call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#get
+     call $assembly/index/bytesToOutput
+     call $~lib/array/Array<~lib/metashrew-as/assembly/utils/box/Box>#push
      drop
     end
     local.get $1
@@ -7675,10 +7083,34 @@
     br $for-loop|0
    end
   end
+  i32.const 0
+  global.set $~argumentsLength
+  i32.const 0
+  call $~lib/array/Array<u8>#constructor
+  local.set $1
+  i32.const 4
+  i32.const 43
+  call $~lib/rt/stub/__new
+  local.tee $2
+  i32.const 0
+  i32.store
+  local.get $2
+  local.get $1
+  i32.store
   local.get $0
-  i32.const 3
-  call $~lib/metashrew-as/assembly/utils/rlp/RLPItem#constructor
-  call $~lib/metashrew-as/assembly/utils/rlp/toRLP
+  local.get $2
+  call $assembly/protobuf/spendables.GetUnspentResponse#encodeU8Array
+  local.tee $0
+  i32.load offset=12
+  local.tee $1
+  i32.const 4
+  call $~lib/rt/stub/__new
+  local.tee $2
+  local.get $0
+  i32.load offset=4
+  local.get $1
+  memory.copy
+  local.get $2
  )
  (func $~start
   (local $0 i32)
@@ -7724,16 +7156,16 @@
   global.set $~argumentsLength
   i32.const 3472
   call $~lib/string/String.UTF8.encode@varargs
-  global.set $assembly/index/OUTPUTS_FOR_ADDRESS
+  global.set $assembly/index/OUTPOINTS_FOR_ADDRESS
   i32.const 1
   global.set $~argumentsLength
-  i32.const 3520
+  i32.const 3536
   call $~lib/string/String.UTF8.encode@varargs
-  global.set $assembly/index/OUTPUT_SPENDABLE_BY
+  global.set $assembly/index/OUTPOINT_SPENDABLE_BY
   i32.const 1
   global.set $~argumentsLength
-  i32.const 3568
+  i32.const 3600
   call $~lib/string/String.UTF8.encode@varargs
-  global.set $assembly/index/SLASH
+  global.set $assembly/index/OUTPOINT_TO_OUTPUT
  )
 )
