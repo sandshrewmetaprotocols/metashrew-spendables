@@ -3,8 +3,8 @@
  (type $1 (func (param i32 i32)))
  (type $2 (func (param i32 i32) (result i32)))
  (type $3 (func (param i32 i32 i32) (result i32)))
- (type $4 (func (param i32 i32 i32)))
- (type $5 (func))
+ (type $4 (func))
+ (type $5 (func (param i32 i32 i32)))
  (type $6 (func (param i32 i32 i32 i32) (result i32)))
  (type $7 (func (param i32)))
  (type $8 (func (result i32)))
@@ -46,9 +46,9 @@
  (global $~lib/metashrew-as/assembly/utils/b32/ALPHABET i32 (i32.const 2176))
  (global $~lib/metashrew-as/assembly/utils/b58/ALPHABET i32 (i32.const 2240))
  (global $~lib/metashrew-as/assembly/utils/b58/LEADER (mut i32) (i32.const 0))
- (global $assembly/index/OUTPOINTS_FOR_ADDRESS (mut i32) (i32.const 0))
- (global $assembly/index/OUTPOINT_SPENDABLE_BY (mut i32) (i32.const 0))
- (global $assembly/index/OUTPOINT_TO_OUTPUT (mut i32) (i32.const 0))
+ (global $assembly/tables/OUTPOINTS_FOR_ADDRESS (mut i32) (i32.const 0))
+ (global $assembly/tables/OUTPOINT_SPENDABLE_BY (mut i32) (i32.const 0))
+ (global $assembly/tables/OUTPOINT_TO_OUTPUT (mut i32) (i32.const 0))
  (global $~lib/native/ASC_SHRINK_LEVEL i32 (i32.const 0))
  (global $~lib/builtins/usize.MAX_VALUE i32 (i32.const -1))
  (global $~lib/native/ASC_OPTIMIZE_LEVEL i32 (i32.const 0))
@@ -103,7 +103,7 @@
  (data $46 (i32.const 5628) "\1c\00\00\00\00\00\00\00\00\00\00\00\"\00\00\00\08\00\00\00\05\00\00\00\00\00\00\00\00\00\00\00")
  (data $47 (i32.const 5660) "\1c\00\00\00\00\00\00\00\00\00\00\00%\00\00\00\08\00\00\00\06\00\00\00\00\00\00\00\00\00\00\00")
  (table $0 7 7 funcref)
- (elem $0 (i32.const 1) $~lib/metashrew-as/assembly/utils/box/Box.concat~anonymous|0 $~lib/metashrew-as/assembly/utils/box/Box.concat~anonymous|1 $assembly/index/Index.indexBlock~anonymous|0~anonymous|0 $~lib/metashrew-as/assembly/utils/utils/concat~anonymous|0 $assembly/index/Index.indexBlock~anonymous|0 $~lib/metashrew-as/assembly/indexer/index/_flush~anonymous|0)
+ (elem $0 (i32.const 1) $~lib/metashrew-as/assembly/utils/box/Box.concat~anonymous|0 $~lib/metashrew-as/assembly/utils/box/Box.concat~anonymous|1 $assembly/indexer/Index.indexBlock~anonymous|0~anonymous|0 $~lib/metashrew-as/assembly/utils/utils/concat~anonymous|0 $assembly/indexer/Index.indexBlock~anonymous|0 $~lib/metashrew-as/assembly/indexer/index/_flush~anonymous|0)
  (export "_start" (func $assembly/index/_start))
  (export "getunspent" (func $assembly/index/getunspent))
  (export "memory" (memory $0))
@@ -963,18 +963,21 @@
   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer.wrap
   return
  )
+ (func $start:assembly/tables
+  i32.const 2448
+  call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer.for
+  global.set $assembly/tables/OUTPOINTS_FOR_ADDRESS
+  i32.const 2512
+  call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer.for
+  global.set $assembly/tables/OUTPOINT_SPENDABLE_BY
+  i32.const 2576
+  call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer.for
+  global.set $assembly/tables/OUTPOINT_TO_OUTPUT
+ )
  (func $start:assembly/index
   call $start:~lib/metashrew-as/assembly/indexer/index
   call $start:~lib/metashrew-as/assembly/blockdata/block
-  i32.const 2448
-  call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer.for
-  global.set $assembly/index/OUTPOINTS_FOR_ADDRESS
-  i32.const 2512
-  call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer.for
-  global.set $assembly/index/OUTPOINT_SPENDABLE_BY
-  i32.const 2576
-  call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer.for
-  global.set $assembly/index/OUTPOINT_TO_OUTPUT
+  call $start:assembly/tables
  )
  (func $~lib/metashrew-as/assembly/indexer/index/input (result i32)
   (local $data i32)
@@ -5295,7 +5298,7 @@
   call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#get:length_
   return
  )
- (func $assembly/index/outputToBytes (param $hash i32) (param $vout i32) (result i32)
+ (func $assembly/indexer/outputToBytes (param $hash i32) (param $vout i32) (result i32)
   (local $result i32)
   i32.const 0
   local.get $hash
@@ -6526,7 +6529,7 @@
   local.get $v
   call $~lib/metashrew-as/assembly/indexer/index/set
  )
- (func $assembly/index/indexTransactionOutputs (param $tx i32)
+ (func $assembly/indexer/indexTransactionOutputs (param $tx i32)
   (local $txid i32)
   (local $i i32)
   local.get $tx
@@ -6541,11 +6544,11 @@
    call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#get:length
    i32.lt_s
    if
-    global.get $assembly/index/OUTPOINT_TO_OUTPUT
+    global.get $assembly/tables/OUTPOINT_TO_OUTPUT
     local.get $txid
     call $~lib/metashrew-as/assembly/utils/box/Box.from
     local.get $i
-    call $assembly/index/outputToBytes
+    call $assembly/indexer/outputToBytes
     call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
     local.get $tx
     call $~lib/metashrew-as/assembly/blockdata/transaction/Transaction#get:outs
@@ -7291,7 +7294,7 @@
   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#keyword
   return
  )
- (func $assembly/index/removeFromIndex (param $output i32)
+ (func $assembly/indexer/removeFromIndex (param $output i32)
   (local $lookup i32)
   (local $address i32)
   (local $hash i32)
@@ -7299,7 +7302,7 @@
   (local $i i32)
   (local $itemPointer i32)
   (local $item i32)
-  global.get $assembly/index/OUTPOINT_SPENDABLE_BY
+  global.get $assembly/tables/OUTPOINT_SPENDABLE_BY
   local.get $output
   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
   local.set $lookup
@@ -7316,7 +7319,7 @@
   local.get $output
   call $~lib/fast-sha256-as/assembly/sha256/sha256
   local.set $hash
-  global.get $assembly/index/OUTPOINTS_FOR_ADDRESS
+  global.get $assembly/tables/OUTPOINTS_FOR_ADDRESS
   local.get $address
   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
   local.set $addressPointer
@@ -7363,13 +7366,13 @@
    end
   end
  )
- (func $assembly/index/Index.indexBlock~anonymous|0~anonymous|0 (param $input i32) (param $i i32) (param $ary i32)
+ (func $assembly/indexer/Index.indexBlock~anonymous|0~anonymous|0 (param $input i32) (param $i i32) (param $ary i32)
   local.get $input
   call $~lib/metashrew-as/assembly/blockdata/transaction/Input#get:hash
   local.get $input
   call $~lib/metashrew-as/assembly/blockdata/transaction/Input#get:index
-  call $assembly/index/outputToBytes
-  call $assembly/index/removeFromIndex
+  call $assembly/indexer/outputToBytes
+  call $assembly/indexer/removeFromIndex
  )
  (func $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Input>#forEach (param $this i32) (param $fn i32)
   (local $i i32)
@@ -7407,7 +7410,7 @@
     global.set $~argumentsLength
     local.get $fn
     i32.load
-    call_indirect (type $4)
+    call_indirect (type $5)
     local.get $i
     i32.const 1
     i32.add
@@ -9426,36 +9429,36 @@
   local.get $v
   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#set
  )
- (func $assembly/index/addToIndex (param $output i32) (param $txid i32) (param $index i32)
+ (func $assembly/indexer/addToIndex (param $output i32) (param $txid i32) (param $index i32)
   (local $outpoint i32)
   (local $address i32)
   local.get $txid
   call $~lib/metashrew-as/assembly/utils/box/Box.from
   local.get $index
-  call $assembly/index/outputToBytes
+  call $assembly/indexer/outputToBytes
   local.set $outpoint
   local.get $output
   call $~lib/metashrew-as/assembly/blockdata/transaction/Output#intoAddress
   local.set $address
   local.get $address
   if
-   global.get $assembly/index/OUTPOINTS_FOR_ADDRESS
+   global.get $assembly/tables/OUTPOINTS_FOR_ADDRESS
    local.get $address
    call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
    local.get $outpoint
    call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#append
-   global.get $assembly/index/OUTPOINT_SPENDABLE_BY
+   global.get $assembly/tables/OUTPOINT_SPENDABLE_BY
    local.get $outpoint
    call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
    local.get $address
    call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#set
   end
  )
- (func $assembly/index/Index.indexBlock~anonymous|0 (param $v i32) (param $i i32) (param $$2 i32)
+ (func $assembly/indexer/Index.indexBlock~anonymous|0 (param $v i32) (param $i i32) (param $$2 i32)
   (local $txid i32)
   (local $i|4 i32)
   local.get $v
-  call $assembly/index/indexTransactionOutputs
+  call $assembly/indexer/indexTransactionOutputs
   local.get $v
   call $~lib/metashrew-as/assembly/blockdata/transaction/Transaction#get:ins
   i32.const 5168
@@ -9478,7 +9481,7 @@
     call $~lib/array/Array<~lib/metashrew-as/assembly/blockdata/transaction/Output>#__get
     local.get $txid
     local.get $i|4
-    call $assembly/index/addToIndex
+    call $assembly/indexer/addToIndex
     local.get $i|4
     i32.const 1
     i32.add
@@ -9523,7 +9526,7 @@
     global.set $~argumentsLength
     local.get $fn
     i32.load
-    call_indirect (type $4)
+    call_indirect (type $5)
     local.get $i
     i32.const 1
     i32.add
@@ -9532,7 +9535,7 @@
    end
   end
  )
- (func $assembly/index/Index.indexBlock (param $height i32) (param $block i32)
+ (func $assembly/indexer/Index.indexBlock (param $height i32) (param $block i32)
   local.get $block
   call $~lib/metashrew-as/assembly/blockdata/block/Block#get:transactions
   i32.const 5648
@@ -10355,7 +10358,7 @@
   i32.const 0
   local.get $box
   call $~lib/metashrew-as/assembly/blockdata/block/Block#constructor
-  call $assembly/index/Index.indexBlock
+  call $assembly/indexer/Index.indexBlock
   call $~lib/metashrew-as/assembly/indexer/index/_flush
  )
  (func $~lib/array/Array<assembly/protobuf/spendables.Output>#set:buffer (param $this i32) (param $buffer i32)
@@ -10525,7 +10528,7 @@
   local.get $this
   i32.load
  )
- (func $assembly/index/arrayBufferToArray (param $data i32) (result i32)
+ (func $assembly/indexer/arrayBufferToArray (param $data i32) (result i32)
   (local $result i32)
   i32.const 0
   local.get $data
@@ -10547,7 +10550,7 @@
   local.get $this
   i64.load offset=8
  )
- (func $assembly/index/bytesToOutput (param $data i32) (result i32)
+ (func $assembly/indexer/bytesToOutput (param $data i32) (result i32)
   (local $output i32)
   (local $result i32)
   i32.const 0
@@ -10563,7 +10566,7 @@
   local.get $output
   call $~lib/metashrew-as/assembly/blockdata/transaction/Output#get:script
   call $~lib/metashrew-as/assembly/utils/box/Box#toArrayBuffer
-  call $assembly/index/arrayBufferToArray
+  call $assembly/indexer/arrayBufferToArray
   call $assembly/protobuf/spendables.Output#set:script
   local.get $result
   local.get $output
@@ -11057,7 +11060,7 @@
   i32.const 0
   call $assembly/protobuf/spendables.GetUnspentResponse#constructor
   local.set $response
-  global.get $assembly/index/OUTPOINTS_FOR_ADDRESS
+  global.get $assembly/tables/OUTPOINTS_FOR_ADDRESS
   local.get $address
   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
   local.set $outpointPointer
@@ -11084,11 +11087,11 @@
      local.set $output
      local.get $response
      call $assembly/protobuf/spendables.GetUnspentResponse#get:outputs
-     global.get $assembly/index/OUTPOINT_TO_OUTPUT
+     global.get $assembly/tables/OUTPOINT_TO_OUTPUT
      local.get $item
      call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
      call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#get
-     call $assembly/index/bytesToOutput
+     call $assembly/indexer/bytesToOutput
      call $~lib/array/Array<assembly/protobuf/spendables.Output>#push
      drop
     end

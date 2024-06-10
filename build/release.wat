@@ -24,9 +24,9 @@
  (global $~argumentsLength (mut i32) (i32.const 0))
  (global $~lib/metashrew-as/assembly/utils/b32/ONE (mut i32) (i32.const 0))
  (global $~lib/metashrew-as/assembly/utils/b58/LEADER (mut i32) (i32.const 0))
- (global $assembly/index/OUTPOINTS_FOR_ADDRESS (mut i32) (i32.const 0))
- (global $assembly/index/OUTPOINT_SPENDABLE_BY (mut i32) (i32.const 0))
- (global $assembly/index/OUTPOINT_TO_OUTPUT (mut i32) (i32.const 0))
+ (global $assembly/tables/OUTPOINTS_FOR_ADDRESS (mut i32) (i32.const 0))
+ (global $assembly/tables/OUTPOINT_SPENDABLE_BY (mut i32) (i32.const 0))
+ (global $assembly/tables/OUTPOINT_TO_OUTPUT (mut i32) (i32.const 0))
  (memory $0 1 32768)
  (data $0 (i32.const 1036) "\1c\02")
  (data $0.1 (i32.const 1048) "\04\00\00\00\00\02\00\00000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff")
@@ -122,7 +122,7 @@
  (data $45 (i32.const 6524) "\1c")
  (data $45.1 (i32.const 6536) "%\00\00\00\08\00\00\00\06")
  (table $0 7 7 funcref)
- (elem $0 (i32.const 1) $~lib/metashrew-as/assembly/utils/box/Box.concat~anonymous|0 $~lib/metashrew-as/assembly/utils/box/Box.concat~anonymous|1 $assembly/index/Index.indexBlock~anonymous|0~anonymous|0 $~lib/metashrew-as/assembly/utils/utils/concat~anonymous|0 $assembly/index/Index.indexBlock~anonymous|0 $~lib/metashrew-as/assembly/indexer/index/_flush~anonymous|0)
+ (elem $0 (i32.const 1) $~lib/metashrew-as/assembly/utils/box/Box.concat~anonymous|0 $~lib/metashrew-as/assembly/utils/box/Box.concat~anonymous|1 $assembly/indexer/Index.indexBlock~anonymous|0~anonymous|0 $~lib/metashrew-as/assembly/utils/utils/concat~anonymous|0 $assembly/indexer/Index.indexBlock~anonymous|0 $~lib/metashrew-as/assembly/indexer/index/_flush~anonymous|0)
  (export "_start" (func $assembly/index/_start))
  (export "getunspent" (func $assembly/index/getunspent))
  (export "memory" (memory $0))
@@ -3374,7 +3374,7 @@
   local.get $1
   i32.load offset=32
  )
- (func $assembly/index/outputToBytes (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/indexer/outputToBytes (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $0
   i32.load offset=4
@@ -3860,14 +3860,14 @@
     if (result i32)
      i32.const 0
     else
-     block $__inlined_func$~lib/string/String.__eq$732 (result i32)
+     block $__inlined_func$~lib/string/String.__eq$733 (result i32)
       i32.const 1
       local.get $5
       i32.load
       local.tee $2
       local.get $1
       i32.eq
-      br_if $__inlined_func$~lib/string/String.__eq$732
+      br_if $__inlined_func$~lib/string/String.__eq$733
       drop
       i32.const 0
       local.get $1
@@ -3875,7 +3875,7 @@
       local.get $2
       i32.eqz
       i32.or
-      br_if $__inlined_func$~lib/string/String.__eq$732
+      br_if $__inlined_func$~lib/string/String.__eq$733
       drop
       i32.const 0
       local.get $2
@@ -3892,7 +3892,7 @@
       i32.const 1
       i32.shr_u
       i32.ne
-      br_if $__inlined_func$~lib/string/String.__eq$732
+      br_if $__inlined_func$~lib/string/String.__eq$733
       drop
       local.get $1
       local.set $3
@@ -3937,7 +3937,7 @@
         end
        end
       end
-      block $__inlined_func$~lib/util/string/compareImpl$305
+      block $__inlined_func$~lib/util/string/compareImpl$306
        loop $while-continue|1
         local.get $0
         local.tee $4
@@ -3957,7 +3957,7 @@
          local.get $7
          local.get $8
          i32.ne
-         br_if $__inlined_func$~lib/util/string/compareImpl$305
+         br_if $__inlined_func$~lib/util/string/compareImpl$306
          local.get $2
          i32.const 2
          i32.add
@@ -4496,17 +4496,17 @@
   call $~lib/string/String.UTF8.encode@varargs
   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
  )
- (func $assembly/index/Index.indexBlock~anonymous|0~anonymous|0 (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/indexer/Index.indexBlock~anonymous|0~anonymous|0 (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
-  block $__inlined_func$assembly/index/removeFromIndex$734
+  block $__inlined_func$assembly/indexer/removeFromIndex$735
    local.get $0
    i32.load offset=4
    local.get $0
    i32.load offset=8
-   call $assembly/index/outputToBytes
+   call $assembly/indexer/outputToBytes
    local.set $0
-   global.get $assembly/index/OUTPOINT_SPENDABLE_BY
+   global.get $assembly/tables/OUTPOINT_SPENDABLE_BY
    local.get $0
    call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
    call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#get
@@ -4515,11 +4515,11 @@
    i32.sub
    i32.load offset=16
    i32.eqz
-   br_if $__inlined_func$assembly/index/removeFromIndex$734
+   br_if $__inlined_func$assembly/indexer/removeFromIndex$735
    local.get $0
    call $~lib/fast-sha256-as/assembly/sha256/sha256
    local.set $1
-   global.get $assembly/index/OUTPOINTS_FOR_ADDRESS
+   global.get $assembly/tables/OUTPOINTS_FOR_ADDRESS
    local.get $2
    call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
    local.set $3
@@ -5529,14 +5529,14 @@
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
-  block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$662
+  block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$663
    local.get $0
    i32.load
    local.tee $4
    i32.load offset=4
    i32.const 25
    i32.ne
-   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$662
+   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$663
    i32.const 1
    local.set $1
    local.get $4
@@ -5583,7 +5583,7 @@
    else
     i32.const 0
    end
-   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$662
+   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$663
    i32.const 0
    local.set $1
   end
@@ -5631,14 +5631,14 @@
   else
    i32.const 0
    local.set $1
-   block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$664
+   block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$665
     local.get $0
     i32.load
     local.tee $4
     i32.load offset=4
     i32.const 23
     i32.ne
-    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$664
+    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$665
     i32.const 1
     local.set $1
     local.get $4
@@ -5665,7 +5665,7 @@
     else
      i32.const 0
     end
-    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$664
+    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$665
     i32.const 0
     local.set $1
    end
@@ -5732,7 +5732,7 @@
      i32.load8_u offset=1
      local.set $4
      i32.const 0
-     block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$376 (result i32)
+     block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$377 (result i32)
       i32.const 1
       local.get $1
       i32.load8_u
@@ -5743,7 +5743,7 @@
       i32.const 82
       i32.ge_u
       i32.or
-      br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$376
+      br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$377
       drop
       i32.const 1
       local.get $1
@@ -5752,7 +5752,7 @@
       i32.const 81
       i32.eq
       i32.or
-      br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$376
+      br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$377
       drop
       i32.const 0
      end
@@ -5911,7 +5911,7 @@
    end
   end
  )
- (func $assembly/index/Index.indexBlock~anonymous|0 (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/indexer/Index.indexBlock~anonymous|0 (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -5929,7 +5929,7 @@
    i32.load offset=12
    i32.lt_s
    if
-    global.get $assembly/index/OUTPOINT_TO_OUTPUT
+    global.get $assembly/tables/OUTPOINT_TO_OUTPUT
     local.get $0
     local.get $0
     i32.const 20
@@ -5937,7 +5937,7 @@
     i32.load offset=16
     call $~lib/metashrew-as/assembly/utils/box/Box#constructor
     local.get $3
-    call $assembly/index/outputToBytes
+    call $assembly/indexer/outputToBytes
     call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
     local.set $2
     local.get $1
@@ -6026,7 +6026,7 @@
     i32.load offset=16
     call $~lib/metashrew-as/assembly/utils/box/Box#constructor
     local.get $5
-    call $assembly/index/outputToBytes
+    call $assembly/indexer/outputToBytes
     local.set $3
     local.get $0
     i32.load offset=16
@@ -6067,7 +6067,7 @@
      i32.load8_u offset=1
      local.set $6
      i32.const 0
-     block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$376 (result i32)
+     block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$377 (result i32)
       i32.const 1
       local.get $0
       i32.load8_u
@@ -6078,7 +6078,7 @@
       i32.const 82
       i32.ge_u
       i32.or
-      br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$376
+      br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$377
       drop
       i32.const 1
       local.get $0
@@ -6087,7 +6087,7 @@
       i32.const 81
       i32.eq
       i32.or
-      br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$376
+      br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$377
       drop
       i32.const 0
      end
@@ -6117,7 +6117,7 @@
     call $~lib/metashrew-as/assembly/blockdata/address/Address.from
     local.tee $4
     if
-     global.get $assembly/index/OUTPOINTS_FOR_ADDRESS
+     global.get $assembly/tables/OUTPOINTS_FOR_ADDRESS
      local.get $4
      call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
      local.set $6
@@ -6145,7 +6145,7 @@
      call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#selectIndex
      local.get $3
      call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#set
-     global.get $assembly/index/OUTPOINT_SPENDABLE_BY
+     global.get $assembly/tables/OUTPOINT_SPENDABLE_BY
      local.get $3
      call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
      local.get $4
@@ -6982,7 +6982,7 @@
   local.get $0
   local.get $3
   i32.store
-  global.get $assembly/index/OUTPOINTS_FOR_ADDRESS
+  global.get $assembly/tables/OUTPOINTS_FOR_ADDRESS
   local.get $2
   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
   local.set $6
@@ -7013,7 +7013,7 @@
      local.get $0
      i32.load
      local.set $4
-     global.get $assembly/index/OUTPOINT_TO_OUTPUT
+     global.get $assembly/tables/OUTPOINT_TO_OUTPUT
      local.get $2
      call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
      call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#get
@@ -7132,16 +7132,16 @@
   global.set $~argumentsLength
   i32.const 3472
   call $~lib/string/String.UTF8.encode@varargs
-  global.set $assembly/index/OUTPOINTS_FOR_ADDRESS
+  global.set $assembly/tables/OUTPOINTS_FOR_ADDRESS
   i32.const 1
   global.set $~argumentsLength
   i32.const 3536
   call $~lib/string/String.UTF8.encode@varargs
-  global.set $assembly/index/OUTPOINT_SPENDABLE_BY
+  global.set $assembly/tables/OUTPOINT_SPENDABLE_BY
   i32.const 1
   global.set $~argumentsLength
   i32.const 3600
   call $~lib/string/String.UTF8.encode@varargs
-  global.set $assembly/index/OUTPOINT_TO_OUTPUT
+  global.set $assembly/tables/OUTPOINT_TO_OUTPUT
  )
 )
