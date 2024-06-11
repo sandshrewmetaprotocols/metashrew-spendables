@@ -43,7 +43,7 @@ export function removeFromIndex(output: ArrayBuffer): void {
     const itemPointer = addressPointer.selectIndex(i);
     const item = itemPointer.get();
     if (item.byteLength > 0) {
-      if (sha256(item) === hash) {
+      if (memory.compare(changetype<usize>(item), changetype<usize>(hash), item.byteLength) === 0) {
         itemPointer.set(new ArrayBuffer(0));
 	break;
       }
