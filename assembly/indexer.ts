@@ -15,6 +15,7 @@ import {
 } from "./tables";
 import { console } from "metashrew-as/assembly/utils/logging";
 import { spendables } from "./protobuf";
+import { encodeHexFromBuffer } from "metashrew-as/assembly/utils/hex";
 
 export function outputToBytes(
   hash: ArrayBuffer,
@@ -47,7 +48,6 @@ export function removeFromIndex(output: ArrayBuffer): void {
   const lookup = OUTPOINT_SPENDABLE_BY.select(output);
   const address = lookup.get();
   if (address.byteLength === 0) return;
-  const hash = sha256(output);
   const addressPointer = OUTPOINTS_FOR_ADDRESS.select(address);
   let i = <i32>addressPointer.length();
   while (i >= 0) {
@@ -57,7 +57,7 @@ export function removeFromIndex(output: ArrayBuffer): void {
       if (
         memory.compare(
           changetype<usize>(item),
-          changetype<usize>(hash),
+          changetype<usize>(output),
           item.byteLength
         ) === 0
       ) {
