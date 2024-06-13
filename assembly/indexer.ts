@@ -1,6 +1,7 @@
 import { Box } from "metashrew-as/assembly/utils/box";
 import { input, _flush } from "metashrew-as/assembly/indexer/index";
 import { Block } from "metashrew-as/assembly/blockdata/block";
+import { IndexPointer } from "metashrew-as/assembly/indexer/tables";
 import {
   Transaction,
   Input,
@@ -44,15 +45,26 @@ export function bytesToOutput(data: ArrayBuffer): spendables.Output {
   return result;
 }
 
-export function removeFromIndex(output: ArrayBuffer): void {
+export function removeFromIndex(
+  output: ArrayBuffer,
+  txindex: i32,
+  inp: i32
+): void {
   const lookup = OUTPOINT_SPENDABLE_BY.select(output);
+  __collect();
   const address = lookup.get();
   if (address.byteLength === 0) return;
   const addressPointer = OUTPOINTS_FOR_ADDRESS.select(address);
   let i = <i32>addressPointer.length();
+  let itemPointer: IndexPointer, item: ArrayBuffer;
+  console.log(changetype<usize>(addressPointer).toString());
   while (i >= 0) {
-    const itemPointer = addressPointer.selectIndex(i);
-    const item = itemPointer.get();
+    itemPointer = addressPointer.selectIndex(i);
+    console.log(txindex.toString() + ":" + i.toString() + ":" + inp.toString());
+    /*  console.log(changetype<usize>(itemPointer).toString()); */
+    item = itemPointer.get();
+    __pin(changetype<usize>(itemPointer));
+    __pin(changetype<usize>(item));
     if (item.byteLength > 0) {
       if (
         memory.compare(
@@ -62,9 +74,15 @@ export function removeFromIndex(output: ArrayBuffer): void {
         ) === 0
       ) {
         itemPointer.set(new ArrayBuffer(0));
+        __unpin(changetype<usize>(itemPointer));
+        __unpin(changetype<usize>(item));
+        __collect();
         break;
       }
     }
+    __unpin(changetype<usize>(itemPointer));
+    __unpin(changetype<usize>(item));
+    __collect();
     i--;
   }
 }
@@ -93,16 +111,17 @@ export function indexTransactionOutputs(tx: Transaction): void {
 
 export class Index {
   static indexBlock(height: u32, block: Block): void {
-    block.transactions.forEach((v: Transaction, i: i32) => {
-      indexTransactionOutputs(v);
-      for (let inp = 0; inp < v.ins.length; inp++) {
-        const input = v.ins[inp];
-        removeFromIndex(input.previousOutput().toArrayBuffer());
+    for (let i = 0; i < block.transactions.length; i++) {
+      indexTransactionOutputs(block.transactions[i]);
+
+      for (let inp = 0; inp < block.transactions[i].ins.length; inp++) {
+        const input = block.transactions[i].ins[inp];
+        removeFromIndex(input.previousOutput().toArrayBuffer(), i, inp);
       }
-      const txid = v.txid();
-      for (let i: i32 = 0; i < v.outs.length; i++) {
-        addToIndex(v.outs[i], txid, i);
+      const txid = block.transactions[i].txid();
+      for (let i: i32 = 0; i < block.transactions[i].outs.length; i++) {
+        addToIndex(block.transactions[i].outs[i], txid, i);
       }
-    });
+    }
   }
 }
