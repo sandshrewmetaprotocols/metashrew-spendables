@@ -1,5 +1,6 @@
 import { Box } from "metashrew-as/assembly/utils/box";
 import { input, _flush } from "metashrew-as/assembly/indexer/index";
+import { FixedBST } from "metashrew-as/assembly/indexer/bst"
 import { Block } from "metashrew-as/assembly/blockdata/block";
 import { IndexPointer } from "metashrew-as/assembly/indexer/tables";
 import {
@@ -46,45 +47,14 @@ export function bytesToOutput(data: ArrayBuffer): spendables.Output {
 }
 
 export function removeFromIndex(
-  output: ArrayBuffer,
-  txindex: i32,
-  inp: i32
+  output: ArrayBuffer
 ): void {
   const lookup = OUTPOINT_SPENDABLE_BY.select(output);
-  __collect();
   const address = lookup.get();
   if (address.byteLength === 0) return;
-  const addressPointer = OUTPOINTS_FOR_ADDRESS.select(address);
-  let i = <i32>addressPointer.length();
-  let itemPointer: IndexPointer, item: ArrayBuffer;
-  console.log(changetype<usize>(addressPointer).toString());
-  while (i >= 0) {
-    itemPointer = addressPointer.selectIndex(i);
-    console.log(txindex.toString() + ":" + i.toString() + ":" + inp.toString());
-    /*  console.log(changetype<usize>(itemPointer).toString()); */
-    item = itemPointer.get();
-    __pin(changetype<usize>(itemPointer));
-    __pin(changetype<usize>(item));
-    if (item.byteLength > 0) {
-      if (
-        memory.compare(
-          changetype<usize>(item),
-          changetype<usize>(output),
-          item.byteLength
-        ) === 0
-      ) {
-        itemPointer.set(new ArrayBuffer(0));
-        __unpin(changetype<usize>(itemPointer));
-        __unpin(changetype<usize>(item));
-        __collect();
-        break;
-      }
-    }
-    __unpin(changetype<usize>(itemPointer));
-    __unpin(changetype<usize>(item));
-    __collect();
-    i--;
-  }
+  const table = FixedBST.at(OUTPOINTS_FOR_ADDRESS.select(address), 0x24);
+  table.unmarkPath(output);
+  table.nullify(output);
 }
 
 export function addToIndex(
@@ -95,7 +65,7 @@ export function addToIndex(
   const outpoint = outputToBytes(txid, index);
   const address = output.intoAddress();
   if (address) {
-    OUTPOINTS_FOR_ADDRESS.select(address).append(outpoint);
+    FixedBST.at(OUTPOINTS_FOR_ADDRESS.select(address), 0x24).set(outpoint, new ArrayBuffer(0x01));
     OUTPOINT_SPENDABLE_BY.select(outpoint).set(address);
   }
 }
@@ -116,7 +86,7 @@ export class Index {
 
       for (let inp = 0; inp < block.transactions[i].ins.length; inp++) {
         const input = block.transactions[i].ins[inp];
-        removeFromIndex(input.previousOutput().toArrayBuffer(), i, inp);
+        removeFromIndex(input.previousOutput().toArrayBuffer());
       }
       const txid = block.transactions[i].txid();
       for (let i: i32 = 0; i < block.transactions[i].outs.length; i++) {

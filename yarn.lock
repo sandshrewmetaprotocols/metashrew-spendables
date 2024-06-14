@@ -164,14 +164,16 @@
   integrity sha512-GaPq2U8tWosTT+gBTXIPSWrW3q2ok2ohWpq3xF8mREFJ1gZrfjZUrkbt34GKbN8KGfM2NSCZzYzX/1IEcOvE9w==
 
 acorn-walk@^8.1.1:
-  version "8.3.2"
-  resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-8.3.2.tgz#7703af9415f1b6db9315d6895503862e231d34aa"
-  integrity sha512-cjkyv4OtNCIeqhHrfS81QWXoCBPExR/J62oyEqepVw8WaQeSqpW2uhuLPh1m9eWhDuOo/jUXVTlifvesOWp/4A==
+  version "8.3.3"
+  resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-8.3.3.tgz#9caeac29eefaa0c41e3d4c65137de4d6f34df43e"
+  integrity sha512-MxXdReSRhGO7VlFe1bRG/oI7/mdLV9B9JJT0N8vZOhF7gFRR5l3M8W9G8JxmKV+JC5mGqJ0QvqfSOLsCPa4nUw==
+  dependencies:
+    acorn "^8.11.0"
 
-acorn@^8.4.1:
-  version "8.11.3"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.11.3.tgz#71e0b14e13a4ec160724b38fb7b0f233b1b81d7a"
-  integrity sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==
+acorn@^8.11.0, acorn@^8.4.1:
+  version "8.12.0"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.12.0.tgz#1627bfa2e058148036133b8d9b51a700663c294c"
+  integrity sha512-RTvkC4w+KNXrM39/lWCUaG0IbRkWdCv7W/IOW9oU6SawyxulvkQy5HQPVTKxEjczcUvapcrw3cFx/60VN/NRNw==
 
 ansi-colors@4.1.1:
   version "4.1.1"
@@ -1157,7 +1159,7 @@ memorystream@^0.3.1:
 
 "metashrew-as@https://github.com/sandshrewmetaprotocols/metashrew-as":
   version "0.1.0"
-  resolved "https://github.com/sandshrewmetaprotocols/metashrew-as#c150c0d68f465d20bfcf0fcff9da37b7f44c1a33"
+  resolved "https://github.com/sandshrewmetaprotocols/metashrew-as#10b4ab6e8332c10b6ca6ba8be881a51ea1951238"
   dependencies:
     fast-sha256-as "https://github.com/sandshrewmetaprotocols/fast-sha256-as"
     lodash "^4.17.21"
@@ -1408,9 +1410,9 @@ prettier@^2.6.2:
   integrity sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==
 
 prettier@^3.1.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.3.1.tgz#e68935518dd90bb7ec4821ba970e68f8de16e1ac"
-  integrity sha512-7CAwy5dRsxs8PHXT3twixW9/OEll8MLE0VRPCJyl7CkS6VHGPSlsVaWTiASPTyGyYRyApxlaWTzwUxVNrhcwDg==
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.3.2.tgz#03ff86dc7c835f2d2559ee76876a3914cec4a90a"
+  integrity sha512-rAVeHYMcv8ATV5d508CFdn+8/pHPpXeIid1DdrPwXnaAdH7cqjVbpJaT5eq4yRAFU/lsbwYwSF/n5iNrdJHPQA==
 
 "protobuf-as@https://github.com/sandshrewmetaprotocols/protobuf-as":
   version "1.0.1"
