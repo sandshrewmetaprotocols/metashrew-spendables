@@ -1,20 +1,19 @@
 import { Index } from "metashrew-as/assembly/indexer";
 import { Block } from "metashrew-as/assembly/blockdata/block";
 import { input, _flush } from "metashrew-as/assembly/indexer/index";
-import { Box } from "metashrew-as/assembly/utils/box"
+import { Box } from "metashrew-as/assembly/utils/box";
 import { parsePrimitive } from "metashrew-as/assembly/utils/utils";
 import { spendables } from "./protobuf";
-import {
-  OUTPOINTS_FOR_ADDRESS,
-  OUTPOINT_TO_OUTPUT
-
-} from "./tables";
+import { OUTPOINTS_FOR_ADDRESS, OUTPOINT_TO_OUTPUT } from "./tables";
 import { Index, bytesToOutput } from "./indexer";
+import { console } from "metashrew-as/assembly/utils/logging";
 
 export function _start(): void {
   const data = input();
   const box = Box.from(data);
   const height = parsePrimitive<u32>(box);
+
+  console.log("indexing block height: " + height.toString());
   Index.indexBlock(height, new Block(box));
   _flush();
 }
@@ -30,8 +29,10 @@ export function getunspent(): ArrayBuffer {
     const item = outpointPointer.selectIndex(i).get();
     if (item.byteLength) {
       const output = new spendables.Output();
-      response.outputs.push(bytesToOutput(OUTPOINT_TO_OUTPUT.select(item).get()));
+      response.outputs.push(
+        bytesToOutput(OUTPOINT_TO_OUTPUT.select(item).get())
+      );
     }
   }
   return response.encode();
-} 
+}

@@ -1,6 +1,6 @@
 import { Box } from "metashrew-as/assembly/utils/box";
 import { input, _flush } from "metashrew-as/assembly/indexer/index";
-import { FixedBST } from "metashrew-as/assembly/indexer/bst"
+import { FixedBST } from "metashrew-as/assembly/indexer/bst";
 import { Block } from "metashrew-as/assembly/blockdata/block";
 import { IndexPointer } from "metashrew-as/assembly/indexer/tables";
 import {
@@ -18,6 +18,7 @@ import {
 import { console } from "metashrew-as/assembly/utils/logging";
 import { spendables } from "./protobuf";
 import { encodeHexFromBuffer } from "metashrew-as/assembly/utils/hex";
+import { parsePrimitive, primitiveToBuffer } from "metashrew-as/assembly/utils";
 
 export function outputToBytes(
   hash: ArrayBuffer,
@@ -46,15 +47,9 @@ export function bytesToOutput(data: ArrayBuffer): spendables.Output {
   return result;
 }
 
-export function removeFromIndex(
-  output: ArrayBuffer
-): void {
+export function removeFromIndex(output: ArrayBuffer): void {
   const lookup = OUTPOINT_SPENDABLE_BY.select(output);
-  const address = lookup.get();
-  if (address.byteLength === 0) return;
-  const table = FixedBST.at(OUTPOINTS_FOR_ADDRESS.select(address), 0x24);
-  table.unmarkPath(output);
-  table.nullify(output);
+  lookup.nullify();
 }
 
 export function addToIndex(
@@ -65,7 +60,7 @@ export function addToIndex(
   const outpoint = outputToBytes(txid, index);
   const address = output.intoAddress();
   if (address) {
-    FixedBST.at(OUTPOINTS_FOR_ADDRESS.select(address), 0x24).set(outpoint, new ArrayBuffer(0x01));
+    OUTPOINTS_FOR_ADDRESS.select(address).append(outpoint);
     OUTPOINT_SPENDABLE_BY.select(outpoint).set(address);
   }
 }
@@ -93,5 +88,26 @@ export class Index {
         addToIndex(block.transactions[i].outs[i], txid, i);
       }
     }
+  }
+
+  static findOutpointsForAddress(address: ArrayBuffer): Array<ArrayBuffer> {
+    const addressPtr = OUTPOINTS_FOR_ADDRESS.select(address);
+    const keys = new Array<ArrayBuffer>(0);
+
+    for (let i: u32 = 0; i < addressPtr.length(); i++) {
+      const item = addressPtr.selectIndex(i).get();
+      const _address = OUTPOINT_SPENDABLE_BY.select(item).get();
+      if (
+        memory.compare(
+          changetype<usize>(address),
+          changetype<usize>(_address),
+          address.byteLength
+        ) == 0
+      ) {
+        keys.push(item);
+      }
+    }
+
+    return keys;
   }
 }
