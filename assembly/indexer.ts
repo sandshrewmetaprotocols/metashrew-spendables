@@ -47,45 +47,28 @@ export function bytesToOutput(data: ArrayBuffer): spendables.Output {
   return result;
 }
 
-export function removeFromIndex(output: ArrayBuffer): void {
-  const lookup = OUTPOINT_SPENDABLE_BY.select(output);
-  lookup.nullify();
-}
-
-export function addToIndex(
-  output: Output,
-  txid: ArrayBuffer,
-  index: u32
-): void {
-  const outpoint = outputToBytes(txid, index);
-  const address = output.intoAddress();
-  if (address) {
-    OUTPOINTS_FOR_ADDRESS.select(address).append(outpoint);
-    OUTPOINT_SPENDABLE_BY.select(outpoint).set(address);
-  }
-}
-
-export function indexTransactionOutputs(tx: Transaction): void {
-  const txid = tx.txid();
-  for (let i = 0; i < tx.outs.length; i++) {
-    OUTPOINT_TO_OUTPUT.select(outputToBytes(txid, i)).set(
-      tx.outs[i].bytes.toArrayBuffer()
-    );
-  }
-}
-
 export class Index {
   static indexBlock(height: u32, block: Block): void {
+    console.log(block.transactions.length.toString());
     for (let i = 0; i < block.transactions.length; i++) {
-      indexTransactionOutputs(block.transactions[i]);
+      const tx = block.transactions[i];
 
       for (let inp = 0; inp < block.transactions[i].ins.length; inp++) {
-        const input = block.transactions[i].ins[inp];
-        removeFromIndex(input.previousOutput().toArrayBuffer());
+        const input = tx.ins[inp];
+        const output = input.previousOutput().toArrayBuffer();
+        const lookup = OUTPOINT_SPENDABLE_BY.select(output);
+        lookup.nullify();
       }
-      const txid = block.transactions[i].txid();
-      for (let i: i32 = 0; i < block.transactions[i].outs.length; i++) {
-        addToIndex(block.transactions[i].outs[i], txid, i);
+      const txid = tx.txid();
+      for (let i: i32 = 0; i < tx.outs.length; i++) {
+        const output = tx.outs[i];
+        const outpoint = outputToBytes(txid, i);
+        const address = output.intoAddress();
+        OUTPOINT_TO_OUTPUT.select(outpoint).set(output.bytes.toArrayBuffer());
+        if (address) {
+          OUTPOINTS_FOR_ADDRESS.select(address).append(outpoint);
+          OUTPOINT_SPENDABLE_BY.select(outpoint).set(address);
+        }
       }
     }
   }
