@@ -1,6 +1,5 @@
 import { Box } from "metashrew-as/assembly/utils/box";
 import { input, _flush } from "metashrew-as/assembly/indexer/index";
-import { FixedBST } from "metashrew-as/assembly/indexer/bst";
 import { Block } from "metashrew-as/assembly/blockdata/block";
 import { IndexPointer } from "metashrew-as/assembly/indexer/tables";
 import {
@@ -23,7 +22,7 @@ import { parsePrimitive, primitiveToBuffer } from "metashrew-as/assembly/utils";
 export function outputToBytes(
   hash: ArrayBuffer,
   vout: u32,
-  log: bool = false
+  log: bool = false,
 ): ArrayBuffer {
   const res = OutPoint.from(hash, vout).toArrayBuffer();
   return res;
@@ -34,7 +33,7 @@ export function arrayBufferToArray(data: ArrayBuffer): Array<u8> {
   store<usize>(changetype<usize>(result), changetype<usize>(data));
   store<usize>(
     changetype<usize>(result) + sizeof<usize>(),
-    changetype<usize>(data)
+    changetype<usize>(data),
   );
   return result;
 }
@@ -84,7 +83,7 @@ export class Index {
         memory.compare(
           changetype<usize>(address),
           changetype<usize>(_address),
-          address.byteLength
+          address.byteLength,
         ) == 0
       ) {
         keys.push(item);
