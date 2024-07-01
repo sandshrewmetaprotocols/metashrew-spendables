@@ -48,7 +48,6 @@ export function bytesToOutput(data: ArrayBuffer): spendables.Output {
 
 export class Index {
   static indexBlock(height: u32, block: Block): void {
-    console.log(block.transactions.length.toString());
     for (let i = 0; i < block.transactions.length; i++) {
       const tx = block.transactions[i];
 
@@ -77,8 +76,11 @@ export class Index {
     const keys = new Array<ArrayBuffer>(0);
 
     for (let i: u32 = 0; i < addressPtr.length(); i++) {
-      const item = addressPtr.selectIndex(i).get();
+      const item = Box.from(addressPtr.selectIndex(i).get()).setLength(36).toArrayBuffer();
+      console.log(item.byteLength.toString(10));
+      console.log(Box.from(item).toHexString());
       const _address = OUTPOINT_SPENDABLE_BY.select(item).get();
+//      console.log(Box.from(_address).toHexString());
       if (
         memory.compare(
           changetype<usize>(address),
