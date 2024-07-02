@@ -48,19 +48,19 @@ export function bytesToOutput(data: ArrayBuffer): spendables.Output {
 
 export class Index {
   static indexBlock(height: u32, block: Block): void {
-    for (let i = 0; i < block.transactions.length; i++) {
-      const tx = block.transactions[i];
+    for (let txIdx = 0; txIdx < block.transactions.length; txIdx++) {
+      const tx = block.transactions[txIdx];
 
-      for (let inp = 0; inp < block.transactions[i].ins.length; inp++) {
+      for (let inp = 0; inp < block.transactions[txIdx].ins.length; inp++) {
         const input = tx.ins[inp];
         const output = input.previousOutput().toArrayBuffer();
         const lookup = OUTPOINT_SPENDABLE_BY.select(output);
         lookup.nullify();
       }
       const txid = tx.txid();
-      for (let i: i32 = 0; i < tx.outs.length; i++) {
-        const output = tx.outs[i];
-        const outpoint = outputToBytes(txid, i);
+      for (let outIdx: i32 = 0; outIdx < tx.outs.length; outIdx++) {
+        const output = tx.outs[outIdx];
+        const outpoint = outputToBytes(txid, outIdx);
         const address = output.intoAddress();
         OUTPOINT_TO_OUTPUT.select(outpoint).set(output.bytes.toArrayBuffer());
         if (address) {
