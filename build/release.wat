@@ -28,7 +28,7 @@
  (global $assembly/tables/OUTPOINTS_FOR_ADDRESS (mut i32) (i32.const 0))
  (global $assembly/tables/OUTPOINT_SPENDABLE_BY (mut i32) (i32.const 0))
  (global $assembly/tables/OUTPOINT_TO_OUTPUT (mut i32) (i32.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 6576))
+ (global $~lib/rt/__rtti_base i32 (i32.const 6832))
  (memory $0 1 32768)
  (data $0 (i32.const 1036) "\1c\02")
  (data $0.1 (i32.const 1048) "\04\00\00\00\00\02\00\00000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff")
@@ -103,28 +103,36 @@
  (data $34.1 (i32.const 5880) "\02\00\00\00^\00\00\00S\00H\00A\002\005\006\00:\00 \00c\00a\00n\00\'\00t\00 \00u\00p\00d\00a\00t\00e\00 \00b\00e\00c\00a\00u\00s\00e\00 \00h\00a\00s\00h\00 \00w\00a\00s\00 \00f\00i\00n\00i\00s\00h\00e\00d\00.")
  (data $35 (i32.const 5996) "\\")
  (data $35.1 (i32.const 6008) "\02\00\00\00L\00\00\00~\00l\00i\00b\00/\00f\00a\00s\00t\00-\00s\00h\00a\002\005\006\00-\00a\00s\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00s\00h\00a\002\005\006\00.\00t\00s")
- (data $36 (i32.const 6092) "\1c")
- (data $36.1 (i32.const 6104) "\02\00\00\00\04\00\00\00b\00c")
- (data $37 (i32.const 6124) "l")
- (data $37.1 (i32.const 6136) "\02\00\00\00N\00\00\00~\00l\00i\00b\00/\00m\00e\00t\00a\00s\00h\00r\00e\00w\00-\00a\00s\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00u\00t\00i\00l\00s\00/\00b\003\002\00.\00t\00s")
- (data $38 (i32.const 6236) "<")
- (data $38.1 (i32.const 6248) "\02\00\00\00(\00\00\00E\00x\00c\00e\00e\00d\00s\00 \00l\00e\00n\00g\00t\00h\00 \00l\00i\00m\00i\00t")
- (data $39 (i32.const 6300) ",")
- (data $39.1 (i32.const 6312) "\02\00\00\00\1c\00\00\00N\00o\00n\00 \005\00-\00b\00i\00t\00 \00w\00o\00r\00d")
- (data $40 (i32.const 6348) ",")
- (data $40.1 (i32.const 6360) "\02\00\00\00\0e\00\00\00/\00l\00e\00n\00g\00t\00h")
- (data $41 (i32.const 6396) "<")
- (data $41.1 (i32.const 6408) "\02\00\00\00$\00\00\00K\00e\00y\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00e\00x\00i\00s\00t")
- (data $42 (i32.const 6460) ",")
- (data $42.1 (i32.const 6472) "\02\00\00\00\16\00\00\00~\00l\00i\00b\00/\00m\00a\00p\00.\00t\00s")
- (data $43 (i32.const 6508) "\1c")
- (data $43.1 (i32.const 6520) "\02\00\00\00\02\00\00\00/")
- (data $44 (i32.const 6540) "\1c")
- (data $44.1 (i32.const 6552) "$\00\00\00\08\00\00\00\04")
- (data $45 (i32.const 6576) "+\00\00\00 \00\00\00 \00\00\00 \00\00\00\00\00\00\00d\00\00\00 \00\00\00\02\01\00\00\10A\82\00 \00\00\00 ")
- (data $45.1 (i32.const 6644) "\02A\00\00\02A\00\00\00\00\00\00\02A\00\00\02A\00\00 \00\00\00\00\00\00\00\02A\00\00\02\t\00\00\02A")
- (data $45.2 (i32.const 6700) "\01\t\00\00A\00\00\00\00\00\00\00B\00\00\00\02A\00\00\02A")
- (data $45.3 (i32.const 6744) "\02A")
+ (data $36 (i32.const 6092) "<")
+ (data $36.1 (i32.const 6104) "\02\00\00\00 \00\00\00A\00D\00D\00R\00E\00S\00S\00 \00I\00S\00 \00p\002\00p\00k\00h")
+ (data $37 (i32.const 6156) "<")
+ (data $37.1 (i32.const 6168) "\02\00\00\00\1e\00\00\00A\00D\00D\00R\00E\00S\00S\00 \00I\00S\00 \00p\002\00s\00h")
+ (data $38 (i32.const 6220) "<")
+ (data $38.1 (i32.const 6232) "\02\00\00\00$\00\00\00A\00D\00D\00R\00E\00S\00S\00 \00I\00S\00 \00w\00i\00t\00n\00e\00s\00s")
+ (data $39 (i32.const 6284) "\1c")
+ (data $39.1 (i32.const 6296) "\02\00\00\00\04\00\00\00b\00c")
+ (data $40 (i32.const 6316) "l")
+ (data $40.1 (i32.const 6328) "\02\00\00\00N\00\00\00~\00l\00i\00b\00/\00m\00e\00t\00a\00s\00h\00r\00e\00w\00-\00a\00s\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00u\00t\00i\00l\00s\00/\00b\003\002\00.\00t\00s")
+ (data $41 (i32.const 6428) "<")
+ (data $41.1 (i32.const 6440) "\02\00\00\00(\00\00\00E\00x\00c\00e\00e\00d\00s\00 \00l\00e\00n\00g\00t\00h\00 \00l\00i\00m\00i\00t")
+ (data $42 (i32.const 6492) ",")
+ (data $42.1 (i32.const 6504) "\02\00\00\00\1c\00\00\00N\00o\00n\00 \005\00-\00b\00i\00t\00 \00w\00o\00r\00d")
+ (data $43 (i32.const 6540) "<")
+ (data $43.1 (i32.const 6552) "\02\00\00\00\1e\00\00\00A\00D\00D\00R\00E\00S\00S\00 \00I\00S\00 \00N\00U\00L\00L")
+ (data $44 (i32.const 6604) ",")
+ (data $44.1 (i32.const 6616) "\02\00\00\00\0e\00\00\00/\00l\00e\00n\00g\00t\00h")
+ (data $45 (i32.const 6652) "<")
+ (data $45.1 (i32.const 6664) "\02\00\00\00$\00\00\00K\00e\00y\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00e\00x\00i\00s\00t")
+ (data $46 (i32.const 6716) ",")
+ (data $46.1 (i32.const 6728) "\02\00\00\00\16\00\00\00~\00l\00i\00b\00/\00m\00a\00p\00.\00t\00s")
+ (data $47 (i32.const 6764) "\1c")
+ (data $47.1 (i32.const 6776) "\02\00\00\00\02\00\00\00/")
+ (data $48 (i32.const 6796) "\1c")
+ (data $48.1 (i32.const 6808) "$\00\00\00\08\00\00\00\04")
+ (data $49 (i32.const 6832) "+\00\00\00 \00\00\00 \00\00\00 \00\00\00\00\00\00\00d\00\00\00 \00\00\00\02\01\00\00\10A\82\00 \00\00\00 ")
+ (data $49.1 (i32.const 6900) "\02A\00\00\02A\00\00\00\00\00\00\02A\00\00\02A\00\00 \00\00\00\00\00\00\00\02A\00\00\02\t\00\00\02A")
+ (data $49.2 (i32.const 6956) "\01\t\00\00A\00\00\00\00\00\00\00B\00\00\00\02A\00\00\02A")
+ (data $49.3 (i32.const 7000) "\02A")
  (table $0 5 5 funcref)
  (elem $0 (i32.const 1) $~lib/metashrew-as/assembly/utils/utils/concat~anonymous|0 $~lib/metashrew-as/assembly/utils/box/Box.concat~anonymous|0 $~lib/metashrew-as/assembly/utils/box/Box.concat~anonymous|1 $~lib/metashrew-as/assembly/indexer/index/_flush~anonymous|0)
  (export "_start" (func $assembly/index/_start))
@@ -3015,14 +3023,14 @@
     if (result i32)
      i32.const 0
     else
-     block $__inlined_func$~lib/string/String.__eq$744 (result i32)
+     block $__inlined_func$~lib/string/String.__eq$748 (result i32)
       i32.const 1
       local.get $5
       i32.load
       local.tee $2
       local.get $1
       i32.eq
-      br_if $__inlined_func$~lib/string/String.__eq$744
+      br_if $__inlined_func$~lib/string/String.__eq$748
       drop
       i32.const 0
       local.get $1
@@ -3030,7 +3038,7 @@
       local.get $2
       i32.eqz
       i32.or
-      br_if $__inlined_func$~lib/string/String.__eq$744
+      br_if $__inlined_func$~lib/string/String.__eq$748
       drop
       i32.const 0
       local.get $2
@@ -3047,7 +3055,7 @@
       i32.const 1
       i32.shr_u
       i32.ne
-      br_if $__inlined_func$~lib/string/String.__eq$744
+      br_if $__inlined_func$~lib/string/String.__eq$748
       drop
       local.get $1
       local.set $3
@@ -4906,7 +4914,7 @@
     i32.or
     if
      i32.const 0
-     i32.const 6144
+     i32.const 6336
      i32.const 58
      i32.const 7
      call $~lib/builtins/abort
@@ -5149,8 +5157,8 @@
   i32.const 90
   i32.gt_s
   if
-   i32.const 6256
-   i32.const 6144
+   i32.const 6448
+   i32.const 6336
    i32.const 118
    i32.const 5
    call $~lib/builtins/abort
@@ -5203,8 +5211,8 @@
     i32.const 5
     i32.shr_u
     if
-     i32.const 6320
-     i32.const 6144
+     i32.const 6512
+     i32.const 6336
      i32.const 133
      i32.const 23
      call $~lib/builtins/abort
@@ -5403,14 +5411,14 @@
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
-  block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$670
+  block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$674
    local.get $0
    i32.load
    local.tee $4
    i32.load offset=4
    i32.const 25
    i32.ne
-   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$670
+   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$674
    i32.const 1
    local.set $1
    local.get $4
@@ -5457,12 +5465,18 @@
    else
     i32.const 0
    end
-   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$670
+   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$674
    i32.const 0
    local.set $1
   end
   local.get $1
   if (result i32)
+   i32.const 2
+   global.set $~argumentsLength
+   i32.const 6112
+   i32.const 1
+   call $~lib/string/String.UTF8.encode@varargs
+   call $~lib/metashrew-as/assembly/utils/logging/__log
    local.get $0
    i32.load
    local.tee $0
@@ -5505,14 +5519,14 @@
   else
    i32.const 0
    local.set $1
-   block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$672
+   block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$676
     local.get $0
     i32.load
     local.tee $4
     i32.load offset=4
     i32.const 23
     i32.ne
-    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$672
+    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$676
     i32.const 1
     local.set $1
     local.get $4
@@ -5539,12 +5553,18 @@
     else
      i32.const 0
     end
-    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$672
+    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$676
     i32.const 0
     local.set $1
    end
    local.get $1
    if (result i32)
+    i32.const 2
+    global.set $~argumentsLength
+    i32.const 6176
+    i32.const 1
+    call $~lib/string/String.UTF8.encode@varargs
+    call $~lib/metashrew-as/assembly/utils/logging/__log
     local.get $0
     i32.load
     local.tee $0
@@ -5646,6 +5666,12 @@
      i32.const 1
     end
     if (result i32)
+     i32.const 2
+     global.set $~argumentsLength
+     i32.const 6240
+     i32.const 1
+     call $~lib/string/String.UTF8.encode@varargs
+     call $~lib/metashrew-as/assembly/utils/logging/__log
      local.get $0
      i32.load
      local.tee $1
@@ -5674,7 +5700,7 @@
      local.set $5
      i32.const 1
      global.set $~argumentsLength
-     i32.const 6112
+     i32.const 6304
      i32.const 0
      call $~lib/string/String.UTF8.encode@varargs
      local.set $0
@@ -5781,6 +5807,12 @@
       call $~lib/metashrew-as/assembly/utils/b32/encode
      end
     else
+     i32.const 2
+     global.set $~argumentsLength
+     i32.const 6560
+     i32.const 1
+     call $~lib/string/String.UTF8.encode@varargs
+     call $~lib/metashrew-as/assembly/utils/logging/__log
      i32.const 0
     end
    end
@@ -5795,8 +5827,8 @@
   local.tee $0
   i32.eqz
   if
-   i32.const 6416
-   i32.const 6480
+   i32.const 6672
+   i32.const 6736
    i32.const 105
    i32.const 17
    call $~lib/builtins/abort
@@ -5875,7 +5907,7 @@
   i32.load
  )
  (func $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#selectIndex (param $0 i32) (param $1 i32) (result i32)
-  i32.const 6528
+  i32.const 6784
   local.get $1
   call $~lib/util/number/utoa32
   call $~lib/string/String.__concat
@@ -6195,7 +6227,7 @@
        i32.const 1
        global.set $~argumentsLength
        local.get $8
-       i32.const 6368
+       i32.const 6624
        i32.const 0
        call $~lib/string/String.UTF8.encode@varargs
        call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
@@ -6506,7 +6538,7 @@
     local.get $0
     local.get $7
     local.get $4
-    i32.const 6560
+    i32.const 6816
     i32.load
     call_indirect (type $4)
     local.set $1
@@ -7065,7 +7097,7 @@
   i32.const 1
   global.set $~argumentsLength
   local.get $6
-  i32.const 6368
+  i32.const 6624
   i32.const 0
   call $~lib/string/String.UTF8.encode@varargs
   call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
@@ -7171,7 +7203,7 @@
  )
  (func $~start
   (local $0 i32)
-  i32.const 6764
+  i32.const 7020
   global.set $~lib/rt/stub/offset
   i32.const 0
   i32.const 5
