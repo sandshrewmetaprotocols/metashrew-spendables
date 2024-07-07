@@ -16,7 +16,9 @@
     "prettier": "npm-run-all prettier:assemblyscript prettier:ts",
     "test": "ts-mocha --timeout 0 ./tests/**.spec.ts"
   },
-  "dependencies": {},
+  "dependencies": {
+    "as-bignum": "^0.3.1"
+  },
   "devDependencies": {
     "@types/node": "^20.10.6",
     "assemblyscript": "^0.27.22",

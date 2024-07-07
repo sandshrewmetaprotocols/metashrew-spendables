@@ -77,10 +77,7 @@ export class Index {
 
     for (let i: u32 = 0; i < addressPtr.length(); i++) {
       const item = Box.from(addressPtr.selectIndex(i).get()).setLength(36).toArrayBuffer();
-      console.log(item.byteLength.toString(10));
-      console.log(Box.from(item).toHexString());
       const _address = OUTPOINT_SPENDABLE_BY.select(item).get();
-//      console.log(Box.from(_address).toHexString());
       if (
         memory.compare(
           changetype<usize>(address),

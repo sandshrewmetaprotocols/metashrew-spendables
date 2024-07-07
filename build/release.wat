@@ -2606,7 +2606,7 @@
   local.get $2
   call $~lib/metashrew-as/assembly/utils/box/Box.concat
  )
- (func $~lib/string/String.UTF8.decode (param $0 i32) (result i32)
+ (func $~lib/metashrew-as/assembly/indexer/index/hash (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -2614,14 +2614,65 @@
   (local $5 i32)
   (local $6 i32)
   local.get $0
+  local.get $0
   i32.const 20
   i32.sub
   i32.load offset=16
-  local.tee $1
+  call $~lib/metashrew-as/assembly/utils/box/Box#constructor
+  local.tee $0
+  i32.load
+  local.set $2
   local.get $0
-  i32.add
+  i32.load offset=4
   local.tee $3
-  local.get $0
+  i32.const 1
+  i32.shl
+  i32.const 2
+  i32.add
+  call $~lib/arraybuffer/ArrayBuffer#constructor
+  local.tee $1
+  i32.const 30768
+  i32.store16
+  i32.const 0
+  local.set $0
+  loop $for-loop|0
+   local.get $0
+   local.get $3
+   i32.lt_u
+   if
+    local.get $1
+    i32.const 2
+    i32.add
+    local.get $0
+    i32.const 1
+    i32.shl
+    i32.add
+    local.get $0
+    local.get $2
+    i32.add
+    i32.load8_u
+    i32.const 1
+    i32.shl
+    i32.const 1056
+    i32.add
+    i32.load16_u
+    i32.store16
+    local.get $0
+    i32.const 1
+    i32.add
+    local.set $0
+    br $for-loop|0
+   end
+  end
+  local.get $1
+  local.get $1
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  local.tee $0
+  i32.add
+  local.tee $2
+  local.get $1
   i32.lt_u
   if
    i32.const 0
@@ -2631,72 +2682,72 @@
    call $~lib/builtins/abort
    unreachable
   end
-  local.get $1
+  local.get $0
   i32.const 1
   i32.shl
   i32.const 2
   call $~lib/rt/stub/__new
   local.tee $4
-  local.set $2
+  local.set $3
   loop $while-continue|0
-   local.get $0
-   local.get $3
+   local.get $1
+   local.get $2
    i32.lt_u
    if
     block $while-break|0
-     local.get $0
+     local.get $1
      i32.load8_u
      local.set $5
-     local.get $0
+     local.get $1
      i32.const 1
      i32.add
-     local.set $0
+     local.set $1
      local.get $5
      i32.const 128
      i32.and
      if
-      local.get $0
-      local.get $3
+      local.get $1
+      local.get $2
       i32.eq
       br_if $while-break|0
-      local.get $0
+      local.get $1
       i32.load8_u
       i32.const 63
       i32.and
-      local.set $6
-      local.get $0
+      local.set $0
+      local.get $1
       i32.const 1
       i32.add
-      local.set $0
+      local.set $1
       local.get $5
       i32.const 224
       i32.and
       i32.const 192
       i32.eq
       if
-       local.get $2
+       local.get $3
        local.get $5
        i32.const 31
        i32.and
        i32.const 6
        i32.shl
-       local.get $6
+       local.get $0
        i32.or
        i32.store16
       else
-       local.get $0
-       local.get $3
+       local.get $1
+       local.get $2
        i32.eq
        br_if $while-break|0
-       local.get $0
+       local.get $1
        i32.load8_u
        i32.const 63
        i32.and
-       local.set $1
-       local.get $0
+       local.set $6
+       local.get $1
        i32.const 1
        i32.add
-       local.set $0
+       local.set $1
        local.get $5
        i32.const 240
        i32.and
@@ -2708,19 +2759,19 @@
         i32.and
         i32.const 12
         i32.shl
-        local.get $6
+        local.get $0
         i32.const 6
         i32.shl
         i32.or
-        local.get $1
+        local.get $6
         i32.or
-        local.set $1
+        local.set $0
        else
-        local.get $0
-        local.get $3
+        local.get $1
+        local.get $2
         i32.eq
         br_if $while-break|0
-        local.get $0
+        local.get $1
         i32.load8_u
         i32.const 63
         i32.and
@@ -2729,39 +2780,39 @@
         i32.and
         i32.const 18
         i32.shl
-        local.get $6
+        local.get $0
         i32.const 12
         i32.shl
         i32.or
-        local.get $1
+        local.get $6
         i32.const 6
         i32.shl
         i32.or
         i32.or
-        local.set $1
-        local.get $0
+        local.set $0
+        local.get $1
         i32.const 1
         i32.add
-        local.set $0
+        local.set $1
        end
-       local.get $1
+       local.get $0
        i32.const 65536
        i32.lt_u
        if
-        local.get $2
-        local.get $1
+        local.get $3
+        local.get $0
         i32.store16
        else
-        local.get $2
-        local.get $1
+        local.get $3
+        local.get $0
         i32.const 65536
         i32.sub
-        local.tee $1
+        local.tee $0
         i32.const 10
         i32.shr_u
         i32.const 55296
         i32.or
-        local.get $1
+        local.get $0
         i32.const 1023
         i32.and
         i32.const 56320
@@ -2770,27 +2821,27 @@
         i32.shl
         i32.or
         i32.store
-        local.get $2
+        local.get $3
         i32.const 2
         i32.add
-        local.set $2
+        local.set $3
        end
       end
      else
-      local.get $2
+      local.get $3
       local.get $5
       i32.store16
      end
-     local.get $2
+     local.get $3
      i32.const 2
      i32.add
-     local.set $2
+     local.set $3
      br $while-continue|0
     end
    end
   end
   local.get $4
-  local.get $2
+  local.get $3
   local.get $4
   i32.sub
   call $~lib/rt/stub/__renew
@@ -3015,14 +3066,14 @@
     if (result i32)
      i32.const 0
     else
-     block $__inlined_func$~lib/string/String.__eq$744 (result i32)
+     block $__inlined_func$~lib/string/String.__eq$749 (result i32)
       i32.const 1
       local.get $5
       i32.load
       local.tee $2
       local.get $1
       i32.eq
-      br_if $__inlined_func$~lib/string/String.__eq$744
+      br_if $__inlined_func$~lib/string/String.__eq$749
       drop
       i32.const 0
       local.get $1
@@ -3030,7 +3081,7 @@
       local.get $2
       i32.eqz
       i32.or
-      br_if $__inlined_func$~lib/string/String.__eq$744
+      br_if $__inlined_func$~lib/string/String.__eq$749
       drop
       i32.const 0
       local.get $2
@@ -3047,7 +3098,7 @@
       i32.const 1
       i32.shr_u
       i32.ne
-      br_if $__inlined_func$~lib/string/String.__eq$744
+      br_if $__inlined_func$~lib/string/String.__eq$749
       drop
       local.get $1
       local.set $3
@@ -3092,7 +3143,7 @@
         end
        end
       end
-      block $__inlined_func$~lib/util/string/compareImpl$226
+      block $__inlined_func$~lib/util/string/compareImpl$230
        loop $while-continue|1
         local.get $0
         local.tee $4
@@ -3112,7 +3163,7 @@
          local.get $7
          local.get $8
          i32.ne
-         br_if $__inlined_func$~lib/util/string/compareImpl$226
+         br_if $__inlined_func$~lib/util/string/compareImpl$230
          local.get $2
          i32.const 2
          i32.add
@@ -5403,14 +5454,14 @@
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
-  block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$670
+  block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$674
    local.get $0
    i32.load
    local.tee $4
    i32.load offset=4
    i32.const 25
    i32.ne
-   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$670
+   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$674
    i32.const 1
    local.set $1
    local.get $4
@@ -5457,7 +5508,7 @@
    else
     i32.const 0
    end
-   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$670
+   br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2pkh$674
    i32.const 0
    local.set $1
   end
@@ -5505,14 +5556,14 @@
   else
    i32.const 0
    local.set $1
-   block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$672
+   block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$676
     local.get $0
     i32.load
     local.tee $4
     i32.load offset=4
     i32.const 23
     i32.ne
-    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$672
+    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$676
     i32.const 1
     local.set $1
     local.get $4
@@ -5539,7 +5590,7 @@
     else
      i32.const 0
     end
-    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$672
+    br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_p2sh$676
     i32.const 0
     local.set $1
    end
@@ -5585,7 +5636,7 @@
     local.get $2
     call $~lib/metashrew-as/assembly/blockdata/address/Address.toBase58Check
    else
-    block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$21 (result i32)
+    block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$22 (result i32)
      i32.const 0
      local.get $0
      i32.load
@@ -5598,7 +5649,7 @@
      i32.const 42
      i32.gt_u
      i32.or
-     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$21
+     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$22
      drop
      local.get $1
      i32.load
@@ -5606,7 +5657,7 @@
      i32.load8_u offset=1
      local.set $4
      i32.const 0
-     block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$375 (result i32)
+     block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$379 (result i32)
       i32.const 1
       local.get $1
       i32.load8_u
@@ -5617,7 +5668,7 @@
       i32.const 82
       i32.ge_u
       i32.or
-      br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$375
+      br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$379
       drop
       i32.const 1
       local.get $1
@@ -5626,12 +5677,12 @@
       i32.const 81
       i32.eq
       i32.or
-      br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$375
+      br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$379
       drop
       i32.const 0
      end
      i32.eqz
-     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$21
+     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$22
      drop
      i32.const 0
      local.get $4
@@ -5641,7 +5692,7 @@
      i32.const 40
      i32.gt_u
      i32.or
-     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$21
+     br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$22
      drop
      i32.const 1
     end
@@ -5808,7 +5859,7 @@
  (func $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#get (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
-  call $~lib/string/String.UTF8.decode
+  call $~lib/metashrew-as/assembly/indexer/index/hash
   local.set $1
   global.get $~lib/metashrew-as/assembly/indexer/index/_updates
   local.get $1
@@ -5965,7 +6016,7 @@
       call $~lib/arraybuffer/ArrayBuffer#constructor
       local.set $3
       local.get $2
-      call $~lib/string/String.UTF8.decode
+      call $~lib/metashrew-as/assembly/indexer/index/hash
       local.set $4
       global.get $~lib/metashrew-as/assembly/indexer/index/_updates
       local.get $4
@@ -6090,7 +6141,7 @@
       local.get $8
       i32.const -1
       i32.store offset=4
-      block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$26 (result i32)
+      block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$27 (result i32)
        i32.const 0
        local.get $8
        i32.load
@@ -6103,7 +6154,7 @@
        i32.const 42
        i32.gt_u
        i32.or
-       br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$26
+       br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$27
        drop
        local.get $2
        i32.load
@@ -6111,7 +6162,7 @@
        i32.load8_u offset=1
        local.set $9
        i32.const 0
-       block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$375 (result i32)
+       block $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$379 (result i32)
         i32.const 1
         local.get $2
         i32.load8_u
@@ -6122,7 +6173,7 @@
         i32.const 82
         i32.ge_u
         i32.or
-        br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$375
+        br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$379
         drop
         i32.const 1
         local.get $2
@@ -6131,12 +6182,12 @@
         i32.const 81
         i32.eq
         i32.or
-        br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$375
+        br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/valid_witness_version_from_opcode$379
         drop
         i32.const 0
        end
        i32.eqz
-       br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$26
+       br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$27
        drop
        i32.const 0
        local.get $9
@@ -6146,7 +6197,7 @@
        i32.const 40
        i32.gt_u
        i32.or
-       br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$26
+       br_if $__inlined_func$~lib/metashrew-as/assembly/utils/yabsp/Script#is_witness_program$27
        drop
        i32.const 1
       end
@@ -6176,7 +6227,7 @@
       i32.load offset=4
       memory.copy
       local.get $8
-      call $~lib/string/String.UTF8.decode
+      call $~lib/metashrew-as/assembly/indexer/index/hash
       local.set $4
       global.get $~lib/metashrew-as/assembly/indexer/index/_updates
       local.get $4
@@ -6210,7 +6261,7 @@
        i32.add
        i32.store
        local.get $9
-       call $~lib/string/String.UTF8.decode
+       call $~lib/metashrew-as/assembly/indexer/index/hash
        local.set $11
        global.get $~lib/metashrew-as/assembly/indexer/index/_updates
        local.get $11
@@ -6224,7 +6275,7 @@
        local.get $10
        call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#selectIndex
        local.tee $4
-       call $~lib/string/String.UTF8.decode
+       call $~lib/metashrew-as/assembly/indexer/index/hash
        local.set $8
        global.get $~lib/metashrew-as/assembly/indexer/index/_updates
        local.get $8
@@ -6238,7 +6289,7 @@
        local.get $3
        call $~lib/metashrew-as/assembly/indexer/tables/IndexPointer#select
        local.tee $3
-       call $~lib/string/String.UTF8.decode
+       call $~lib/metashrew-as/assembly/indexer/index/hash
        local.set $4
        global.get $~lib/metashrew-as/assembly/indexer/index/_updates
        local.get $4
