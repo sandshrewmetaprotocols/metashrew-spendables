@@ -76,7 +76,7 @@ export class Index {
     const keys = new Array<ArrayBuffer>(0);
 
     for (let i: u32 = 0; i < addressPtr.length(); i++) {
-      const item = Box.from(addressPtr.selectIndex(i).get()).setLength(36).toArrayBuffer();
+      const item = addressPtr.selectIndex(i).get();
       const _address = OUTPOINT_SPENDABLE_BY.select(item).get();
       if (
         memory.compare(
