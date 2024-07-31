@@ -46,8 +46,8 @@ export function bytesToOutput(data: ArrayBuffer): spendables.Output {
   return result;
 }
 
-export class Index {
-  static indexBlock(height: u32, block: Block): void {
+export class SpendablesIndex {
+  indexBlock(height: u32, block: Block): void {
     for (let i = 0; i < block.transactions.length; i++) {
       const tx = block.transactions[i];
 
@@ -71,7 +71,7 @@ export class Index {
     }
   }
 
-  static findOutpointsForAddress(address: ArrayBuffer): Array<ArrayBuffer> {
+  findOutpointsForAddress(address: ArrayBuffer): Array<ArrayBuffer> {
     const addressPtr = OUTPOINTS_FOR_ADDRESS.select(address);
     const keys = new Array<ArrayBuffer>(0);
 
